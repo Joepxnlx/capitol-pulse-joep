@@ -1,42 +1,27 @@
-name: Update congressional trades
-
-on:
-  schedule:
-    - cron: '*/15 * * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-concurrency:
-  group: capitol-pulse-update
-  cancel-in-progress: false
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
-      - run: pip install -r requirements.txt
-      - name: Fetch, merge and notify
-        env:
-          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-          WATCH_TICKERS: ${{ secrets.WATCH_TICKERS }}
-          WATCH_POLITICIANS: ${{ secrets.WATCH_POLITICIANS }}
-        run: python scripts/update_trades.py
-      - name: Commit changed data
-        run: |
-          if git diff --quiet -- public/data/live.json; then
-            echo "Geen wijzigingen"
-            exit 0
-          fi
-          git config user.name "capitol-pulse-bot"
-          git config user.email "capitol-pulse-bot@users.noreply.github.com"
-          git add public/data/live.json
-          git commit -m "Update congressional disclosures"
-          git push
+{
+  "id": "./",
+  "name": "Capitol Pulse",
+  "short_name": "Capitol Pulse",
+  "description": "Openbaar gemaakte aandelen- en effectentransacties van leden van het Amerikaanse Congres.",
+  "lang": "nl-NL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    {
+      "src": "./public/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./public/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

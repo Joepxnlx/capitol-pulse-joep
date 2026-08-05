@@ -2,7 +2,15 @@ name: Deploy Capitol Pulse to Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
+    paths:
+      - index.html
+      - app.js
+      - styles.css
+      - manifest.webmanifest
+      - service-worker.js
+      - public/**
+      - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
@@ -11,7 +19,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: true
 
 jobs:
@@ -20,16 +28,26 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Repository ophalen
+        uses: actions/checkout@v4
 
-      - uses: actions/configure-pages@v5
+      - name: Pages configureren
+        uses: actions/configure-pages@v5
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Publicatiepakket bouwen
+        shell: bash
+        run: |
+          mkdir -p site/public/data site/public/icons
+          cp index.html app.js styles.css manifest.webmanifest service-worker.js site/
+          cp public/data/live.json site/public/data/live.json
+          cp public/icons/*.png site/public/icons/
+
+      - name: Pages-artifact uploaden
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: site
 
-      - name: Deploy
+      - name: Publiceren
         id: deployment
         uses: actions/deploy-pages@v4
