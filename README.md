@@ -64,13 +64,17 @@ Optioneel bepaalt `MAX_RECORDS` hoeveel van de nieuwste transacties in de mobiel
 4. commit alleen wanneer `public/data/live.json` of `public/data/analysis.json` werkelijk wijzigde;
 5. start na een echte wijziging de Pages-publicatie opnieuw.
 
-De workflow heeft uitsluitend `contents: write` nodig. De concurrencygroep voorkomt overlappende updater-runs.
+De workflow gebruikt `contents: write` voor data-commits en `actions: write` om na zo'n commit de Pages-workflow te starten. De concurrencygroep voorkomt overlappende updater-runs.
 
 ## ntfy-meldingen
 
 Maak optioneel een repository-secret `NTFY_TOPIC` met alleen de willekeurige ntfy-topicnaam. Sla geen volledige URL op en commit de topicnaam nooit. Zonder dit secret blijft de dataset-update gewoon werken.
 
 De eerste succesvolle live-update is altijd een baseline en verstuurt geen oude transacties. Latere runs vergelijken stabiele transactie-ID's en melden alleen nieuwe records.
+
+De aandelenanalyse gebruikt dezelfde secret en filters. Een melding wordt automatisch verstuurd wanneer een aandeel voor het eerst of opnieuw een actieve 5/5-koopkandidaat wordt. De melding bevat politicus, ticker, instapzone, stop-loss en het 2R-verkoopdoel. De oorspronkelijke prijsniveaus blijven daarna vaststaan. Bij het raken van het verkoopdoel, de stop-loss of het vervallen van de 5/5-bevestiging volgt een afsluitende waarschuwing. Er worden nooit automatisch orders geplaatst.
+
+Voor een eenmalige controle kies je bij **Actions → Update congressional trades → Run workflow** de optie **Stuur de huidige 5/5-koopkandidaat als ntfy-testmelding**. Deze test faalt begrijpelijk wanneer `NTFY_TOPIC` ontbreekt of ongeldig is. Normale geplande runs blijven ook zonder ntfy-secret gewoon data bijwerken.
 
 Optionele repository variables:
 
@@ -89,7 +93,7 @@ De analyse begint altijd met de laatst openbaar gemaakte transactie van de gekoz
 4. **Waardering en balans:** positieve K/W van maximaal 35 en schuld/eigen vermogen van maximaal 3.
 5. **Trend en risico:** koers en 50-daags gemiddelde liggen boven het 200-daags gemiddelde, RSI ligt tussen 40 en 72 en de geannualiseerde volatiliteit is maximaal 55%.
 
-Alleen 5/5 plus een recente aankoop geeft het label **Koopkandidaat**. De getoonde instapzone gebruikt de laatst beschikbare koers. De stop ligt minimaal 8% of twee ATR onder de instap; het rekenkundige verkoopdoel ligt op twee keer dat risico. Het budgetveld berekent uitsluitend een voorbeeldpositie op basis van het gekozen maximale risico. Het is geen persoonlijk advies, houdt geen rekening met inkomen, vermogen, belastingen, valutarisico, transactiekosten of fractionele aandelen en voert nooit transacties uit.
+Alleen 5/5 plus een recente aankoop geeft het label **Koopkandidaat**. De getoonde instapzone gebruikt de laatst beschikbare koers. De stop ligt minimaal 8% of twee ATR onder de instap; het rekenkundige verkoopdoel ligt op twee keer dat risico. Zodra een kandidaat ontstaat, worden deze drie niveaus vastgezet totdat het doel, de stop of een model-exit wordt bereikt. De analyse ververst bij nieuwe filingdata of uiterlijk na vier uur. Het budgetveld berekent uitsluitend een voorbeeldpositie op basis van het gekozen maximale risico. Het is geen persoonlijk advies, houdt geen rekening met inkomen, vermogen, belastingen, valutarisico, transactiekosten of fractionele aandelen en voert nooit transacties uit.
 
 De openbare Wolf of Washington-pagina noemt geen verifieerbare officiële top vijf en zegt alle Congresleden te volgen. Capitol Pulse gebruikt daarom een eigen, expliciete selectie van vijf actieve en herkenbare politici uit de recente dataset en toont maximaal drie recente gewone aandelen per persoon.
 

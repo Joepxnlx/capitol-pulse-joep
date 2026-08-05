@@ -19,6 +19,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import quote
 
 import requests
 
@@ -37,6 +38,8 @@ FEATURED_POLITICIANS = (
     "Thomas H Tuberville",
 )
 MAX_STOCKS_PER_POLITICIAN = 3
+MIN_REFRESH_INTERVAL = timedelta(hours=4)
+TERMINAL_SIGNALS = {"TAKE_PROFIT", "STOP"}
 FUNDAMENTAL_TYPES = (
     "quarterlyTotalRevenue",
     "quarterlyNetIncome",
@@ -301,6 +304,41 @@ def number_text(value: float | None, suffix: str = "") -> str:
     return "niet beschikbaar" if value is None else f"{value:.1f}{suffix}"
 
 
+def env_truthy(name: str) -> bool:
+    return os.getenv(name, "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
+def split_filter(value: str) -> set[str]:
+    return {item.strip().casefold() for item in re.split(r"[,;\n]", value) if item.strip()}
+
+
+def default_app_url() -> str:
+    repository = os.getenv("GITHUB_REPOSITORY", "")
+    if "/" not in repository:
+        return ""
+    owner, name = repository.split("/", 1)
+    return f"https://{owner.casefold()}.github.io/{name}/"
+
+
+def currency_text(value: Any, currency: str) -> str:
+    number = finite(value)
+    if number is None:
+        return "onbekend"
+    prefix = "US$" if currency == "USD" else f"{currency} "
+    return f"{prefix}{number:,.2f}"
+
+
+def matches_watch_filter(stock: dict[str, Any]) -> bool:
+    ticker_filters = split_filter(os.getenv("WATCH_TICKERS", ""))
+    politician_filters = split_filter(os.getenv("WATCH_POLITICIANS", ""))
+    if not ticker_filters and not politician_filters:
+        return True
+    ticker_match = str(stock.get("symbol") or "").casefold() in ticker_filters
+    politician = str(stock.get("politician") or "").casefold()
+    politician_match = any(watched in politician for watched in politician_filters)
+    return ticker_match or politician_match
+
+
 def build_analysis(trade: dict[str, Any], prices: dict[str, Any], fundamentals: dict[str, list[tuple[str, float]]]) -> dict[str, Any]:
     symbol = str(trade.get("symbol") or "").upper()
     rows = prices["rows"]
@@ -408,6 +446,7 @@ def build_analysis(trade: dict[str, Any], prices: dict[str, Any], fundamentals: 
         "company": meta.get("longName") or meta.get("shortName") or trade.get("assetDescription") or symbol,
         "currency": meta.get("currency") or "USD",
         "politicianSignal": {
+            "tradeId": trade.get("id"),
             "action": politician_action,
             "amount": trade.get("amount"),
             "transactionDate": trade.get("transactionDate"),
@@ -446,6 +485,10 @@ def build_analysis(trade: dict[str, Any], prices: dict[str, Any], fundamentals: 
             "stopLoss": rounded(stop_loss) if strategy_active else None,
             "takeProfit": rounded(take_profit) if strategy_active else None,
             "rewardRiskRatio": 2 if strategy_active else None,
+            "startedAt": None,
+            "exitReason": None,
+            "exitAt": None,
+            "exitPrice": None,
             "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers.",
         },
         "marketSourceUrl": f"https://finance.yahoo.com/quote/{symbol}",
@@ -486,6 +529,174 @@ def analyze_all(selections: Iterable[dict[str, Any]]) -> tuple[list[dict[str, An
     return analyses, errors
 
 
+def same_disclosure(previous: dict[str, Any], current: dict[str, Any]) -> bool:
+    previous_signal = previous.get("politicianSignal") or {}
+    current_signal = current.get("politicianSignal") or {}
+    previous_trade_id = previous_signal.get("tradeId")
+    current_trade_id = current_signal.get("tradeId")
+    if previous_trade_id and current_trade_id:
+        return previous_trade_id == current_trade_id
+    return all(
+        previous_signal.get(key) == current_signal.get(key)
+        for key in ("action", "transactionDate", "disclosureDate")
+    )
+
+
+def apply_strategy_state(
+    analyses: list[dict[str, Any]], existing: dict[str, Any], now: str,
+) -> list[dict[str, Any]]:
+    previous_by_id = {
+        stock.get("id"): stock
+        for stock in existing.get("stocks") or []
+        if isinstance(stock, dict) and stock.get("id")
+    }
+    for stock in analyses:
+        previous = previous_by_id.get(stock.get("id"))
+        strategy = stock.get("strategy") or {}
+        if strategy.get("active"):
+            strategy["startedAt"] = now
+        if not previous or not same_disclosure(previous, stock):
+            continue
+
+        previous_strategy = previous.get("strategy") or {}
+        previous_signal = previous.get("signal")
+        if previous_signal in TERMINAL_SIGNALS:
+            stock["signal"] = previous_signal
+            stock["signalLabel"] = previous.get("signalLabel")
+            stock["strategy"] = dict(previous_strategy)
+            continue
+
+        if previous_signal != "BUY" or not previous_strategy.get("active"):
+            continue
+
+        preserved = dict(previous_strategy)
+        preserved.setdefault("startedAt", now)
+        current_price = finite((stock.get("market") or {}).get("price"))
+        stop_loss = finite(preserved.get("stopLoss"))
+        take_profit = finite(preserved.get("takeProfit"))
+
+        if stock.get("signal") != "BUY":
+            stock["signal"] = "EXIT"
+            stock["signalLabel"] = "5/5-bevestiging vervallen"
+            preserved.update({
+                "active": False,
+                "exitReason": "model",
+                "exitAt": now,
+                "exitPrice": rounded(current_price),
+            })
+        elif current_price is not None and take_profit is not None and current_price >= take_profit:
+            stock["signal"] = "TAKE_PROFIT"
+            stock["signalLabel"] = "Verkoopdoel geraakt"
+            preserved.update({
+                "active": False,
+                "exitReason": "target",
+                "exitAt": now,
+                "exitPrice": rounded(current_price),
+            })
+        elif current_price is not None and stop_loss is not None and current_price <= stop_loss:
+            stock["signal"] = "STOP"
+            stock["signalLabel"] = "Stop-loss geraakt"
+            preserved.update({
+                "active": False,
+                "exitReason": "stop",
+                "exitAt": now,
+                "exitPrice": rounded(current_price),
+            })
+        stock["strategy"] = preserved
+    return analyses
+
+
+def transition_events(existing: dict[str, Any], analyses: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if existing.get("mode") != "educational-analysis" or not isinstance(existing.get("stocks"), list):
+        return []
+    previous_by_id = {
+        stock.get("id"): stock
+        for stock in existing.get("stocks") or []
+        if isinstance(stock, dict) and stock.get("id")
+    }
+    events: list[dict[str, Any]] = []
+    for stock in analyses:
+        previous = previous_by_id.get(stock.get("id"))
+        comparable_previous = previous if previous and same_disclosure(previous, stock) else None
+        previous_signal = comparable_previous.get("signal") if comparable_previous else None
+        current_signal = stock.get("signal")
+        if current_signal == "BUY" and previous_signal != "BUY":
+            events.append({"kind": "buy", "stock": stock})
+        elif current_signal in {"TAKE_PROFIT", "STOP", "EXIT"} and previous_signal == "BUY":
+            events.append({"kind": "exit", "stock": stock})
+    return events
+
+
+def digest_events(analyses: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [{"kind": "digest", "stock": stock} for stock in analyses if stock.get("signal") == "BUY"]
+
+
+def send_ntfy_events(events: list[dict[str, Any]], strict: bool = False) -> bool:
+    selected = [event for event in events if matches_watch_filter(event["stock"])]
+    topic = os.getenv("NTFY_TOPIC", "").strip()
+    if not topic:
+        if strict:
+            github_annotation("error", "Testmelding niet verstuurd: repository-secret NTFY_TOPIC ontbreekt.")
+            return False
+        if selected:
+            print("Nieuwe analysesignalen gevonden, maar NTFY_TOPIC is niet ingesteld.")
+        return True
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", topic):
+        github_annotation("error" if strict else "warning", "NTFY_TOPIC heeft een ongeldig formaat; analysemelding is overgeslagen.")
+        return not strict
+    if not selected:
+        if strict:
+            github_annotation("warning", "Geen actieve 5/5-koopkandidaat gevonden voor de ingestelde watchfilters.")
+        return True
+
+    app_url = os.getenv("CAPITOL_PULSE_URL", "").strip() or default_app_url()
+    all_sent = True
+    for event in selected[:6]:
+        stock = event["stock"]
+        strategy = stock.get("strategy") or {}
+        currency = str(stock.get("currency") or "USD")
+        kind = event["kind"]
+        if kind in {"buy", "digest"}:
+            title = "Capitol Pulse: 5/5 koopkandidaat"
+            intro = "Test van huidige kandidaat" if kind == "digest" else "Nieuw analysesignaal"
+            body = "\n".join([
+                f"{intro}: {stock.get('politician')} · {stock.get('symbol')}",
+                f"Instap: {currency_text(strategy.get('entryLow'), currency)} – {currency_text(strategy.get('entryHigh'), currency)}",
+                f"Stop-loss: {currency_text(strategy.get('stopLoss'), currency)}",
+                f"Verkoopdoel (2R): {currency_text(strategy.get('takeProfit'), currency)}",
+                f"Koersdatum: {(stock.get('market') or {}).get('priceDate') or 'onbekend'}",
+                "Educatief regelmodel; geen persoonlijk advies of winstgarantie.",
+            ])
+            tags = "chart_with_upwards_trend,bullseye"
+        else:
+            reason = stock.get("signalLabel") or "Modelpositie beëindigd"
+            title = f"Capitol Pulse: {reason}"
+            body = "\n".join([
+                f"{stock.get('politician')} · {stock.get('symbol')}",
+                f"Laatste koers: {currency_text((stock.get('market') or {}).get('price'), currency)}",
+                f"Oorspronkelijke stop: {currency_text(strategy.get('stopLoss'), currency)}",
+                f"Oorspronkelijk verkoopdoel: {currency_text(strategy.get('takeProfit'), currency)}",
+                "Controleer de actuele koers en je eigen order; uitvoering is niet automatisch.",
+            ])
+            tags = "warning,chart_with_downwards_trend"
+        headers = {"Title": title, "Tags": tags, "Priority": "high"}
+        if app_url.startswith("https://"):
+            headers["Click"] = f"{app_url.rstrip('/')}/#analyse"
+        try:
+            response = requests.post(
+                f"https://ntfy.sh/{quote(topic, safe='')}",
+                data=body.encode("utf-8"),
+                headers=headers,
+                timeout=(10, 30),
+            )
+            response.raise_for_status()
+            print(f"ntfy: analysesignaal voor {stock.get('symbol')} verstuurd.")
+        except requests.RequestException as error:
+            all_sent = False
+            github_annotation("error" if strict else "warning", f"Analyse is bijgewerkt, maar ntfy-melding mislukte: {error}")
+    return all_sent or not strict
+
+
 def main() -> int:
     trades_payload = load_json(TRADES_PATH)
     trades = trades_payload.get("trades")
@@ -494,9 +705,26 @@ def main() -> int:
         return 1
 
     existing = load_json(OUTPUT_PATH)
-    today = datetime.now(timezone.utc).date().isoformat()
-    if os.getenv("FORCE_ANALYSIS") != "1" and str((existing.get("metadata") or {}).get("updatedAt", ""))[:10] == today:
-        print("Aandelenanalyse is vandaag al bijgewerkt; bestand blijft ongewijzigd.")
+    force_analysis = env_truthy("FORCE_ANALYSIS")
+    send_digest = env_truthy("SEND_ANALYSIS_DIGEST")
+    now_datetime = datetime.now(timezone.utc)
+    existing_metadata = existing.get("metadata") or {}
+    live_updated_at = str((trades_payload.get("metadata") or {}).get("updatedAt") or "")
+    existing_live_updated_at = str(existing_metadata.get("liveUpdatedAt") or "")
+    try:
+        previous_update = datetime.fromisoformat(str(existing_metadata.get("updatedAt") or "").replace("Z", "+00:00"))
+    except ValueError:
+        previous_update = None
+    recently_updated = bool(
+        previous_update
+        and previous_update.tzinfo
+        and now_datetime - previous_update < MIN_REFRESH_INTERVAL
+        and existing_live_updated_at == live_updated_at
+    )
+    if not force_analysis and recently_updated:
+        if send_digest:
+            return 0 if send_ntfy_events(digest_events(existing.get("stocks") or []), strict=True) else 1
+        print("Aandelenanalyse is minder dan vier uur oud en de transactiedata is gelijk; bestand blijft ongewijzigd.")
         return 0
 
     people, selections = select_featured(trades)
@@ -513,12 +741,16 @@ def main() -> int:
         github_annotation("error", "Aandelenanalyse afgebroken: de nieuwe respons is onverwacht veel kleiner; bestaande analyse blijft behouden.")
         return 1
 
-    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    now = now_datetime.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    analyses = apply_strategy_state(analyses, existing, now)
+    events = digest_events(analyses) if send_digest else transition_events(existing, analyses)
     payload = {
         "mode": "educational-analysis",
         "metadata": {
             "updatedAt": now,
-            "modelVersion": "five-pillars-v1",
+            "modelVersion": "five-pillars-v2-notifications",
+            "liveUpdatedAt": live_updated_at,
+            "refreshIntervalHours": 4,
             "priceSource": "Yahoo Finance chart endpoint",
             "fundamentalsSource": "Yahoo Finance fundamentals time-series",
             "politicianSource": trades_payload.get("metadata", {}).get("source"),
@@ -538,7 +770,9 @@ def main() -> int:
     }
     atomic_write(payload)
     print(f"Aandelenanalyse bijgewerkt: {len(analyses)} aandelen voor {len(represented)} politici; {len(errors)} overgeslagen.")
-    return 0
+    if existing.get("mode") != "educational-analysis":
+        print("Analysebaseline aangemaakt; bestaande koopkandidaten zijn niet als nieuw gemeld.")
+    return 0 if send_ntfy_events(events, strict=send_digest) else 1
 
 
 if __name__ == "__main__":

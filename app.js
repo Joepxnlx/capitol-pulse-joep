@@ -260,6 +260,17 @@ function renderPoliticianChoices() {
 }
 
 function positionPlan(stock) {
+  if (stock.strategy?.exitReason) {
+    const reasonLabels = {
+      target: 'Verkoopdoel bereikt',
+      stop: 'Stop-loss bereikt',
+      model: '5/5-bevestiging vervallen',
+    };
+    return `<div class="no-position exit-position">
+      <strong>${escapeHtml(reasonLabels[stock.strategy.exitReason] || 'Modelpositie beëindigd')}</strong>
+      <span>Signaalkoers ${formatCurrency(stock.strategy.exitPrice ?? stock.market?.price, stock.currency)} · oorspronkelijke stop ${formatCurrency(stock.strategy.stopLoss, stock.currency)} · verkoopdoel ${formatCurrency(stock.strategy.takeProfit, stock.currency)}. Controleer je eigen order; uitvoering is niet automatisch.</span>
+    </div>`;
+  }
   if (!stock.strategy?.active) {
     return '<div class="no-position"><strong>Geen modelpositie</strong><span>De aankoopregel is niet volledig bevestigd; er wordt geen instapbedrag berekend.</span></div>';
   }

@@ -1,8 +1,10 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-05T14:19:08Z",
-    "modelVersion": "five-pillars-v1",
+    "updatedAt": "2026-08-05T15:06:47Z",
+    "modelVersion": "five-pillars-v2-notifications",
+    "liveUpdatedAt": "2026-08-05T12:34:37Z",
+    "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
     "politicianSource": "Kadoa Congress Trading Monitor, uit officiële House Clerk- en Senate eFD-filings",
@@ -86,6 +88,7 @@
       "company": "Uber Technologies, Inc.",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_20034836_g1",
         "action": "Purchase",
         "amount": "$500,001 - $1,000,000",
         "transactionDate": "2026-05-29",
@@ -94,12 +97,12 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034836.pdf"
       },
       "market": {
-        "price": 68.08,
+        "price": 68.0,
         "priceDate": "2026-08-05",
         "sma50": 71.65,
         "sma200": 78.23,
-        "rsi14": 34.9,
-        "atr14": 2.35,
+        "rsi14": 34.8,
+        "atr14": 2.36,
         "annualizedVolatilityPct": 38.0,
         "fiftyTwoWeekHigh": 101.99,
         "fiftyTwoWeekLow": 65.41
@@ -146,7 +149,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -13.0%; RSI 34.9; volatiliteit 38.0%."
+          "detail": "Koers t.o.v. 200-daags -13.1%; RSI 34.8; volatiliteit 38.0%."
         }
       ],
       "score": 3,
@@ -160,6 +163,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/UBER"
@@ -171,6 +178,7 @@
       "company": "Intel Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_20034836_g0",
         "action": "Purchase",
         "amount": "$1,000,001 - $5,000,000",
         "transactionDate": "2026-05-29",
@@ -179,13 +187,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034836.pdf"
       },
       "market": {
-        "price": 100.09,
+        "price": 98.48,
         "priceDate": "2026-08-05",
-        "sma50": 111.5,
-        "sma200": 67.95,
-        "rsi14": 52.7,
-        "atr14": 7.67,
-        "annualizedVolatilityPct": 86.6,
+        "sma50": 111.47,
+        "sma200": 67.94,
+        "rsi14": 51.3,
+        "atr14": 7.73,
+        "annualizedVolatilityPct": 86.7,
         "fiftyTwoWeekHigh": 142.35,
         "fiftyTwoWeekLow": 19.6
       },
@@ -231,7 +239,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +47.3%; RSI 52.7; volatiliteit 86.6%."
+          "detail": "Koers t.o.v. 200-daags +45.0%; RSI 51.3; volatiliteit 86.7%."
         }
       ],
       "score": 0,
@@ -245,6 +253,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/INTC"
@@ -256,6 +268,7 @@
       "company": "Mastercard Incorporated",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116211_g36",
         "action": "Purchase",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-29",
@@ -264,11 +277,11 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 573.8,
+        "price": 571.91,
         "priceDate": "2026-08-05",
-        "sma50": 518.53,
-        "sma200": 528.12,
-        "rsi14": 63.1,
+        "sma50": 518.49,
+        "sma200": 528.11,
+        "rsi14": 62.2,
         "atr14": 11.77,
         "annualizedVolatilityPct": 22.9,
         "fiftyTwoWeekHigh": 601.77,
@@ -279,7 +292,7 @@
         "netIncomeGrowthYoYPct": 18.6,
         "netMarginPct": 46.3,
         "freeCashFlowMarginPct": 45.5,
-        "peRatio": 31.6,
+        "peRatio": 31.5,
         "debtToEquity": 4.39
       },
       "factors": [
@@ -309,14 +322,14 @@
           "label": "Waardering & balans",
           "status": "bad",
           "passed": false,
-          "detail": "K/W 31.6; schuld/eigen vermogen 4.4."
+          "detail": "K/W 31.5; schuld/eigen vermogen 4.4."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +8.6%; RSI 63.1; volatiliteit 22.9%."
+          "detail": "Koers t.o.v. 200-daags +8.3%; RSI 62.2; volatiliteit 22.9%."
         }
       ],
       "score": 3,
@@ -330,6 +343,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/MA"
@@ -341,6 +358,7 @@
       "company": "Chevron Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116211_g111",
         "action": "Sale",
         "amount": "$100,001 - $250,000",
         "transactionDate": "2026-06-26",
@@ -349,13 +367,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 187.87,
+        "price": 186.56,
         "priceDate": "2026-08-05",
-        "sma50": 182.7,
+        "sma50": 182.68,
         "sma200": 175.95,
-        "rsi14": 55.5,
-        "atr14": 4.56,
-        "annualizedVolatilityPct": 25.9,
+        "rsi14": 53.6,
+        "atr14": 4.64,
+        "annualizedVolatilityPct": 26.1,
         "fiftyTwoWeekHigh": 214.71,
         "fiftyTwoWeekLow": 146.49
       },
@@ -364,7 +382,7 @@
         "netIncomeGrowthYoYPct": -36.9,
         "netMarginPct": 5.9,
         "freeCashFlowMarginPct": 7.4,
-        "peRatio": 18.0,
+        "peRatio": 17.9,
         "debtToEquity": 0.25
       },
       "factors": [
@@ -394,14 +412,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 18.0; schuld/eigen vermogen 0.2."
+          "detail": "K/W 17.9; schuld/eigen vermogen 0.2."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +6.8%; RSI 55.5; volatiliteit 25.9%."
+          "detail": "Koers t.o.v. 200-daags +6.0%; RSI 53.6; volatiliteit 26.1%."
         }
       ],
       "score": 3,
@@ -415,6 +433,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/CVX"
@@ -426,6 +448,7 @@
       "company": "S&P Global Inc.",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116211_g29",
         "action": "Purchase",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-25",
@@ -434,13 +457,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 415.76,
+        "price": 413.47,
         "priceDate": "2026-08-05",
-        "sma50": 412.16,
-        "sma200": 434.19,
-        "rsi14": 28.4,
+        "sma50": 412.11,
+        "sma200": 434.18,
+        "rsi14": 26.7,
         "atr14": 12.89,
-        "annualizedVolatilityPct": 34.9,
+        "annualizedVolatilityPct": 34.8,
         "fiftyTwoWeekHigh": 547.82,
         "fiftyTwoWeekLow": 361.03
       },
@@ -449,7 +472,7 @@
         "netIncomeGrowthYoYPct": 13.5,
         "netMarginPct": 30.5,
         "freeCashFlowMarginPct": 34.6,
-        "peRatio": 25.3,
+        "peRatio": 25.2,
         "debtToEquity": 0.5
       },
       "factors": [
@@ -479,14 +502,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 25.3; schuld/eigen vermogen 0.5."
+          "detail": "K/W 25.2; schuld/eigen vermogen 0.5."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -4.2%; RSI 28.4; volatiliteit 34.9%."
+          "detail": "Koers t.o.v. 200-daags -4.8%; RSI 26.7; volatiliteit 34.8%."
         }
       ],
       "score": 4,
@@ -500,6 +523,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/SPGI"
@@ -511,6 +538,7 @@
       "company": "NVIDIA Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116206_g5",
         "action": "Purchase",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-05",
@@ -519,13 +547,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
       },
       "market": {
-        "price": 221.8,
+        "price": 218.97,
         "priceDate": "2026-08-05",
-        "sma50": 205.82,
-        "sma200": 193.61,
-        "rsi14": 60.5,
+        "sma50": 205.76,
+        "sma200": 193.59,
+        "rsi14": 58.8,
         "atr14": 8.01,
-        "annualizedVolatilityPct": 42.2,
+        "annualizedVolatilityPct": 41.6,
         "fiftyTwoWeekHigh": 236.54,
         "fiftyTwoWeekLow": 164.07
       },
@@ -534,7 +562,7 @@
         "netIncomeGrowthYoYPct": 210.6,
         "netMarginPct": 63.0,
         "freeCashFlowMarginPct": 47.0,
-        "peRatio": 34.0,
+        "peRatio": 33.5,
         "debtToEquity": 0.06
       },
       "factors": [
@@ -564,14 +592,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 34.0; schuld/eigen vermogen 0.1."
+          "detail": "K/W 33.5; schuld/eigen vermogen 0.1."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +14.6%; RSI 60.5; volatiliteit 42.2%."
+          "detail": "Koers t.o.v. 200-daags +13.1%; RSI 58.8; volatiliteit 41.6%."
         }
       ],
       "score": 5,
@@ -585,7 +613,8 @@
         "stopLoss": 204.06,
         "takeProfit": 257.29,
         "rewardRiskRatio": 2,
-        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers.",
+        "startedAt": "2026-08-05T15:06:47Z"
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/NVDA"
     },
@@ -596,6 +625,7 @@
       "company": "Microsoft Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116206_g4",
         "action": "Purchase",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-05",
@@ -604,11 +634,11 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
       },
       "market": {
-        "price": 488.77,
+        "price": 490.63,
         "priceDate": "2026-08-05",
-        "sma50": 403.62,
-        "sma200": 433.24,
-        "rsi14": 77.9,
+        "sma50": 403.65,
+        "sma200": 433.25,
+        "rsi14": 78.8,
         "atr14": 17.72,
         "annualizedVolatilityPct": 47.1,
         "fiftyTwoWeekHigh": 553.72,
@@ -619,7 +649,7 @@
         "netIncomeGrowthYoYPct": 31.3,
         "netMarginPct": 40.3,
         "freeCashFlowMarginPct": 20.2,
-        "peRatio": 27.2,
+        "peRatio": 27.3,
         "debtToEquity": 0.13
       },
       "factors": [
@@ -649,14 +679,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 27.2; schuld/eigen vermogen 0.1."
+          "detail": "K/W 27.3; schuld/eigen vermogen 0.1."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +12.8%; RSI 77.9; volatiliteit 47.1%."
+          "detail": "Koers t.o.v. 200-daags +13.2%; RSI 78.8; volatiliteit 47.1%."
         }
       ],
       "score": 4,
@@ -670,6 +700,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/MSFT"
@@ -681,6 +715,7 @@
       "company": "Amazon.com, Inc.",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "house_9116206_g25",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-05",
@@ -689,13 +724,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
       },
       "market": {
-        "price": 276.43,
+        "price": 278.05,
         "priceDate": "2026-08-05",
-        "sma50": 247.39,
-        "sma200": 235.97,
-        "rsi14": 64.2,
+        "sma50": 247.42,
+        "sma200": 235.98,
+        "rsi14": 65.1,
         "atr14": 9.79,
-        "annualizedVolatilityPct": 45.2,
+        "annualizedVolatilityPct": 45.1,
         "fiftyTwoWeekHigh": 287.2,
         "fiftyTwoWeekLow": 196.0
       },
@@ -704,7 +739,7 @@
         "netIncomeGrowthYoYPct": 76.7,
         "netMarginPct": 12.2,
         "freeCashFlowMarginPct": -0.3,
-        "peRatio": 22.2,
+        "peRatio": 22.4,
         "debtToEquity": 0.47
       },
       "factors": [
@@ -734,14 +769,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 22.2; schuld/eigen vermogen 0.5."
+          "detail": "K/W 22.4; schuld/eigen vermogen 0.5."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +17.1%; RSI 64.2; volatiliteit 45.2%."
+          "detail": "Koers t.o.v. 200-daags +17.8%; RSI 65.1; volatiliteit 45.1%."
         }
       ],
       "score": 4,
@@ -755,6 +790,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/AMZN"
@@ -766,6 +805,7 @@
       "company": "Atmos Energy Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_c52854ed-a778-483a-883c-0ba2bba17877_t3",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-12",
@@ -774,13 +814,13 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
       },
       "market": {
-        "price": 171.97,
+        "price": 171.23,
         "priceDate": "2026-08-05",
-        "sma50": 173.51,
-        "sma200": 176.31,
-        "rsi14": 32.9,
+        "sma50": 173.5,
+        "sma200": 176.3,
+        "rsi14": 31.6,
         "atr14": 3.26,
-        "annualizedVolatilityPct": 17.5,
+        "annualizedVolatilityPct": 17.6,
         "fiftyTwoWeekHigh": 192.51,
         "fiftyTwoWeekLow": 155.56
       },
@@ -826,7 +866,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -2.5%; RSI 32.9; volatiliteit 17.5%."
+          "detail": "Koers t.o.v. 200-daags -2.9%; RSI 31.6; volatiliteit 17.6%."
         }
       ],
       "score": 2,
@@ -840,6 +880,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/ATO"
@@ -851,6 +895,7 @@
       "company": "Boston Scientific Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_c52854ed-a778-483a-883c-0ba2bba17877_t4",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-04",
@@ -859,13 +904,13 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
       },
       "market": {
-        "price": 48.09,
+        "price": 47.78,
         "priceDate": "2026-08-05",
         "sma50": 46.09,
         "sma200": 72.44,
-        "rsi14": 69.5,
+        "rsi14": 67.2,
         "atr14": 1.71,
-        "annualizedVolatilityPct": 40.3,
+        "annualizedVolatilityPct": 40.4,
         "fiftyTwoWeekHigh": 109.5,
         "fiftyTwoWeekLow": 42.2
       },
@@ -874,7 +919,7 @@
         "netIncomeGrowthYoYPct": 99.0,
         "netMarginPct": 17.3,
         "freeCashFlowMarginPct": 16.0,
-        "peRatio": 19.5,
+        "peRatio": 19.3,
         "debtToEquity": 0.43
       },
       "factors": [
@@ -904,14 +949,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 19.5; schuld/eigen vermogen 0.4."
+          "detail": "K/W 19.3; schuld/eigen vermogen 0.4."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -33.6%; RSI 69.5; volatiliteit 40.3%."
+          "detail": "Koers t.o.v. 200-daags -34.0%; RSI 67.2; volatiliteit 40.4%."
         }
       ],
       "score": 4,
@@ -925,6 +970,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/BSX"
@@ -936,6 +985,7 @@
       "company": "UnitedHealth Group Incorporated",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_9c0b720d-7e27-4b02-8cf5-a85ba88c9543_t4",
         "action": "Purchase",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-04",
@@ -944,12 +994,12 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/9c0b720d-7e27-4b02-8cf5-a85ba88c9543/"
       },
       "market": {
-        "price": 408.57,
+        "price": 409.41,
         "priceDate": "2026-08-05",
-        "sma50": 411.71,
+        "sma50": 411.73,
         "sma200": 345.46,
-        "rsi14": 40.5,
-        "atr14": 11.53,
+        "rsi14": 41.1,
+        "atr14": 11.55,
         "annualizedVolatilityPct": 26.0,
         "fiftyTwoWeekHigh": 461.62,
         "fiftyTwoWeekLow": 239.5
@@ -996,7 +1046,7 @@
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +18.3%; RSI 40.5; volatiliteit 26.0%."
+          "detail": "Koers t.o.v. 200-daags +18.5%; RSI 41.1; volatiliteit 26.0%."
         }
       ],
       "score": 2,
@@ -1010,6 +1060,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/UNH"
@@ -1021,6 +1075,7 @@
       "company": "Westinghouse Air Brake Technologies Corporation",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_392ac3e5-07f6-4f8c-840f-84e9066ffb29_t0",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-06-09",
@@ -1029,12 +1084,12 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
       },
       "market": {
-        "price": 298.67,
+        "price": 297.58,
         "priceDate": "2026-08-05",
-        "sma50": 271.58,
+        "sma50": 271.56,
         "sma200": 244.25,
-        "rsi14": 71.2,
-        "atr14": 9.48,
+        "rsi14": 70.2,
+        "atr14": 9.57,
         "annualizedVolatilityPct": 33.7,
         "fiftyTwoWeekHigh": 306.64,
         "fiftyTwoWeekLow": 184.26
@@ -1044,7 +1099,7 @@
         "netIncomeGrowthYoYPct": 17.6,
         "netMarginPct": 10.6,
         "freeCashFlowMarginPct": 14.3,
-        "peRatio": 40.1,
+        "peRatio": 40.0,
         "debtToEquity": 0.59
       },
       "factors": [
@@ -1074,14 +1129,14 @@
           "label": "Waardering & balans",
           "status": "bad",
           "passed": false,
-          "detail": "K/W 40.1; schuld/eigen vermogen 0.6."
+          "detail": "K/W 40.0; schuld/eigen vermogen 0.6."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +22.3%; RSI 71.2; volatiliteit 33.7%."
+          "detail": "Koers t.o.v. 200-daags +21.8%; RSI 70.2; volatiliteit 33.7%."
         }
       ],
       "score": 4,
@@ -1095,6 +1150,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/WAB"
@@ -1106,6 +1165,7 @@
       "company": "The Procter & Gamble Company",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_392ac3e5-07f6-4f8c-840f-84e9066ffb29_t9",
         "action": "Sale",
         "amount": "$15,001 - $50,000",
         "transactionDate": "2026-06-08",
@@ -1114,11 +1174,11 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
       },
       "market": {
-        "price": 145.83,
+        "price": 145.64,
         "priceDate": "2026-08-05",
         "sma50": 147.5,
         "sma200": 148.01,
-        "rsi14": 35.6,
+        "rsi14": 35.2,
         "atr14": 3.66,
         "annualizedVolatilityPct": 23.2,
         "fiftyTwoWeekHigh": 167.25,
@@ -1166,7 +1226,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -1.5%; RSI 35.6; volatiliteit 23.2%."
+          "detail": "Koers t.o.v. 200-daags -1.6%; RSI 35.2; volatiliteit 23.2%."
         }
       ],
       "score": 4,
@@ -1180,6 +1240,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/PG"
@@ -1191,6 +1255,7 @@
       "company": "Pfizer Inc.",
       "currency": "USD",
       "politicianSignal": {
+        "tradeId": "senate_392ac3e5-07f6-4f8c-840f-84e9066ffb29_t8",
         "action": "Sale",
         "amount": "$15,001 - $50,000",
         "transactionDate": "2026-06-08",
@@ -1199,13 +1264,13 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
       },
       "market": {
-        "price": 25.46,
+        "price": 25.6,
         "priceDate": "2026-08-05",
         "sma50": 25.05,
-        "sma200": 25.84,
-        "rsi14": 55.4,
+        "sma200": 25.85,
+        "rsi14": 57.4,
         "atr14": 0.52,
-        "annualizedVolatilityPct": 19.9,
+        "annualizedVolatilityPct": 20.0,
         "fiftyTwoWeekHigh": 28.75,
         "fiftyTwoWeekLow": 23.58
       },
@@ -1214,7 +1279,7 @@
         "netIncomeGrowthYoYPct": -9.4,
         "netMarginPct": 11.8,
         "freeCashFlowMarginPct": 15.0,
-        "peRatio": 19.4,
+        "peRatio": 19.5,
         "debtToEquity": 0.71
       },
       "factors": [
@@ -1244,14 +1309,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 19.4; schuld/eigen vermogen 0.7."
+          "detail": "K/W 19.5; schuld/eigen vermogen 0.7."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -1.5%; RSI 55.4; volatiliteit 19.9%."
+          "detail": "Koers t.o.v. 200-daags -1.0%; RSI 57.4; volatiliteit 20.0%."
         }
       ],
       "score": 3,
@@ -1265,6 +1330,10 @@
         "stopLoss": null,
         "takeProfit": null,
         "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
       "marketSourceUrl": "https://finance.yahoo.com/quote/PFE"
