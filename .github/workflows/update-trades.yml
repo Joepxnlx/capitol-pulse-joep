@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -38,10 +39,12 @@ jobs:
         run: python scripts/update_trades.py
 
       - name: Gewijzigde dataset committen
+        id: commit_data
         shell: bash
         run: |
           if git diff --quiet -- public/data/live.json; then
             echo "Geen wijziging in public/data/live.json."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "capitol-pulse-bot"
@@ -49,3 +52,10 @@ jobs:
           git add public/data/live.json
           git commit -m "Update congressional disclosures"
           git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Nieuwe data op GitHub Pages publiceren
+        if: steps.commit_data.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
