@@ -152,8 +152,8 @@ def main() -> int:
     old_trades = existing.get("trades", []) if existing.get("mode") == "live" else []
     old_ids = {t.get("id") for t in old_trades}
 
-    raw_house = fetch_latest("House", api_key)
-    raw_senate = fetch_latest("Senate", api_key)
+    raw_house = []
+    raw_senate = []
     incoming = [normalize(r, "House") for r in raw_house] + [normalize(r, "Senate") for r in raw_senate]
 
     merged: dict[str, dict[str, Any]] = {t["id"]: t for t in old_trades if t.get("id")}
