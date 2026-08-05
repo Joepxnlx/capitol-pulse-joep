@@ -40,7 +40,8 @@ jobs:
         run: |
           mkdir -p site/public/data site/public/icons
           cp index.html app.js styles.css manifest.webmanifest service-worker.js site/
-          cp public/data/live.json site/public/data/live.json
+          cp service-worker.js site/sw.js
+          cp public/data/*.json site/public/data/
           cp public/icons/*.png site/public/icons/
 
       - name: Pages-artifact uploaden

@@ -49,6 +49,56 @@
       <article><span>Gem. vertraging</span><strong id="statDelay">–</strong><small>transactie → melding</small></article>
     </section>
 
+    <section id="analyse" class="panel analysis-panel" aria-labelledby="analysisTitle">
+      <div class="analysis-heading">
+        <div>
+          <p class="eyebrow">Politicus eerst · aandeel daarna</p>
+          <h2 id="analysisTitle">Vijf politici, vijf controles, één helder signaal</h2>
+          <p class="analysis-intro">Kies een politicus. Capitol Pulse controleert diens recente aandelen vervolgens op groei, winstgevendheid, kasstroom, waardering en koersrisico.</p>
+        </div>
+        <div id="analysisFreshness" class="analysis-freshness">Analyse laden…</div>
+      </div>
+
+      <div class="analysis-warning">
+        <strong>Strenge regel:</strong>
+        <span>alleen een recente openbare aankoop én 5/5 groene pijlers levert een koopkandidaat op. Het koersdoel is een 2:1-risicoregel, geen voorspelling of winstgarantie.</span>
+      </div>
+
+      <div class="analysis-tools">
+        <div>
+          <span class="field-label">Kies wie je wilt volgen</span>
+          <div id="politicianChoices" class="politician-choices" role="group" aria-label="Uitgelichte politici"></div>
+        </div>
+        <label>
+          <span>Voorbeeldbudget (USD)</span>
+          <input id="analysisBudget" type="number" min="100" step="100" value="2500" inputmode="decimal">
+        </label>
+        <label>
+          <span>Max. risico per idee</span>
+          <select id="analysisRisk">
+            <option value="0.5">0,5%</option>
+            <option value="1" selected>1%</option>
+            <option value="2">2%</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="analysisStatus" class="analysis-status" role="status">De nieuwste analyse wordt geladen.</div>
+      <div id="analysisCards" class="analysis-cards" aria-live="polite"></div>
+
+      <details class="methodology">
+        <summary>Zo werkt de grondige analyse</summary>
+        <ol>
+          <li><strong>Groei:</strong> kwartaalomzet groeit minimaal 3% en nettowinst verslechtert niet ten opzichte van een jaar eerder.</li>
+          <li><strong>Winstgevendheid:</strong> nettomarge over vier kwartalen is minimaal 8%.</li>
+          <li><strong>Kasstroom:</strong> vrije kasstroom is positief en minimaal 5% van de omzet.</li>
+          <li><strong>Waardering & balans:</strong> positieve K/W van maximaal 35 en schuld/eigen vermogen van maximaal 3.</li>
+          <li><strong>Trend & risico:</strong> koers en 50-daags gemiddelde liggen boven het 200-daags gemiddelde, RSI is 40–72 en volatiliteit maximaal 55%.</li>
+        </ol>
+        <p>De openbare Wolf of Washington-site noemt geen verifieerbare officiële top vijf en volgt naar eigen zeggen alle Congresleden. Deze selectie is daarom transparant gebaseerd op recente Capitol Pulse-meldingen. Markt- en fundamentendata kunnen vertraagd of onvolledig zijn.</p>
+      </details>
+    </section>
+
     <section class="controls" aria-label="Zoeken en filteren">
       <label class="search-field">
         <span>Zoeken</span>

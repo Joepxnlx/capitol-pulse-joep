@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'capitol-pulse-v1';
+const CACHE_NAME = 'capitol-pulse-v2';
 const scopeUrl = self.registration.scope;
 const assetUrl = (path) => new URL(path, scopeUrl).toString();
 const APP_SHELL = [
@@ -12,6 +12,7 @@ const APP_SHELL = [
   './public/icons/icon-192.png',
   './public/icons/icon-512.png',
   './public/data/live.json',
+  './public/data/analysis.json',
 ].map(assetUrl);
 
 self.addEventListener('install', (event) => {
@@ -39,21 +40,11 @@ async function networkFirst(request) {
   }
 }
 
-async function staleWhileRevalidate(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const cached = await cache.match(request, { ignoreSearch: true });
-  const network = fetch(request).then((response) => {
-    if (response.ok) cache.put(request, response.clone());
-    return response;
-  }).catch(() => null);
-  return cached || network || Response.error();
-}
-
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (!url.href.startsWith(scopeUrl)) return;
-  if (url.pathname.endsWith('/public/data/live.json')) {
+  if (url.pathname.endsWith('/public/data/live.json') || url.pathname.endsWith('/public/data/analysis.json')) {
     event.respondWith(networkFirst(event.request));
     return;
   }
@@ -61,5 +52,5 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirst(event.request).catch(() => caches.match(assetUrl('./index.html'))));
     return;
   }
-  event.respondWith(staleWhileRevalidate(event.request));
+  event.respondWith(networkFirst(event.request));
 });

@@ -1,0 +1,1274 @@
+{
+  "mode": "educational-analysis",
+  "metadata": {
+    "updatedAt": "2026-08-05T14:19:08Z",
+    "modelVersion": "five-pillars-v1",
+    "priceSource": "Yahoo Finance chart endpoint",
+    "fundamentalsSource": "Yahoo Finance fundamentals time-series",
+    "politicianSource": "Kadoa Congress Trading Monitor, uit officiële House Clerk- en Senate eFD-filings",
+    "stockCount": 14,
+    "errorCount": 0,
+    "notice": "Regelgestuurde educatieve analyse; geen persoonlijk beleggingsadvies of winstgarantie."
+  },
+  "methodology": {
+    "selection": "Vijf actieve, herkenbare Congresleden uit de recente openbare dataset; maximaal drie recente gewone aandelen per persoon.",
+    "buyRule": "Alleen koopkandidaat na een recente openbare aankoop en wanneer alle vijf pijlers slagen.",
+    "pillars": [
+      "Groei",
+      "Winstgevendheid",
+      "Kasstroom",
+      "Waardering & balans",
+      "Trend & risico"
+    ],
+    "riskRule": "Instap rond de laatst beschikbare koers, stop op minimaal 8% of twee ATR en koersdoel op twee keer het risico."
+  },
+  "featuredPoliticians": [
+    {
+      "name": "Nancy Pelosi",
+      "tradeCount": 2,
+      "stockTradeCount": 2,
+      "latestDisclosureDate": "2026-06-23",
+      "tickers": [
+        "UBER",
+        "INTC"
+      ]
+    },
+    {
+      "name": "Michael T. McCaul",
+      "tradeCount": 130,
+      "stockTradeCount": 12,
+      "latestDisclosureDate": "2026-07-08",
+      "tickers": [
+        "MA",
+        "CVX",
+        "SPGI"
+      ]
+    },
+    {
+      "name": "Rohit Khanna",
+      "tradeCount": 108,
+      "stockTradeCount": 26,
+      "latestDisclosureDate": "2026-07-06",
+      "tickers": [
+        "NVDA",
+        "MSFT",
+        "AMZN"
+      ]
+    },
+    {
+      "name": "John Boozman",
+      "tradeCount": 61,
+      "stockTradeCount": 9,
+      "latestDisclosureDate": "2026-07-13",
+      "tickers": [
+        "ATO",
+        "BSX",
+        "UNH"
+      ]
+    },
+    {
+      "name": "Thomas H Tuberville",
+      "tradeCount": 11,
+      "stockTradeCount": 11,
+      "latestDisclosureDate": "2026-07-16",
+      "tickers": [
+        "WAB",
+        "PG",
+        "PFE"
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "id": "Nancy Pelosi:UBER",
+      "politician": "Nancy Pelosi",
+      "symbol": "UBER",
+      "company": "Uber Technologies, Inc.",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$500,001 - $1,000,000",
+        "transactionDate": "2026-05-29",
+        "disclosureDate": "2026-06-23",
+        "reportingDelayDays": 25,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034836.pdf"
+      },
+      "market": {
+        "price": 68.08,
+        "priceDate": "2026-08-05",
+        "sma50": 71.65,
+        "sma200": 78.23,
+        "rsi14": 34.9,
+        "atr14": 2.35,
+        "annualizedVolatilityPct": 38.0,
+        "fiftyTwoWeekHigh": 101.99,
+        "fiftyTwoWeekLow": 65.41
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 14.5,
+        "netIncomeGrowthYoYPct": -85.2,
+        "netMarginPct": 15.9,
+        "freeCashFlowMarginPct": 18.3,
+        "peRatio": 17.0,
+        "debtToEquity": 0.5
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +14.5%; nettowinst j-o-j -85.2%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 15.9%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 18.3%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 17.0; schuld/eigen vermogen 0.5."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -13.0%; RSI 34.9; volatiliteit 38.0%."
+        }
+      ],
+      "score": 3,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/UBER"
+    },
+    {
+      "id": "Nancy Pelosi:INTC",
+      "politician": "Nancy Pelosi",
+      "symbol": "INTC",
+      "company": "Intel Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,000,001 - $5,000,000",
+        "transactionDate": "2026-05-29",
+        "disclosureDate": "2026-06-23",
+        "reportingDelayDays": 25,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034836.pdf"
+      },
+      "market": {
+        "price": 100.09,
+        "priceDate": "2026-08-05",
+        "sma50": 111.5,
+        "sma200": 67.95,
+        "rsi14": 52.7,
+        "atr14": 7.67,
+        "annualizedVolatilityPct": 86.6,
+        "fiftyTwoWeekHigh": 142.35,
+        "fiftyTwoWeekLow": 19.6
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 25.4,
+        "netIncomeGrowthYoYPct": -278.1,
+        "netMarginPct": -19.8,
+        "freeCashFlowMarginPct": 5.0,
+        "peRatio": null,
+        "debtToEquity": 0.58
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +25.4%; nettowinst j-o-j -278.1%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "bad",
+          "passed": false,
+          "detail": "Nettomarge over de laatste vier kwartalen: -19.8%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: 5.0%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "unavailable",
+          "passed": false,
+          "detail": "K/W niet beschikbaar; schuld/eigen vermogen 0.6."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags +47.3%; RSI 52.7; volatiliteit 86.6%."
+        }
+      ],
+      "score": 0,
+      "complete": false,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/INTC"
+    },
+    {
+      "id": "Michael T. McCaul:MA",
+      "politician": "Michael T. McCaul",
+      "symbol": "MA",
+      "company": "Mastercard Incorporated",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-29",
+        "disclosureDate": "2026-07-08",
+        "reportingDelayDays": 9,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
+      },
+      "market": {
+        "price": 573.8,
+        "priceDate": "2026-08-05",
+        "sma50": 518.53,
+        "sma200": 528.12,
+        "rsi14": 63.1,
+        "atr14": 11.77,
+        "annualizedVolatilityPct": 22.9,
+        "fiftyTwoWeekHigh": 601.77,
+        "fiftyTwoWeekLow": 464.52
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 14.1,
+        "netIncomeGrowthYoYPct": 18.6,
+        "netMarginPct": 46.3,
+        "freeCashFlowMarginPct": 45.5,
+        "peRatio": 31.6,
+        "debtToEquity": 4.39
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +14.1%; nettowinst j-o-j +18.6%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 46.3%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 45.5%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "bad",
+          "passed": false,
+          "detail": "K/W 31.6; schuld/eigen vermogen 4.4."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags +8.6%; RSI 63.1; volatiliteit 22.9%."
+        }
+      ],
+      "score": 3,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/MA"
+    },
+    {
+      "id": "Michael T. McCaul:CVX",
+      "politician": "Michael T. McCaul",
+      "symbol": "CVX",
+      "company": "Chevron Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$100,001 - $250,000",
+        "transactionDate": "2026-06-26",
+        "disclosureDate": "2026-07-08",
+        "reportingDelayDays": 12,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
+      },
+      "market": {
+        "price": 187.87,
+        "priceDate": "2026-08-05",
+        "sma50": 182.7,
+        "sma200": 175.95,
+        "rsi14": 55.5,
+        "atr14": 4.56,
+        "annualizedVolatilityPct": 25.9,
+        "fiftyTwoWeekHigh": 214.71,
+        "fiftyTwoWeekLow": 146.49
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 3.2,
+        "netIncomeGrowthYoYPct": -36.9,
+        "netMarginPct": 5.9,
+        "freeCashFlowMarginPct": 7.4,
+        "peRatio": 18.0,
+        "debtToEquity": 0.25
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +3.2%; nettowinst j-o-j -36.9%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "bad",
+          "passed": false,
+          "detail": "Nettomarge over de laatste vier kwartalen: 5.9%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 7.4%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 18.0; schuld/eigen vermogen 0.2."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +6.8%; RSI 55.5; volatiliteit 25.9%."
+        }
+      ],
+      "score": 3,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/CVX"
+    },
+    {
+      "id": "Michael T. McCaul:SPGI",
+      "politician": "Michael T. McCaul",
+      "symbol": "SPGI",
+      "company": "S&P Global Inc.",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-25",
+        "disclosureDate": "2026-07-08",
+        "reportingDelayDays": 13,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
+      },
+      "market": {
+        "price": 415.76,
+        "priceDate": "2026-08-05",
+        "sma50": 412.16,
+        "sma200": 434.19,
+        "rsi14": 28.4,
+        "atr14": 12.89,
+        "annualizedVolatilityPct": 34.9,
+        "fiftyTwoWeekHigh": 547.82,
+        "fiftyTwoWeekLow": 361.03
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 10.4,
+        "netIncomeGrowthYoYPct": 13.5,
+        "netMarginPct": 30.5,
+        "freeCashFlowMarginPct": 34.6,
+        "peRatio": 25.3,
+        "debtToEquity": 0.5
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +10.4%; nettowinst j-o-j +13.5%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 30.5%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 34.6%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 25.3; schuld/eigen vermogen 0.5."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -4.2%; RSI 28.4; volatiliteit 34.9%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "WAIT",
+      "signalLabel": "Wachten op bevestiging",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/SPGI"
+    },
+    {
+      "id": "Rohit Khanna:NVDA",
+      "politician": "Rohit Khanna",
+      "symbol": "NVDA",
+      "company": "NVIDIA Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-05",
+        "disclosureDate": "2026-07-06",
+        "reportingDelayDays": 31,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
+      },
+      "market": {
+        "price": 221.8,
+        "priceDate": "2026-08-05",
+        "sma50": 205.82,
+        "sma200": 193.61,
+        "rsi14": 60.5,
+        "atr14": 8.01,
+        "annualizedVolatilityPct": 42.2,
+        "fiftyTwoWeekHigh": 236.54,
+        "fiftyTwoWeekLow": 164.07
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 85.2,
+        "netIncomeGrowthYoYPct": 210.6,
+        "netMarginPct": 63.0,
+        "freeCashFlowMarginPct": 47.0,
+        "peRatio": 34.0,
+        "debtToEquity": 0.06
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +85.2%; nettowinst j-o-j +210.6%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 63.0%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 47.0%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 34.0; schuld/eigen vermogen 0.1."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +14.6%; RSI 60.5; volatiliteit 42.2%."
+        }
+      ],
+      "score": 5,
+      "complete": true,
+      "signal": "BUY",
+      "signalLabel": "Koopkandidaat",
+      "strategy": {
+        "active": true,
+        "entryLow": 217.8,
+        "entryHigh": 221.8,
+        "stopLoss": 204.06,
+        "takeProfit": 257.29,
+        "rewardRiskRatio": 2,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/NVDA"
+    },
+    {
+      "id": "Rohit Khanna:MSFT",
+      "politician": "Rohit Khanna",
+      "symbol": "MSFT",
+      "company": "Microsoft Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-05",
+        "disclosureDate": "2026-07-06",
+        "reportingDelayDays": 31,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
+      },
+      "market": {
+        "price": 488.77,
+        "priceDate": "2026-08-05",
+        "sma50": 403.62,
+        "sma200": 433.24,
+        "rsi14": 77.9,
+        "atr14": 17.72,
+        "annualizedVolatilityPct": 47.1,
+        "fiftyTwoWeekHigh": 553.72,
+        "fiftyTwoWeekLow": 349.2
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 17.7,
+        "netIncomeGrowthYoYPct": 31.3,
+        "netMarginPct": 40.3,
+        "freeCashFlowMarginPct": 20.2,
+        "peRatio": 27.2,
+        "debtToEquity": 0.13
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +17.7%; nettowinst j-o-j +31.3%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 40.3%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 20.2%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 27.2; schuld/eigen vermogen 0.1."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags +12.8%; RSI 77.9; volatiliteit 47.1%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "WAIT",
+      "signalLabel": "Wachten op bevestiging",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/MSFT"
+    },
+    {
+      "id": "Rohit Khanna:AMZN",
+      "politician": "Rohit Khanna",
+      "symbol": "AMZN",
+      "company": "Amazon.com, Inc.",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-05",
+        "disclosureDate": "2026-07-06",
+        "reportingDelayDays": 31,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116206.pdf"
+      },
+      "market": {
+        "price": 276.43,
+        "priceDate": "2026-08-05",
+        "sma50": 247.39,
+        "sma200": 235.97,
+        "rsi14": 64.2,
+        "atr14": 9.79,
+        "annualizedVolatilityPct": 45.2,
+        "fiftyTwoWeekHigh": 287.2,
+        "fiftyTwoWeekLow": 196.0
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 16.6,
+        "netIncomeGrowthYoYPct": 76.7,
+        "netMarginPct": 12.2,
+        "freeCashFlowMarginPct": -0.3,
+        "peRatio": 22.2,
+        "debtToEquity": 0.47
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +16.6%; nettowinst j-o-j +76.7%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 12.2%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: -0.3%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 22.2; schuld/eigen vermogen 0.5."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +17.1%; RSI 64.2; volatiliteit 45.2%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/AMZN"
+    },
+    {
+      "id": "John Boozman:ATO",
+      "politician": "John Boozman",
+      "symbol": "ATO",
+      "company": "Atmos Energy Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-12",
+        "disclosureDate": "2026-07-13",
+        "reportingDelayDays": 31,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
+      },
+      "market": {
+        "price": 171.97,
+        "priceDate": "2026-08-05",
+        "sma50": 173.51,
+        "sma200": 176.31,
+        "rsi14": 32.9,
+        "atr14": 3.26,
+        "annualizedVolatilityPct": 17.5,
+        "fiftyTwoWeekHigh": 192.51,
+        "fiftyTwoWeekLow": 155.56
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 0.6,
+        "netIncomeGrowthYoYPct": 19.8,
+        "netMarginPct": 27.6,
+        "freeCashFlowMarginPct": -40.8,
+        "peRatio": 17.0,
+        "debtToEquity": 0.65
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +0.6%; nettowinst j-o-j +19.8%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 27.6%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: -40.8%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 17.0; schuld/eigen vermogen 0.6."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -2.5%; RSI 32.9; volatiliteit 17.5%."
+        }
+      ],
+      "score": 2,
+      "complete": true,
+      "signal": "REDUCE",
+      "signalLabel": "Risicosignaal",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/ATO"
+    },
+    {
+      "id": "John Boozman:BSX",
+      "politician": "John Boozman",
+      "symbol": "BSX",
+      "company": "Boston Scientific Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-04",
+        "disclosureDate": "2026-07-13",
+        "reportingDelayDays": 39,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
+      },
+      "market": {
+        "price": 48.09,
+        "priceDate": "2026-08-05",
+        "sma50": 46.09,
+        "sma200": 72.44,
+        "rsi14": 69.5,
+        "atr14": 1.71,
+        "annualizedVolatilityPct": 40.3,
+        "fiftyTwoWeekHigh": 109.5,
+        "fiftyTwoWeekLow": 42.2
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 11.6,
+        "netIncomeGrowthYoYPct": 99.0,
+        "netMarginPct": 17.3,
+        "freeCashFlowMarginPct": 16.0,
+        "peRatio": 19.5,
+        "debtToEquity": 0.43
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +11.6%; nettowinst j-o-j +99.0%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 17.3%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 16.0%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 19.5; schuld/eigen vermogen 0.4."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -33.6%; RSI 69.5; volatiliteit 40.3%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/BSX"
+    },
+    {
+      "id": "John Boozman:UNH",
+      "politician": "John Boozman",
+      "symbol": "UNH",
+      "company": "UnitedHealth Group Incorporated",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-04",
+        "disclosureDate": "2026-07-13",
+        "reportingDelayDays": 39,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/9c0b720d-7e27-4b02-8cf5-a85ba88c9543/"
+      },
+      "market": {
+        "price": 408.57,
+        "priceDate": "2026-08-05",
+        "sma50": 411.71,
+        "sma200": 345.46,
+        "rsi14": 40.5,
+        "atr14": 11.53,
+        "annualizedVolatilityPct": 26.0,
+        "fiftyTwoWeekHigh": 461.62,
+        "fiftyTwoWeekLow": 239.5
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 2.0,
+        "netIncomeGrowthYoYPct": -0.2,
+        "netMarginPct": 2.7,
+        "freeCashFlowMarginPct": 4.4,
+        "peRatio": 30.9,
+        "debtToEquity": 0.8
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +2.0%; nettowinst j-o-j -0.2%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "bad",
+          "passed": false,
+          "detail": "Nettomarge over de laatste vier kwartalen: 2.7%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: 4.4%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 30.9; schuld/eigen vermogen 0.8."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +18.3%; RSI 40.5; volatiliteit 26.0%."
+        }
+      ],
+      "score": 2,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/UNH"
+    },
+    {
+      "id": "Thomas H Tuberville:WAB",
+      "politician": "Thomas H Tuberville",
+      "symbol": "WAB",
+      "company": "Westinghouse Air Brake Technologies Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-06-09",
+        "disclosureDate": "2026-07-16",
+        "reportingDelayDays": 37,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
+      },
+      "market": {
+        "price": 298.67,
+        "priceDate": "2026-08-05",
+        "sma50": 271.58,
+        "sma200": 244.25,
+        "rsi14": 71.2,
+        "atr14": 9.48,
+        "annualizedVolatilityPct": 33.7,
+        "fiftyTwoWeekHigh": 306.64,
+        "fiftyTwoWeekLow": 184.26
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 17.5,
+        "netIncomeGrowthYoYPct": 17.6,
+        "netMarginPct": 10.6,
+        "freeCashFlowMarginPct": 14.3,
+        "peRatio": 40.1,
+        "debtToEquity": 0.59
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +17.5%; nettowinst j-o-j +17.6%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 10.6%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 14.3%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "bad",
+          "passed": false,
+          "detail": "K/W 40.1; schuld/eigen vermogen 0.6."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +22.3%; RSI 71.2; volatiliteit 33.7%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/WAB"
+    },
+    {
+      "id": "Thomas H Tuberville:PG",
+      "politician": "Thomas H Tuberville",
+      "symbol": "PG",
+      "company": "The Procter & Gamble Company",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$15,001 - $50,000",
+        "transactionDate": "2026-06-08",
+        "disclosureDate": "2026-07-16",
+        "reportingDelayDays": 38,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
+      },
+      "market": {
+        "price": 145.83,
+        "priceDate": "2026-08-05",
+        "sma50": 147.5,
+        "sma200": 148.01,
+        "rsi14": 35.6,
+        "atr14": 3.66,
+        "annualizedVolatilityPct": 23.2,
+        "fiftyTwoWeekHigh": 167.25,
+        "fiftyTwoWeekLow": 137.62
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 7.4,
+        "netIncomeGrowthYoYPct": 4.3,
+        "netMarginPct": 19.2,
+        "freeCashFlowMarginPct": 17.3,
+        "peRatio": 22.0,
+        "debtToEquity": 0.68
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +7.4%; nettowinst j-o-j +4.3%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 19.2%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 17.3%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 22.0; schuld/eigen vermogen 0.7."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -1.5%; RSI 35.6; volatiliteit 23.2%."
+        }
+      ],
+      "score": 4,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/PG"
+    },
+    {
+      "id": "Thomas H Tuberville:PFE",
+      "politician": "Thomas H Tuberville",
+      "symbol": "PFE",
+      "company": "Pfizer Inc.",
+      "currency": "USD",
+      "politicianSignal": {
+        "action": "Sale",
+        "amount": "$15,001 - $50,000",
+        "transactionDate": "2026-06-08",
+        "disclosureDate": "2026-07-16",
+        "reportingDelayDays": 38,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/392ac3e5-07f6-4f8c-840f-84e9066ffb29/"
+      },
+      "market": {
+        "price": 25.46,
+        "priceDate": "2026-08-05",
+        "sma50": 25.05,
+        "sma200": 25.84,
+        "rsi14": 55.4,
+        "atr14": 0.52,
+        "annualizedVolatilityPct": 19.9,
+        "fiftyTwoWeekHigh": 28.75,
+        "fiftyTwoWeekLow": 23.58
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 5.4,
+        "netIncomeGrowthYoYPct": -9.4,
+        "netMarginPct": 11.8,
+        "freeCashFlowMarginPct": 15.0,
+        "peRatio": 19.4,
+        "debtToEquity": 0.71
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +5.4%; nettowinst j-o-j -9.4%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 11.8%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 15.0%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 19.4; schuld/eigen vermogen 0.7."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -1.5%; RSI 55.4; volatiliteit 19.9%."
+        }
+      ],
+      "score": 3,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/PFE"
+    }
+  ],
+  "errors": []
+}

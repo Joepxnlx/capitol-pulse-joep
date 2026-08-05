@@ -283,10 +283,10 @@ def send_ntfy(trades: list[dict[str, Any]]) -> None:
         return
 
     shown = trades[:6]
-    lines = [
-        f"{trade['politician']} · {trade['symbol'] or trade['assetDescription']} · {trade['type']} · {trade['amount']}"
-        for trade in shown
-    ]
+    lines = []
+    for trade in shown:
+        trade_type = "Aankoop" if re.search(r"purchase|buy", trade["type"], re.I) else "Verkoop" if re.search(r"sale|sell", trade["type"], re.I) else trade["type"]
+        lines.append(f"{trade['politician']} · {trade['symbol'] or trade['assetDescription']} · {trade_type} · {trade['amount']}")
     if len(trades) > len(shown):
         lines.append(f"… en nog {len(trades) - len(shown)} nieuwe transacties")
     headers = {
@@ -295,7 +295,7 @@ def send_ntfy(trades: list[dict[str, Any]]) -> None:
     }
     app_url = os.getenv("CAPITOL_PULSE_URL", "").strip() or default_app_url()
     if app_url.startswith("https://"):
-        headers["Click"] = app_url
+        headers["Click"] = f"{app_url.rstrip('/')}/#analyse"
     try:
         response = requests.post(
             f"https://ntfy.sh/{quote(topic, safe='')}",
