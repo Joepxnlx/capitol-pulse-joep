@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
+    inputs:
+      send_analysis_digest:
+        description: "Stuur de huidige 5/5-koopkandidaat als ntfy-testmelding"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   actions: write
@@ -40,6 +46,12 @@ jobs:
 
       - name: Aandelenanalyse vernieuwen
         env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          WATCH_TICKERS: ${{ vars.WATCH_TICKERS }}
+          WATCH_POLITICIANS: ${{ vars.WATCH_POLITICIANS }}
+          CAPITOL_PULSE_URL: https://joepxnlx.github.io/capitol-pulse-joep/
+          SEND_ANALYSIS_DIGEST: ${{ inputs.send_analysis_digest && 'true' || 'false' }}
+          FORCE_ANALYSIS: ${{ inputs.send_analysis_digest && '1' || '0' }}
           PYTHONUNBUFFERED: "1"
         run: python scripts/update_analysis.py
 

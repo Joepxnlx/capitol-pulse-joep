@@ -107,6 +107,8 @@ h2 { margin: 0; font-size: 1.28rem; letter-spacing: -.025em; }
 .signal.buy { color: var(--green); border-color: rgb(85 221 168 / 38%); background: rgb(85 221 168 / 8%); }
 .signal.wait { color: var(--amber); border-color: rgb(255 199 102 / 38%); background: rgb(255 199 102 / 8%); }
 .signal.avoid, .signal.reduce { color: var(--red); border-color: rgb(255 140 140 / 35%); background: rgb(255 140 140 / 7%); }
+.signal.take_profit { color: var(--green); border-color: rgb(85 221 168 / 42%); background: rgb(85 221 168 / 10%); }
+.signal.stop, .signal.exit { color: var(--red); border-color: rgb(255 140 140 / 40%); background: rgb(255 140 140 / 8%); }
 .politician-signal { display: grid; gap: 2px; margin: 13px 0; padding: 11px; border-left: 3px solid var(--line); border-radius: 10px; background: var(--surface-soft); }
 .politician-signal.purchase { border-color: var(--green); }
 .politician-signal.sale { border-color: var(--red); }
@@ -127,6 +129,7 @@ h2 { margin: 0; font-size: 1.28rem; letter-spacing: -.025em; }
 .position-plan strong { display: block; margin-top: 2px; font-size: .76rem; }
 .position-plan > small { grid-column: 1 / -1; color: var(--muted); font-size: .68rem; }
 .no-position { display: grid; padding: 11px; border: 1px dashed var(--line); border-radius: 12px; }
+.exit-position { border-style: solid; border-color: rgb(255 199 102 / 32%); background: rgb(255 199 102 / 6%); }
 .no-position strong { font-size: .78rem; }
 .no-position span { color: var(--muted); font-size: .7rem; }
 .analysis-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 11px; }
