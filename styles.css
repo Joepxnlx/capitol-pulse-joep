@@ -1,0 +1,14 @@
+{
+  "name": "Capitol Pulse",
+  "short_name": "Capitol Pulse",
+  "description": "Volg openbaar gemaakte effectentransacties van leden van het Amerikaanse Congres.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#08101b",
+  "theme_color": "#0b1320",
+  "lang": "nl-NL",
+  "icons": [
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
