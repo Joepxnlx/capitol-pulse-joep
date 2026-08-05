@@ -82,6 +82,60 @@ h2 { margin: 0; font-size: 1.28rem; letter-spacing: -.025em; }
 .stats strong { display: block; margin: 8px 0 4px; font-size: 1.85rem; letter-spacing: -.04em; }
 .stats small { font-size: .75rem; }
 
+.analysis-panel { margin-bottom: 18px; padding: 22px; }
+.analysis-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: end; }
+.analysis-heading h2 { font-size: clamp(1.55rem, 3vw, 2.35rem); }
+.analysis-intro { max-width: 800px; margin: 9px 0 0; color: var(--muted); }
+.analysis-freshness { color: var(--muted); font-size: .75rem; text-align: right; }
+.analysis-warning { display: flex; gap: 8px 12px; margin: 18px 0; padding: 13px 15px; border: 1px solid rgb(255 199 102 / 30%); border-radius: 14px; background: rgb(255 199 102 / 7%); }
+.analysis-warning strong { flex: 0 0 auto; color: var(--amber); }
+.analysis-warning span { color: var(--muted); }
+.analysis-tools { display: grid; grid-template-columns: minmax(0, 1fr) 180px 180px; gap: 13px; align-items: end; margin-bottom: 13px; }
+.analysis-tools label { display: grid; gap: 7px; color: var(--muted); font-size: .76rem; font-weight: 700; }
+.field-label { display: block; margin-bottom: 7px; color: var(--muted); font-size: .76rem; font-weight: 700; }
+.politician-choices { display: flex; flex-wrap: wrap; gap: 7px; }
+.politician-choice { min-height: 40px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface-raised); font-size: .75rem; font-weight: 800; }
+.politician-choice:hover, .politician-choice.active { color: var(--green); border-color: rgb(85 221 168 / 48%); background: rgb(85 221 168 / 8%); }
+.analysis-status { margin: 8px 0 14px; color: var(--muted); font-size: .82rem; }
+.analysis-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.analysis-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 17px; background: rgb(18 35 58 / 68%); }
+.analysis-card-head { display: flex; justify-content: space-between; gap: 13px; align-items: start; }
+.analysis-symbol { display: grid; min-width: 0; }
+.analysis-symbol > span { color: var(--text); font-size: 1.3rem; font-weight: 900; letter-spacing: -.03em; }
+.analysis-symbol small { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.signal { flex: 0 0 auto; padding: 6px 8px; border: 1px solid var(--line); border-radius: 999px; font-size: .67rem; font-weight: 900; }
+.signal.buy { color: var(--green); border-color: rgb(85 221 168 / 38%); background: rgb(85 221 168 / 8%); }
+.signal.wait { color: var(--amber); border-color: rgb(255 199 102 / 38%); background: rgb(255 199 102 / 8%); }
+.signal.avoid, .signal.reduce { color: var(--red); border-color: rgb(255 140 140 / 35%); background: rgb(255 140 140 / 7%); }
+.politician-signal { display: grid; gap: 2px; margin: 13px 0; padding: 11px; border-left: 3px solid var(--line); border-radius: 10px; background: var(--surface-soft); }
+.politician-signal.purchase { border-color: var(--green); }
+.politician-signal.sale { border-color: var(--red); }
+.politician-signal > span, .politician-signal small { color: var(--muted); font-size: .72rem; }
+.market-line { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.market-line div { min-width: 0; padding: 9px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-raised); }
+.market-line span, .position-plan span { display: block; color: var(--muted); font-size: .66rem; }
+.market-line strong { display: block; margin-top: 3px; font-size: .78rem; overflow-wrap: normal; }
+.factor-list { display: grid; gap: 7px; margin: 13px 0; padding: 0; list-style: none; }
+.factor { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: 8px; align-items: start; }
+.factor-mark { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); font-size: .74rem; font-weight: 900; }
+.factor.good .factor-mark { color: var(--green); border-color: rgb(85 221 168 / 42%); background: rgb(85 221 168 / 8%); }
+.factor.bad .factor-mark { color: var(--red); border-color: rgb(255 140 140 / 40%); background: rgb(255 140 140 / 7%); }
+.factor div { display: grid; }
+.factor strong { font-size: .78rem; }
+.factor small { color: var(--muted); font-size: .7rem; line-height: 1.4; }
+.position-plan { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 11px; border: 1px solid rgb(85 221 168 / 28%); border-radius: 12px; background: rgb(85 221 168 / 6%); }
+.position-plan strong { display: block; margin-top: 2px; font-size: .76rem; }
+.position-plan > small { grid-column: 1 / -1; color: var(--muted); font-size: .68rem; }
+.no-position { display: grid; padding: 11px; border: 1px dashed var(--line); border-radius: 12px; }
+.no-position strong { font-size: .78rem; }
+.no-position span { color: var(--muted); font-size: .7rem; }
+.analysis-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 11px; }
+.analysis-links a { font-size: .72rem; font-weight: 800; }
+.methodology { margin-top: 15px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 13px; color: var(--muted); background: var(--surface-soft); }
+.methodology summary { color: var(--text); cursor: pointer; font-weight: 800; }
+.methodology ol { padding-left: 20px; }
+.methodology li, .methodology p { margin: 7px 0; font-size: .78rem; }
+
 .controls { display: grid; grid-template-columns: 1.65fr repeat(4, 1fr); gap: 12px; margin-bottom: 18px; padding: 18px; }
 .controls label { display: grid; gap: 7px; color: var(--muted); font-size: .76rem; font-weight: 700; }
 input, select { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; outline: none; color: var(--text); background: var(--surface-raised); }
@@ -139,6 +193,9 @@ footer p { max-width: 520px; margin: 0; }
   .controls { grid-template-columns: repeat(2, 1fr); }
   .search-field { grid-column: 1 / -1; }
   .content-grid { grid-template-columns: 1fr; }
+  .analysis-cards { grid-template-columns: 1fr; }
+  .analysis-tools { grid-template-columns: 1fr 1fr; }
+  .analysis-tools > div:first-child { grid-column: 1 / -1; }
   .sidebar { position: static; grid-template-columns: repeat(2, 1fr); }
   .trade-card { grid-template-columns: 52px minmax(0, 1fr) 42px; }
   .trade-amount, .trade-date { grid-column: 2; }
@@ -156,6 +213,16 @@ footer p { max-width: 520px; margin: 0; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stats article { padding: 15px; }
   .controls, .sidebar { grid-template-columns: 1fr; }
+  .analysis-panel { padding: 16px 10px; }
+  .analysis-heading, .analysis-tools { grid-template-columns: 1fr; }
+  .analysis-tools > div:first-child { grid-column: auto; }
+  .analysis-freshness { text-align: left; }
+  .analysis-warning { display: grid; }
+  .politician-choices { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .politician-choice { flex: 0 0 auto; }
+  .analysis-card-head { display: grid; }
+  .signal { justify-self: start; }
+  .market-line { grid-template-columns: 1fr; }
   .search-field { grid-column: auto; }
   .panel { padding: 14px 10px; }
   .trade-card { padding: 12px 9px; gap: 10px; }

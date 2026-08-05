@@ -1,7 +1,9 @@
 'use strict';
 
 const DATA_URL = './public/data/live.json';
+const ANALYSIS_URL = './public/data/analysis.json';
 const CACHE_KEY = 'capitol-pulse-data-cache-v1';
+const ANALYSIS_CACHE_KEY = 'capitol-pulse-analysis-cache-v1';
 const FAVORITES_KEY = 'capitol-pulse-favorites-v1';
 const PAGE_SIZE = 30;
 
@@ -26,6 +28,12 @@ const elements = {
   loadMoreButton: $('loadMoreButton'),
   favoritesSummary: $('favoritesSummary'),
   lastUpdated: $('lastUpdated'),
+  analysisFreshness: $('analysisFreshness'),
+  politicianChoices: $('politicianChoices'),
+  analysisBudget: $('analysisBudget'),
+  analysisRisk: $('analysisRisk'),
+  analysisStatus: $('analysisStatus'),
+  analysisCards: $('analysisCards'),
   detailDialog: $('detailDialog'),
   detailContent: $('detailContent'),
   closeDialogButton: $('closeDialogButton'),
@@ -34,6 +42,8 @@ const elements = {
 const state = {
   trades: [],
   metadata: {},
+  analysis: null,
+  selectedPolitician: 'all',
   visible: PAGE_SIZE,
   favorites: readFavorites(),
   installPrompt: null,
@@ -86,6 +96,21 @@ function formatDateTime(value) {
     : `Dataset bijgewerkt ${new Intl.DateTimeFormat('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }).format(date)}`;
 }
 
+function formatCurrency(value, currency = 'USD') {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return 'Niet beschikbaar';
+  try {
+    return new Intl.NumberFormat('nl-NL', { style: 'currency', currency, maximumFractionDigits: 2 }).format(number);
+  } catch {
+    return `${currency} ${number.toFixed(2)}`;
+  }
+}
+
+function formatCompactNumber(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number.toLocaleString('nl-NL', { maximumFractionDigits: 1 }) : '–';
+}
+
 function isPurchase(value = '') { return /purchase|buy|aankoop/i.test(value); }
 function isSale(value = '') { return /sale|sell|verkoop/i.test(value); }
 function typeLabel(value = '') {
@@ -125,10 +150,29 @@ async function fetchPayload() {
   return payload;
 }
 
+async function fetchAnalysisPayload() {
+  const response = await fetch(`${ANALYSIS_URL}?v=${Date.now()}`, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const payload = await response.json();
+  if (!payload || !Array.isArray(payload.stocks) || payload.stocks.length === 0) {
+    throw new Error('De analyse bevat geen aandelen.');
+  }
+  return payload;
+}
+
 function readCachedPayload() {
   try {
     const payload = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
     return payload && Array.isArray(payload.trades) && payload.trades.length ? payload : null;
+  } catch {
+    return null;
+  }
+}
+
+function readCachedAnalysis() {
+  try {
+    const payload = JSON.parse(localStorage.getItem(ANALYSIS_CACHE_KEY) || 'null');
+    return payload && Array.isArray(payload.stocks) && payload.stocks.length ? payload : null;
   } catch {
     return null;
   }
@@ -169,6 +213,120 @@ async function loadData({ manual = false } = {}) {
   } finally {
     elements.refreshButton.disabled = false;
   }
+}
+
+async function loadAnalysis({ manual = false } = {}) {
+  if (manual) elements.analysisStatus.textContent = 'Analyse vernieuwen…';
+  try {
+    const payload = await fetchAnalysisPayload();
+    state.analysis = payload;
+    try { localStorage.setItem(ANALYSIS_CACHE_KEY, JSON.stringify(payload)); } catch { /* Niet essentieel. */ }
+    renderAnalysis();
+  } catch (error) {
+    const cached = readCachedAnalysis();
+    if (cached) {
+      state.analysis = cached;
+      renderAnalysis(true);
+    } else {
+      elements.analysisFreshness.textContent = 'Niet beschikbaar';
+      elements.analysisStatus.textContent = 'De aandelenanalyse kon niet worden geladen. De transacties blijven wel beschikbaar.';
+      elements.analysisCards.innerHTML = '';
+    }
+    console.error('Capitol Pulse kon de aandelenanalyse niet laden:', error);
+  }
+}
+
+function actionLabel(value) {
+  return value === 'Purchase' ? 'Aankoop' : value === 'Sale' ? 'Verkoop' : value || 'Onbekend';
+}
+
+function renderPoliticianChoices() {
+  if (!state.analysis) return;
+  const people = state.analysis.featuredPoliticians || [];
+  const choices = [{ name: 'all', label: 'Alle vijf' }, ...people.map((person) => ({
+    name: person.name,
+    label: person.name,
+  }))];
+  elements.politicianChoices.innerHTML = choices.map((choice) => `
+    <button class="politician-choice ${state.selectedPolitician === choice.name ? 'active' : ''}" type="button" data-analysis-politician="${escapeHtml(choice.name)}">
+      ${escapeHtml(choice.label)}
+    </button>`).join('');
+  elements.politicianChoices.querySelectorAll('[data-analysis-politician]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.selectedPolitician = button.dataset.analysisPolitician;
+      renderAnalysis();
+    });
+  });
+}
+
+function positionPlan(stock) {
+  if (!stock.strategy?.active) {
+    return '<div class="no-position"><strong>Geen modelpositie</strong><span>De aankoopregel is niet volledig bevestigd; er wordt geen instapbedrag berekend.</span></div>';
+  }
+  const budget = Math.max(0, Number(elements.analysisBudget.value) || 0);
+  const riskPercent = Math.max(0, Number(elements.analysisRisk.value) || 0);
+  const entry = Number(stock.strategy.entryHigh);
+  const stop = Number(stock.strategy.stopLoss);
+  const riskPerShare = entry - stop;
+  const riskBudget = budget * riskPercent / 100;
+  const riskShares = riskPerShare > 0 ? Math.floor(riskBudget / riskPerShare) : 0;
+  const cashShares = entry > 0 ? Math.floor(budget / entry) : 0;
+  const shares = Math.max(0, Math.min(riskShares, cashShares));
+  const investment = shares * entry;
+  const maximumLoss = shares * riskPerShare;
+  return `<div class="position-plan">
+    <div><span>Instapzone</span><strong>${formatCurrency(stock.strategy.entryLow, stock.currency)} – ${formatCurrency(stock.strategy.entryHigh, stock.currency)}</strong></div>
+    <div><span>Stop-loss</span><strong>${formatCurrency(stock.strategy.stopLoss, stock.currency)}</strong></div>
+    <div><span>Verkoopdoel (2R)</span><strong>${formatCurrency(stock.strategy.takeProfit, stock.currency)}</strong></div>
+    <div><span>Voorbeeldpositie</span><strong>${shares ? `${shares} ${shares === 1 ? 'aandeel' : 'aandelen'} · ${formatCurrency(investment, stock.currency)}` : '0 hele aandelen'}</strong></div>
+    <small>Modelrisico bij stop: ${formatCurrency(maximumLoss, stock.currency)} van ${formatCurrency(budget, stock.currency)}. Fractionele aandelen en kosten zijn niet meegerekend.</small>
+  </div>`;
+}
+
+function analysisCard(stock) {
+  const signalClass = String(stock.signal || '').toLowerCase();
+  const filingUrl = safeUrl(stock.politicianSignal?.sourceUrl);
+  const marketUrl = safeUrl(stock.marketSourceUrl);
+  const factors = (stock.factors || []).map((item) => `<li class="factor ${escapeHtml(item.status)}">
+    <span class="factor-mark" aria-hidden="true">${item.status === 'good' ? '✓' : item.status === 'bad' ? '×' : '?'}</span>
+    <div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail)}</small></div>
+  </li>`).join('');
+  return `<article class="analysis-card">
+    <div class="analysis-card-head">
+      <div class="analysis-symbol"><span>${escapeHtml(stock.symbol)}</span><small>${escapeHtml(stock.company)}</small></div>
+      <span class="signal ${signalClass}">${escapeHtml(stock.signalLabel)} · ${Number(stock.score) || 0}/5</span>
+    </div>
+    <div class="politician-signal ${stock.politicianSignal?.action === 'Purchase' ? 'purchase' : 'sale'}">
+      <span>${escapeHtml(stock.politician)}</span>
+      <strong>${escapeHtml(actionLabel(stock.politicianSignal?.action))} · ${escapeHtml(stock.politicianSignal?.amount || 'bedrag onbekend')}</strong>
+      <small>Transactie ${escapeHtml(formatDate(stock.politicianSignal?.transactionDate))}; openbaar ${escapeHtml(formatDate(stock.politicianSignal?.disclosureDate))}.</small>
+    </div>
+    <div class="market-line">
+      <div><span>Laatste koers</span><strong>${formatCurrency(stock.market?.price, stock.currency)}</strong></div>
+      <div><span>Koersdatum</span><strong>${escapeHtml(formatDate(stock.market?.priceDate))}</strong></div>
+      <div><span>Volatiliteit</span><strong>${formatCompactNumber(stock.market?.annualizedVolatilityPct)}%</strong></div>
+    </div>
+    <ul class="factor-list">${factors}</ul>
+    ${positionPlan(stock)}
+    <div class="analysis-links">
+      ${filingUrl ? `<a href="${escapeHtml(filingUrl)}" target="_blank" rel="noopener noreferrer">Openbare filing ↗</a>` : ''}
+      ${marketUrl ? `<a href="${escapeHtml(marketUrl)}" target="_blank" rel="noopener noreferrer">Marktbron ↗</a>` : ''}
+    </div>
+  </article>`;
+}
+
+function renderAnalysis(cached = false) {
+  if (!state.analysis) return;
+  renderPoliticianChoices();
+  const stocks = state.analysis.stocks.filter((stock) => (
+    state.selectedPolitician === 'all' || stock.politician === state.selectedPolitician
+  ));
+  const buys = stocks.filter((stock) => stock.signal === 'BUY').length;
+  elements.analysisFreshness.textContent = `${cached ? 'Lokale kopie · ' : ''}${formatDateTime(state.analysis.metadata?.updatedAt)}`;
+  elements.analysisStatus.textContent = `${stocks.length} analyses · ${buys} koopkandida${buys === 1 ? 'at' : 'ten'} · alleen 5/5 wordt actief`;
+  elements.analysisCards.innerHTML = stocks.length
+    ? stocks.map(analysisCard).join('')
+    : '<div class="empty">Voor deze politicus zijn geen recente gewone aandelen met volledige marktdata gevonden.</div>';
 }
 
 function filteredTrades() {
@@ -326,7 +484,12 @@ elements.searchInput.addEventListener('input', resetAndRender);
 [elements.chamberFilter, elements.typeFilter, elements.favoriteFilter, elements.sortFilter]
   .forEach((element) => element.addEventListener('change', resetAndRender));
 elements.loadMoreButton.addEventListener('click', () => { state.visible += PAGE_SIZE; renderTrades(); });
-elements.refreshButton.addEventListener('click', () => loadData({ manual: true }));
+elements.refreshButton.addEventListener('click', () => Promise.all([
+  loadData({ manual: true }),
+  loadAnalysis({ manual: true }),
+]));
+elements.analysisBudget.addEventListener('input', () => renderAnalysis());
+elements.analysisRisk.addEventListener('change', () => renderAnalysis());
 elements.closeDialogButton.addEventListener('click', () => elements.detailDialog.close());
 elements.detailDialog.addEventListener('click', (event) => {
   if (event.target === elements.detailDialog) elements.detailDialog.close();
@@ -352,4 +515,4 @@ if ('serviceWorker' in navigator) {
   }));
 }
 
-loadData();
+Promise.all([loadData(), loadAnalysis()]);
