@@ -33,9 +33,11 @@ const elements = {
   notificationActiveDays: $('notificationActiveDays'),
   marketFreshness: $('marketFreshness'),
   marketStats: $('marketStats'),
+  marketCongressStats: $('marketCongressStats'),
   marketSearch: $('marketSearch'),
   marketSector: $('marketSector'),
   marketSignal: $('marketSignal'),
+  marketCongress: $('marketCongress'),
   marketRisk: $('marketRisk'),
   marketSort: $('marketSort'),
   marketStatus: $('marketStatus'),
@@ -77,6 +79,7 @@ const state = {
   metadata: {},
   analysis: null,
   marketScan: null,
+  congressByTicker: new Map(),
   selectedPolitician: 'all',
   visible: PAGE_SIZE,
   marketVisible: MARKET_PAGE_SIZE,
@@ -246,11 +249,51 @@ function readCachedMarket() {
   }
 }
 
+function normalizedTicker(value) {
+  return String(value || '').trim().toUpperCase().replace(/-/g, '.');
+}
+
+function indexCongressTrades() {
+  const index = new Map();
+  state.trades.forEach((trade) => {
+    const symbol = normalizedTicker(trade.symbol);
+    if (!symbol) return;
+    if (!index.has(symbol)) index.set(symbol, []);
+    index.get(symbol).push(trade);
+  });
+  index.forEach((trades) => trades.sort((left, right) => (
+    String(right.disclosureDate || '').localeCompare(String(left.disclosureDate || ''))
+    || String(right.transactionDate || '').localeCompare(String(left.transactionDate || ''))
+    || String(right.id || '').localeCompare(String(left.id || ''))
+  )));
+  state.congressByTicker = index;
+}
+
+function congressActivity(symbol) {
+  const trades = state.congressByTicker.get(normalizedTicker(symbol)) || [];
+  const purchases = trades.filter((trade) => isPurchase(trade.type)).length;
+  const sales = trades.filter((trade) => isSale(trade.type)).length;
+  const politicians = [...new Set(trades.map((trade) => trade.politician).filter(Boolean))];
+  const latest = trades[0] || null;
+  return {
+    trades,
+    purchases,
+    sales,
+    politicians,
+    latest,
+    netCount: purchases - sales,
+    latestIsPurchase: Boolean(latest && isPurchase(latest.type)),
+    latestIsSale: Boolean(latest && isSale(latest.type)),
+  };
+}
+
 function applyPayload(payload, cached = false) {
   state.trades = payload.trades.filter((trade) => trade && trade.id && trade.politician);
   state.metadata = payload.metadata || {};
+  indexCongressTrades();
   state.visible = PAGE_SIZE;
   renderAll();
+  if (state.marketScan) renderMarketScan();
   if (cached) {
     setStatus('error', 'Offline gegevens', 'De laatste lokaal bewaarde dataset wordt getoond.');
   } else {
@@ -321,6 +364,7 @@ async function loadMarketScan({ manual = false } = {}) {
       elements.marketFreshness.textContent = 'Eerste scan in voorbereiding';
       elements.marketStatus.textContent = 'De automatische GitHub-workflow bouwt de eerste volledige S&P 500-scan. Probeer het over enkele minuten opnieuw.';
       elements.marketStats.innerHTML = '';
+      elements.marketCongressStats.innerHTML = '';
       elements.marketList.innerHTML = '<div class="empty">Nog geen marktscan beschikbaar. De congresanalyse en transacties blijven gewoon werken.</div>';
     }
     console.error('Capitol Pulse kon de S&P 500-scan niet laden:', error);
@@ -477,17 +521,32 @@ function filteredMarketStocks() {
   const query = elements.marketSearch.value.trim().toLocaleLowerCase('nl-NL');
   const sector = elements.marketSector.value;
   const signal = elements.marketSignal.value;
+  const congressFilter = elements.marketCongress.value;
   const maximumRisk = elements.marketRisk.value === 'all' ? null : Number(elements.marketRisk.value);
   const rows = state.marketScan.stocks.filter((stock) => {
-    if (query && !`${stock.symbol} ${stock.company}`.toLocaleLowerCase('nl-NL').includes(query)) return false;
+    const activity = congressActivity(stock.symbol);
+    const searchable = `${stock.symbol} ${stock.company} ${activity.politicians.join(' ')}`.toLocaleLowerCase('nl-NL');
+    if (query && !searchable.includes(query)) return false;
     if (sector !== 'all' && stock.sector !== sector) return false;
     if (signal === 'favorites' && !state.favorites.tickers.includes(stock.symbol)) return false;
     if (!['all', 'favorites'].includes(signal) && stock.status !== signal) return false;
+    if (congressFilter === 'activity' && !activity.trades.length) return false;
+    if (congressFilter === 'purchases' && !activity.purchases) return false;
+    if (congressFilter === 'sales' && !activity.sales) return false;
+    if (congressFilter === 'latest-buy' && !activity.latestIsPurchase) return false;
+    if (congressFilter === 'net-buy' && activity.netCount <= 0) return false;
+    if (congressFilter === 'combined' && !(stock.status === 'CANDIDATE' && activity.latestIsPurchase)) return false;
+    if (congressFilter === 'none' && activity.trades.length) return false;
     if (maximumRisk !== null && Number(stock.annualizedVolatilityPct) > maximumRisk) return false;
     return true;
   });
   const sort = elements.marketSort.value;
   rows.sort((left, right) => {
+    const leftActivity = congressActivity(left.symbol);
+    const rightActivity = congressActivity(right.symbol);
+    if (sort === 'congress-latest') return String(rightActivity.latest?.disclosureDate || '').localeCompare(String(leftActivity.latest?.disclosureDate || '')) || left.symbol.localeCompare(right.symbol);
+    if (sort === 'congress-volume') return rightActivity.trades.length - leftActivity.trades.length || left.symbol.localeCompare(right.symbol);
+    if (sort === 'congress-net') return rightActivity.netCount - leftActivity.netCount || rightActivity.purchases - leftActivity.purchases || left.symbol.localeCompare(right.symbol);
     if (sort === 'relative') return (Number(right.relativeStrengthPctPoints) || -999) - (Number(left.relativeStrengthPctPoints) || -999);
     if (sort === 'return') return (Number(right.oneYearReturnPct) || -999) - (Number(left.oneYearReturnPct) || -999);
     if (sort === 'risk') return (Number(left.annualizedVolatilityPct) || 999) - (Number(right.annualizedVolatilityPct) || 999);
@@ -499,11 +558,61 @@ function filteredMarketStocks() {
   return rows;
 }
 
+function congressTradeRow(trade) {
+  const sourceUrl = safeUrl(trade.sourceUrl);
+  const delay = delayFor(trade);
+  const actionClass = isPurchase(trade.type) ? 'purchase' : isSale(trade.type) ? 'sale' : '';
+  return `<article class="congress-trade-row">
+    <div class="congress-trade-main">
+      <span class="badge ${actionClass}">${escapeHtml(typeLabel(trade.type))}</span>
+      <div><strong>${escapeHtml(trade.politician)}</strong><small>${escapeHtml(trade.chamber)} · ${escapeHtml(trade.owner || 'Eigenaar onbekend')}</small></div>
+    </div>
+    <div class="congress-trade-dates">
+      <strong>${escapeHtml(trade.amount || 'Bedrag onbekend')}</strong>
+      <small>Transactie ${escapeHtml(formatDate(trade.transactionDate))} · melding ${escapeHtml(formatDate(trade.disclosureDate))}${Number.isFinite(delay) ? ` · ${delay} dgn later` : ''}</small>
+      ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Filingbron ↗</a>` : '<small>Bronlink niet beschikbaar</small>'}
+    </div>
+  </article>`;
+}
+
+function congressBlock(stock, activity) {
+  if (!activity.trades.length) {
+    return `<div class="congress-empty">
+      <strong>Geen congresmelding in de huidige feed</strong>
+      <span>Voor ${escapeHtml(stock.symbol)} is binnen de ${state.trades.length.toLocaleString('nl-NL')} geladen recente openbaarmakingen geen aankoop of verkoop gevonden.</span>
+    </div>`;
+  }
+  const latest = activity.latest;
+  const combined = stock.status === 'CANDIDATE' && activity.latestIsPurchase;
+  const recentRows = activity.trades.slice(0, 5).map(congressTradeRow).join('');
+  const remaining = Math.max(0, activity.trades.length - 5);
+  return `<div class="congress-summary ${combined ? 'combined' : ''}">
+    <div class="congress-summary-head">
+      <div><span>Openbare Congresactiviteit</span><strong>${combined ? 'Congreskoop + technisch 6/6' : `${activity.trades.length} melding${activity.trades.length === 1 ? '' : 'en'}`}</strong></div>
+      ${combined ? '<span class="combined-badge">Dubbel signaal</span>' : ''}
+    </div>
+    <div class="congress-counts">
+      <span><strong>${activity.purchases}</strong> aankopen</span>
+      <span><strong>${activity.sales}</strong> verkopen</span>
+      <span><strong>${activity.politicians.length}</strong> politici</span>
+    </div>
+    <p>Laatste: <strong>${escapeHtml(typeLabel(latest.type))}</strong> door ${escapeHtml(latest.politician)} · openbaar ${escapeHtml(formatDate(latest.disclosureDate))}.</p>
+  </div>
+  <details class="congress-details" ${combined ? 'open' : ''}>
+    <summary>Bekijk recente aankopen en verkopen</summary>
+    <div class="congress-trade-list">${recentRows}</div>
+    ${remaining ? `<p class="congress-more">Nog ${remaining} melding${remaining === 1 ? '' : 'en'} beschikbaar via “Toon alle meldingen”.</p>` : ''}
+    <button class="button button-secondary" type="button" data-market-trades="${escapeHtml(stock.symbol)}">Toon alle meldingen voor ${escapeHtml(stock.symbol)}</button>
+  </details>`;
+}
+
 function marketCard(stock) {
   const favorite = state.favorites.tickers.includes(stock.symbol);
   const compared = state.marketCompare.includes(stock.symbol);
   const statusClass = String(stock.status || '').toLowerCase();
   const sourceUrl = safeUrl(stock.marketSourceUrl);
+  const activity = congressActivity(stock.symbol);
+  const combined = stock.status === 'CANDIDATE' && activity.latestIsPurchase;
   const checks = (stock.checks || []).map((item) => `
     <li class="scan-check ${item.passed ? 'good' : 'bad'}" title="${escapeHtml(item.threshold)}">
       <span>${item.passed ? '✓' : '×'}</span><div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail)}</small></div>
@@ -513,7 +622,7 @@ function marketCard(stock) {
     <div><span>Stop-loss</span><strong>${formatCurrency(stock.strategy.stopLoss, stock.currency)}</strong></div>
     <div><span>2R-doel</span><strong>${formatCurrency(stock.strategy.takeProfit, stock.currency)}</strong></div>
   </div>` : '';
-  return `<article class="market-card ${statusClass}">
+  return `<article class="market-card ${statusClass} ${combined ? 'congress-confirmed' : ''}">
     <div class="market-card-head">
       <div class="market-symbol"><strong>${escapeHtml(stock.symbol)}</strong><span>${escapeHtml(stock.company)}</span><small>${escapeHtml(stock.sector)}</small></div>
       <div class="market-score"><strong>${Number(stock.score) || 0}/6</strong><span>${escapeHtml(stock.signalLabel)}</span></div>
@@ -529,6 +638,7 @@ function marketCard(stock) {
       <ul>${checks}</ul>
     </details>
     ${plan}
+    ${congressBlock(stock, activity)}
     <div class="market-actions">
       <button class="icon-button market-star ${favorite ? 'active' : ''}" type="button" data-market-favorite="${escapeHtml(stock.symbol)}" aria-label="${favorite ? 'Stop met ticker volgen' : 'Volg ticker'}">★</button>
       <button class="button button-secondary compare-button ${compared ? 'active' : ''}" type="button" data-market-compare="${escapeHtml(stock.symbol)}">${compared ? 'In vergelijking' : 'Vergelijk'}</button>
@@ -552,6 +662,14 @@ function renderMarketComparison() {
     ['Sterkte versus S&P', (stock) => formatSignedPercent(stock.relativeStrengthPctPoints)],
     ['RSI', (stock) => formatCompactNumber(stock.rsi14)],
     ['Volatiliteit', (stock) => `${formatCompactNumber(stock.annualizedVolatilityPct)}%`],
+    ['Congresmeldingen', (stock) => {
+      const activity = congressActivity(stock.symbol);
+      return `${activity.purchases} koop / ${activity.sales} verkoop`;
+    }],
+    ['Laatste congresactie', (stock) => {
+      const latest = congressActivity(stock.symbol).latest;
+      return latest ? `${typeLabel(latest.type)} · ${latest.politician}` : 'Geen in huidige feed';
+    }],
     ['Sector', (stock) => stock.sector],
   ];
   elements.marketCompare.innerHTML = `
@@ -587,15 +705,25 @@ function renderMarketScan(cached = false) {
   elements.marketSector.value = sectors.includes(selectedSector) ? selectedSector : 'all';
   const candidates = state.marketScan.stocks.filter((stock) => stock.status === 'CANDIDATE').length;
   const watches = state.marketScan.stocks.filter((stock) => stock.status === 'WATCH').length;
+  const marketActivities = state.marketScan.stocks.map((stock) => ({ stock, activity: congressActivity(stock.symbol) }));
+  const stocksWithActivity = marketActivities.filter((item) => item.activity.trades.length).length;
+  const congressPurchases = marketActivities.reduce((sum, item) => sum + item.activity.purchases, 0);
+  const congressSales = marketActivities.reduce((sum, item) => sum + item.activity.sales, 0);
+  const combinedSignals = marketActivities.filter((item) => item.stock.status === 'CANDIDATE' && item.activity.latestIsPurchase).length;
   elements.marketFreshness.textContent = `${cached ? 'Lokale kopie · ' : ''}${metadata.scanDate ? `Koersen ${formatDate(metadata.scanDate)}` : formatDateTime(metadata.updatedAt)}`;
   elements.marketStats.innerHTML = `
     <article><span>Geanalyseerd</span><strong>${state.marketScan.stocks.length.toLocaleString('nl-NL')}</strong><small>S&P 500-noteringen</small></article>
     <article class="candidate"><span>Technische kandidaten</span><strong>${candidates}</strong><small>alle zes controles groen</small></article>
     <article class="watch"><span>Bijna bevestigd</span><strong>${watches}</strong><small>vijf van zes groen</small></article>
     <article><span>SPY in één jaar</span><strong class="${resultClass(metadata.benchmarkOneYearReturnPct)}">${formatSignedPercent(metadata.benchmarkOneYearReturnPct)}</strong><small>benchmark voor relatieve sterkte</small></article>`;
+  elements.marketCongressStats.innerHTML = `
+    <article><span>S&P-aandelen met melding</span><strong>${stocksWithActivity.toLocaleString('nl-NL')}</strong><small>binnen de huidige openbare feed</small></article>
+    <article class="purchase"><span>Congresaankopen</span><strong>${congressPurchases.toLocaleString('nl-NL')}</strong><small>openbaar gemaakte regels</small></article>
+    <article class="sale"><span>Congresverkopen</span><strong>${congressSales.toLocaleString('nl-NL')}</strong><small>openbaar gemaakte regels</small></article>
+    <article class="combined"><span>Congreskoop + 6/6</span><strong>${combinedSignals.toLocaleString('nl-NL')}</strong><small>laatste actie koop én technisch groen</small></article>`;
   const rows = filteredMarketStocks();
   const visible = rows.slice(0, state.marketVisible);
-  elements.marketStatus.textContent = `${rows.length.toLocaleString('nl-NL')} resultaten · ${candidates} volledige 6/6-kandidaten in de hele scan`;
+  elements.marketStatus.textContent = `${rows.length.toLocaleString('nl-NL')} resultaten · ${stocksWithActivity} S&P-aandelen met congresmelding · ${combinedSignals} gecombineerde signalen`;
   elements.marketList.innerHTML = visible.length ? visible.map(marketCard).join('') : '<div class="empty">Geen aandelen gevonden voor deze filters.</div>';
   elements.marketLoadMore.classList.toggle('hidden', state.marketVisible >= rows.length);
   renderMarketComparison();
@@ -607,6 +735,14 @@ function renderMarketScan(cached = false) {
   });
   elements.marketList.querySelectorAll('[data-market-journal]').forEach((button) => {
     button.addEventListener('click', () => prepareJournalEntry(button.dataset.marketJournal, 'BUY'));
+  });
+  elements.marketList.querySelectorAll('[data-market-trades]').forEach((button) => {
+    button.addEventListener('click', () => {
+      elements.searchInput.value = button.dataset.marketTrades;
+      state.visible = PAGE_SIZE;
+      renderTrades();
+      document.getElementById('transacties')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
   renderJournal();
 }
@@ -1122,7 +1258,7 @@ elements.analysisRisk.addEventListener('change', () => renderAnalysis());
 elements.journalForm.addEventListener('submit', submitJournalEntry);
 elements.journalExportButton.addEventListener('click', exportJournal);
 elements.marketSearch.addEventListener('input', () => { state.marketVisible = MARKET_PAGE_SIZE; renderMarketScan(); });
-[elements.marketSector, elements.marketSignal, elements.marketRisk, elements.marketSort].forEach((element) => {
+[elements.marketSector, elements.marketSignal, elements.marketCongress, elements.marketRisk, elements.marketSort].forEach((element) => {
   element.addEventListener('change', () => { state.marketVisible = MARKET_PAGE_SIZE; renderMarketScan(); });
 });
 elements.marketLoadMore.addEventListener('click', () => { state.marketVisible += MARKET_PAGE_SIZE; renderMarketScan(); });

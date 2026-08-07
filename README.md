@@ -118,6 +118,14 @@ De radar gebruikt één jaar dagelijkse Yahoo Finance-koersen en vergelijkt elk 
 
 Alleen 6/6 heet een **technische kandidaat**; 5/6 heet **bijna bevestigd**. Dit is een snelle technische voorselectie en nadrukkelijk geen vervanging voor de grondige fundamentele vijfpijleranalyse. De app ondersteunt zoeken, sector-, score- en risicofilters, favorieten, sortering en vergelijking van maximaal drie aandelen.
 
+### Congresactiviteit per S&P 500-aandeel
+
+De browser koppelt iedere S&P 500-ticker aan `public/data/live.json`. Daardoor toont elk aandeel aantallen openbaar gemaakte aankopen en verkopen, het aantal betrokken politici, de nieuwste actie en maximaal vijf recente transactieregels met transactiedatum, openbaarmakingsdatum, vertraging, bedragbandbreedte en filingbron. Aandelen zonder match krijgen expliciet **Geen congresmelding in de huidige feed**.
+
+De Congresfilters ondersteunen aandelen met activiteit, aankopen, verkopen, een laatste koop, een positief saldo van koop- versus verkoopregels, een gecombineerd **Congreskoop + technisch 6/6**-signaal en aandelen zonder huidige match. Zoeken binnen de marktradar vindt ook namen van politici. De vergelijker toont per geselecteerd aandeel eveneens het koop-/verkoopsaldo en de laatste politicus.
+
+Deze koppeling gebruikt maximaal de 1.500 recente records die voor de mobiele hoofdfeed worden gepubliceerd. “Geen melding” is dus geen uitspraak over de volledige historische handelsgeschiedenis. Het saldo telt openbaarmakingsregels en telt geen dollars op, omdat STOCK Act-bedragen als brede bandbreedtes worden gemeld. Een congreskoop verandert het technische oordeel niet automatisch in een koopadvies.
+
 `.github/workflows/update-market.yml` draait iedere beurswerkdag één keer, kan handmatig worden gestart en valideert ook pull requests. De eerste succesvolle scan is een meldingsbaseline. Daarna worden alleen nieuw ontstane 6/6-kandidaten als één samengevoegde ntfy-melding verstuurd. Hiervoor wordt hetzelfde `NTFY_TOPIC`-secret gebruikt; er is geen extra sleutel nodig.
 
 ## Persoonlijk transactiedagboek
