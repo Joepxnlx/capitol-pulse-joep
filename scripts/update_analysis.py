@@ -681,7 +681,7 @@ def send_ntfy_events(events: list[dict[str, Any]], strict: bool = False) -> bool
             tags = "warning,chart_with_downwards_trend"
         headers = {"Title": title, "Tags": tags, "Priority": "high"}
         if app_url.startswith("https://"):
-            headers["Click"] = f"{app_url.rstrip('/')}/#analyse"
+            headers["Click"] = f"{app_url.rstrip('/')}/#beslissing"
         try:
             response = requests.post(
                 f"https://ntfy.sh/{quote(topic, safe='')}",
