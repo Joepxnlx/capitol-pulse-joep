@@ -128,6 +128,12 @@ Deze koppeling gebruikt maximaal de 1.500 recente records die voor de mobiele ho
 
 `.github/workflows/update-market.yml` draait iedere beurswerkdag één keer, kan handmatig worden gestart en valideert ook pull requests. De eerste succesvolle scan is een meldingsbaseline. Daarna worden alleen nieuw ontstane 6/6-kandidaten als één samengevoegde ntfy-melding verstuurd. Hiervoor wordt hetzelfde `NTFY_TOPIC`-secret gebruikt; er is geen extra sleutel nodig.
 
+### Dagelijkse topselectie
+
+Bovenaan de app staan maximaal drie aandelen voor de laatste beschikbare beursdag. Een aandeel komt alleen in aanmerking wanneer de brede technische scan 6/6 is, de berekende strategie actief is, de nieuwste openbare Congresactie een aankoop is en die openbaarmaking binnen 90 dagen van de nieuwste melding in de feed valt. De rangschikking weegt meldingsrecentheid, het aantal verschillende kopende politici, het koop-verkoopsaldo, relatieve sterkte, volatiliteit en - indien beschikbaar - de fundamentele vijfpijlerscore. Bij minder dan drie geldige kandidaten blijft de lijst bewust korter.
+
+De selectie wordt in de browser opnieuw berekend zodra `live.json`, `analysis.json` of `sp500.json` vernieuwt. Congresdata wordt ieder halfuur gecontroleerd; de brede koersscan draait eenmaal per beurswerkdag en gebruikt de laatste beschikbare dagkoers. Een kandidaat kan daarom meerdere dagen gelijk blijven wanneer er geen nieuwe filing of technisch signaal is. De kaart toont een educatief instaplimietvoorbeeld, het modelstopniveau en het rekenkundige 2R-doel. Het zijn geen realtime koersen en geen automatische orders. Een limietorder hoeft niet te worden uitgevoerd en een stopprijs garandeert geen uitvoeringsprijs, vooral niet in een snel bewegende markt.
+
 ## Persoonlijk transactiedagboek
 
 In de app kun je werkelijke aankopen en verkopen registreren met datum, aantal, uitvoeringsprijs en kosten. Open posities gebruiken FIFO-kostprijs. De app toont aankoopwaarde, laatste beschikbare marktwaarde, ongerealiseerd resultaat en gerealiseerd resultaat. Een verkoop die groter is dan de volgens het dagboek open positie wordt geweigerd.

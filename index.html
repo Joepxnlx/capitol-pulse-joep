@@ -50,11 +50,34 @@
     </section>
 
     <nav class="quick-nav" aria-label="Belangrijkste onderdelen">
-      <a href="#beslissing"><span>01</span>Congresbeslissingen</a>
-      <a href="#markt"><span>02</span>S&P 500 + Congresradar</a>
-      <a href="#dagboek"><span>03</span>Mijn resultaat</a>
-      <a href="#transacties"><span>04</span>Openbare transacties</a>
+      <a href="#dagtop"><span>01</span>Dagelijkse topselectie</a>
+      <a href="#beslissing"><span>02</span>Congresbeslissingen</a>
+      <a href="#markt"><span>03</span>S&P 500 + Congresradar</a>
+      <a href="#dagboek"><span>04</span>Mijn resultaat</a>
+      <a href="#transacties"><span>05</span>Openbare transacties</a>
     </nav>
+
+    <section id="dagtop" class="panel daily-top-panel" aria-labelledby="dailyTopTitle">
+      <div class="daily-top-heading">
+        <div>
+          <p class="eyebrow">Politieke koop + volledige technische bevestiging</p>
+          <h2 id="dailyTopTitle">Top 3 van de laatste beursdag</h2>
+          <p>Dagelijks opnieuw gerangschikt met de nieuwste beschikbare S&P-koersen en openbaar gemaakte Congrestransacties. Alleen een recente laatste aankoop én technisch 6/6 komt in aanmerking.</p>
+        </div>
+        <div id="dailyTopFreshness" class="scan-badge daily-top-freshness">Dagselectie laden…</div>
+      </div>
+      <div class="daily-top-warning">
+        <strong>Geen realtime orderadvies</strong>
+        <span>De instap is een voorbeeldlimiet op basis van de laatste dagkoers. Een limietorder hoeft niet te worden uitgevoerd; een stopprijs is geen gegarandeerde uitvoeringsprijs. Controleer altijd de actuele brokerkoers.</span>
+      </div>
+      <div id="dailyTopStatus" class="analysis-status daily-top-status" role="status" aria-live="polite">Politieke en technische signalen combineren…</div>
+      <div id="dailyTopList" class="daily-top-list" aria-live="polite"></div>
+      <details class="methodology daily-top-methodology">
+        <summary>Zo wordt de dagelijkse top gerangschikt</summary>
+        <p>Toelating vereist: technisch 6/6, actieve voorbeeldstrategie, de nieuwste Congresmelding is een aankoop en die melding valt binnen 90 dagen van de nieuwste openbaarmaking in de feed. De volgorde beloont recentheid, meerdere kopende politici, meer koop- dan verkoopregels, relatieve sterkte versus SPY en waar beschikbaar een groene vijfpijleranalyse. Hogere volatiliteit en recente verkopen verlagen de rang.</p>
+        <p>Bij minder dan drie geldige kandidaten wordt de lijst niet kunstmatig aangevuld. Dit is onderzoeksondersteuning en geen persoonlijk beleggingsadvies, order of winstgarantie.</p>
+      </details>
+    </section>
 
     <section id="beslissing" class="panel decision-panel" aria-labelledby="decisionTitle">
       <div class="panel-heading decision-heading">

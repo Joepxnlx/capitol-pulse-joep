@@ -27,6 +27,9 @@ const elements = {
   statPurchases: $('statPurchases'),
   statSales: $('statSales'),
   statDelay: $('statDelay'),
+  dailyTopFreshness: $('dailyTopFreshness'),
+  dailyTopStatus: $('dailyTopStatus'),
+  dailyTopList: $('dailyTopList'),
   decisionCounts: $('decisionCounts'),
   decisionBoard: $('decisionBoard'),
   notificationFrequency: $('notificationFrequency'),
@@ -287,6 +290,139 @@ function congressActivity(symbol) {
   };
 }
 
+function newestDisclosureDate() {
+  return state.trades.reduce((latest, trade) => (
+    String(trade.disclosureDate || '') > latest ? String(trade.disclosureDate) : latest
+  ), '');
+}
+
+function dailyTopCandidates() {
+  if (!state.marketScan || !state.trades.length) return [];
+  const newestDisclosure = parseDate(newestDisclosureDate());
+  if (!newestDisclosure) return [];
+  const dayMs = 86400000;
+  return state.marketScan.stocks.map((stock) => {
+    const activity = congressActivity(stock.symbol);
+    const latestDate = parseDate(activity.latest?.disclosureDate);
+    if (stock.status !== 'CANDIDATE' || !stock.strategy?.active || !activity.latestIsPurchase || !latestDate) return null;
+    const disclosureAgeDays = Math.max(0, Math.round((newestDisclosure - latestDate) / dayMs));
+    if (disclosureAgeDays > 90) return null;
+    const cutoff = new Date(newestDisclosure.getTime() - 89 * dayMs);
+    const recent = activity.trades.filter((trade) => {
+      const date = parseDate(trade.disclosureDate);
+      return date && date >= cutoff && date <= newestDisclosure;
+    });
+    const recentPurchases = recent.filter((trade) => isPurchase(trade.type));
+    const recentSales = recent.filter((trade) => isSale(trade.type));
+    const buyingPoliticians = new Set(recentPurchases.map((trade) => trade.politician).filter(Boolean));
+    const deep = state.analysis?.stocks.find((item) => normalizedTicker(item.symbol) === normalizedTicker(stock.symbol)) || null;
+    const deepScore = Number(deep?.score) || 0;
+    const relative = Number(stock.relativeStrengthPctPoints) || 0;
+    const volatility = Number(stock.annualizedVolatilityPct) || 100;
+    const rankingScore = 1000
+      - disclosureAgeDays * 5
+      + buyingPoliticians.size * 35
+      + (recentPurchases.length - recentSales.length) * 8
+      + Math.max(-30, Math.min(60, relative)) * 1.5
+      + deepScore * 12
+      - volatility * 0.5;
+    return {
+      stock,
+      activity,
+      latest: activity.latest,
+      disclosureAgeDays,
+      recentPurchases: recentPurchases.length,
+      recentSales: recentSales.length,
+      buyingPoliticians: buyingPoliticians.size,
+      deep,
+      rankingScore,
+    };
+  }).filter(Boolean).sort((left, right) => (
+    right.rankingScore - left.rankingScore
+    || right.recentPurchases - left.recentPurchases
+    || left.disclosureAgeDays - right.disclosureAgeDays
+    || left.stock.symbol.localeCompare(right.stock.symbol)
+  ));
+}
+
+function dailyTopCard(candidate, index) {
+  const { stock, latest, deep } = candidate;
+  const strategy = stock.strategy || {};
+  const entry = Number(strategy.entry);
+  const stop = Number(strategy.stopLoss);
+  const target = Number(strategy.takeProfit);
+  const riskPct = entry > 0 && stop > 0 ? ((entry - stop) / entry) * 100 : null;
+  const upsidePct = entry > 0 && target > 0 ? ((target - entry) / entry) * 100 : null;
+  const filingUrl = safeUrl(latest.sourceUrl);
+  const marketUrl = safeUrl(stock.marketSourceUrl);
+  const deepLabel = deep
+    ? `Vijfpijleranalyse ${Number(deep.score) || 0}/5 · ${stockDecision(deep).label}`
+    : 'Geen volledige vijfpijleranalyse voor deze ticker; technische zes-puntenscan gebruikt.';
+  return `<article class="daily-top-card rank-${index + 1}">
+    <div class="daily-rank">${index + 1}</div>
+    <div class="daily-top-card-head">
+      <div><strong>${escapeHtml(stock.symbol)}</strong><span>${escapeHtml(stock.company)}</span><small>${escapeHtml(stock.sector)}</small></div>
+      <span class="daily-confirmation">Congreskoop + 6/6</span>
+    </div>
+    <div class="daily-politician">
+      <span>Nieuwste openbare aankoop</span>
+      <strong>${escapeHtml(latest.politician)} · ${escapeHtml(latest.chamber)}</strong>
+      <small>Transactie ${escapeHtml(formatDate(latest.transactionDate))} · openbaar ${escapeHtml(formatDate(latest.disclosureDate))} · ${candidate.disclosureAgeDays} dag${candidate.disclosureAgeDays === 1 ? '' : 'en'} t.o.v. nieuwste feedmelding</small>
+    </div>
+    <div class="daily-prices">
+      <div><span>Instaplimietvoorbeeld</span><strong>${formatCurrency(entry, stock.currency)}</strong><small>laatste beschikbare dagkoers; uitvoering niet gegarandeerd</small></div>
+      <div><span>Stopniveau</span><strong>${formatCurrency(stop, stock.currency)}</strong><small>${riskPct === null ? '–' : `${riskPct.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}% onder instap`}</small></div>
+      <div><span>Gewenst 2R-doel</span><strong>${formatCurrency(target, stock.currency)}</strong><small>${upsidePct === null ? '–' : `${upsidePct.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}% boven instap`}</small></div>
+    </div>
+    <div class="daily-analysis">
+      <h3>Waarom staat dit aandeel hier?</h3>
+      <ul>
+        <li>Technische score ${Number(stock.score) || 0}/6; relatieve sterkte ${formatSignedPercent(stock.relativeStrengthPctPoints)} versus SPY.</li>
+        <li>RSI ${formatCompactNumber(stock.rsi14)}; volatiliteit ${formatCompactNumber(stock.annualizedVolatilityPct)}%.</li>
+        <li>${candidate.recentPurchases} recente koopregel${candidate.recentPurchases === 1 ? '' : 's'} door ${candidate.buyingPoliticians} ${candidate.buyingPoliticians === 1 ? 'politicus' : 'politici'}; ${candidate.recentSales} verkoopregel${candidate.recentSales === 1 ? '' : 's'} in hetzelfde 90-dagenvenster.</li>
+        <li>${escapeHtml(deepLabel)}</li>
+      </ul>
+    </div>
+    <div class="daily-top-actions">
+      <button class="button" type="button" data-daily-journal="${escapeHtml(stock.symbol)}">Aankoop registreren</button>
+      <button class="button button-secondary" type="button" data-daily-market="${escapeHtml(stock.symbol)}">Volledige analyse</button>
+      ${filingUrl ? `<a href="${escapeHtml(filingUrl)}" target="_blank" rel="noopener noreferrer">Filingbron ↗</a>` : ''}
+      ${marketUrl ? `<a href="${escapeHtml(marketUrl)}" target="_blank" rel="noopener noreferrer">Marktbron ↗</a>` : ''}
+    </div>
+  </article>`;
+}
+
+function renderDailyTop(cached = false) {
+  if (!state.marketScan || !state.trades.length) {
+    elements.dailyTopFreshness.textContent = 'Datasets laden…';
+    elements.dailyTopStatus.textContent = 'De dagelijkse selectie verschijnt zodra markt- en Congresdata beschikbaar zijn.';
+    elements.dailyTopList.innerHTML = '';
+    return;
+  }
+  const marketMetadata = state.marketScan.metadata || {};
+  const candidates = dailyTopCandidates();
+  const selected = candidates.slice(0, 3);
+  elements.dailyTopFreshness.textContent = `${cached ? 'Lokale kopie · ' : ''}koersen ${formatDate(marketMetadata.scanDate)} · Congresfeed ${formatDateTime(state.metadata.updatedAt).replace('Dataset bijgewerkt ', '')}`;
+  elements.dailyTopStatus.textContent = selected.length === 3
+    ? `Drie geldige kandidaten uit ${candidates.length} aandelen die vandaag aan alle toelatingsregels voldoen.`
+    : `${selected.length} geldige kandidaat${selected.length === 1 ? '' : 'en'} gevonden; de lijst wordt niet met zwakkere signalen aangevuld.`;
+  elements.dailyTopList.innerHTML = selected.length
+    ? selected.map(dailyTopCard).join('')
+    : '<div class="empty">Vandaag is er geen aandeel met zowel een recente laatste Congreskoop als technische 6/6-bevestiging. Dat is een geldige uitkomst.</div>';
+  elements.dailyTopList.querySelectorAll('[data-daily-journal]').forEach((button) => {
+    button.addEventListener('click', () => prepareJournalEntry(button.dataset.dailyJournal, 'BUY'));
+  });
+  elements.dailyTopList.querySelectorAll('[data-daily-market]').forEach((button) => {
+    button.addEventListener('click', () => {
+      elements.marketSearch.value = button.dataset.dailyMarket;
+      elements.marketCongress.value = 'all';
+      state.marketVisible = MARKET_PAGE_SIZE;
+      renderMarketScan();
+      document.getElementById('markt')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
 function applyPayload(payload, cached = false) {
   state.trades = payload.trades.filter((trade) => trade && trade.id && trade.politician);
   state.metadata = payload.metadata || {};
@@ -333,11 +469,13 @@ async function loadAnalysis({ manual = false } = {}) {
     state.analysis = payload;
     try { localStorage.setItem(ANALYSIS_CACHE_KEY, JSON.stringify(payload)); } catch { /* Niet essentieel. */ }
     renderAnalysis();
+    renderDailyTop();
   } catch (error) {
     const cached = readCachedAnalysis();
     if (cached) {
       state.analysis = cached;
       renderAnalysis(true);
+      renderDailyTop(true);
     } else {
       elements.analysisFreshness.textContent = 'Niet beschikbaar';
       elements.analysisStatus.textContent = 'De aandelenanalyse kon niet worden geladen. De transacties blijven wel beschikbaar.';
@@ -366,6 +504,9 @@ async function loadMarketScan({ manual = false } = {}) {
       elements.marketStats.innerHTML = '';
       elements.marketCongressStats.innerHTML = '';
       elements.marketList.innerHTML = '<div class="empty">Nog geen marktscan beschikbaar. De congresanalyse en transacties blijven gewoon werken.</div>';
+      elements.dailyTopFreshness.textContent = 'Nog geen dagelijkse marktscan';
+      elements.dailyTopStatus.textContent = 'De topselectie verschijnt na de eerste geldige S&P 500-scan; er worden geen noodkandidaten verzonnen.';
+      elements.dailyTopList.innerHTML = '';
     }
     console.error('Capitol Pulse kon de S&P 500-scan niet laden:', error);
   }
@@ -745,6 +886,7 @@ function renderMarketScan(cached = false) {
     });
   });
   renderJournal();
+  renderDailyTop(cached);
 }
 
 function journalCalculations() {
