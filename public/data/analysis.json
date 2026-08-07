@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-07T01:44:51Z",
+    "updatedAt": "2026-08-07T06:13:18Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-08-07T01:44:51Z",
     "refreshIntervalHours": 4,
@@ -279,7 +279,7 @@
         "sma50": 412.35,
         "sma200": 433.95,
         "rsi14": 25.7,
-        "atr14": 12.76,
+        "atr14": 12.77,
         "annualizedVolatilityPct": 35.0,
         "fiftyTwoWeekHigh": 547.82,
         "fiftyTwoWeekLow": 361.03
@@ -369,7 +369,7 @@
         "sma50": 205.85,
         "sma200": 193.77,
         "rsi14": 63.1,
-        "atr14": 7.79,
+        "atr14": 7.81,
         "annualizedVolatilityPct": 41.5,
         "fiftyTwoWeekHigh": 236.54,
         "fiftyTwoWeekLow": 164.07
