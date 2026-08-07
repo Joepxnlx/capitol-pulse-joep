@@ -295,7 +295,7 @@ def send_ntfy(trades: list[dict[str, Any]]) -> None:
     }
     app_url = os.getenv("CAPITOL_PULSE_URL", "").strip() or default_app_url()
     if app_url.startswith("https://"):
-        headers["Click"] = f"{app_url.rstrip('/')}/#analyse"
+        headers["Click"] = f"{app_url.rstrip('/')}/#beslissing"
     try:
         response = requests.post(
             f"https://ntfy.sh/{quote(topic, safe='')}",

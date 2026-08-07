@@ -49,12 +49,69 @@
       <article><span>Gem. vertraging</span><strong id="statDelay">–</strong><small>transactie → melding</small></article>
     </section>
 
+    <section id="beslissing" class="panel decision-panel" aria-labelledby="decisionTitle">
+      <div class="panel-heading decision-heading">
+        <div>
+          <p class="eyebrow">Eerst het antwoord</p>
+          <h2 id="decisionTitle">Wat zegt het model nu?</h2>
+          <p class="muted">Een eenvoudige samenvatting van de laatste openbare congresmelding en de vijf controles. Dit is geen persoonlijk beleggingsadvies.</p>
+        </div>
+        <a class="button button-secondary" href="#dagboek">Naar mijn dagboek</a>
+      </div>
+      <div id="decisionCounts" class="decision-counts" aria-label="Aantal aandelen per oordeel"></div>
+      <div id="decisionBoard" class="decision-board" aria-live="polite"></div>
+      <div class="notification-rhythm">
+        <div>
+          <p class="eyebrow">Meldingsritme</p>
+          <strong id="notificationFrequency">Frequentie berekenen…</strong>
+          <p>Capitol Pulse controleert technisch 48 keer per dag. Je krijgt alleen een melding bij werkelijk nieuwe openbaarmakingen of een gewijzigd 5/5-signaal.</p>
+        </div>
+        <div class="notification-number"><strong id="notificationActiveDays">–</strong><span>recente meldingsdagen</span></div>
+      </div>
+    </section>
+
+    <section id="dagboek" class="panel journal-panel" aria-labelledby="journalTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Alleen op dit apparaat</p>
+          <h2 id="journalTitle">Mijn aankopen, verkopen en resultaat</h2>
+          <p class="muted">Registreer wat je werkelijk hebt gedaan. Capitol Pulse rekent open posities en gerealiseerde winst of verlies uit.</p>
+        </div>
+        <button id="journalExportButton" class="button button-secondary" type="button">Exporteer CSV</button>
+      </div>
+
+      <div id="journalStats" class="journal-stats" aria-label="Portefeuilleoverzicht"></div>
+
+      <form id="journalForm" class="journal-form">
+        <label><span>Ticker</span><input id="journalSymbol" list="journalSymbols" maxlength="10" required autocomplete="off" placeholder="Bijv. NVDA"><datalist id="journalSymbols"></datalist></label>
+        <label><span>Soort</span><select id="journalType"><option value="BUY">Aankoop</option><option value="SELL">Verkoop</option></select></label>
+        <label><span>Datum</span><input id="journalDate" type="date" required></label>
+        <label><span>Aantal</span><input id="journalQuantity" type="number" min="0.000001" step="any" inputmode="decimal" required placeholder="0"></label>
+        <label><span>Prijs per aandeel (USD)</span><input id="journalPrice" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="0,00"></label>
+        <label><span>Kosten (USD)</span><input id="journalFees" type="number" min="0" step="0.01" inputmode="decimal" value="0"></label>
+        <button class="button" type="submit">Transactie opslaan</button>
+      </form>
+      <p id="journalFormStatus" class="form-status" role="status" aria-live="polite"></p>
+
+      <div class="journal-grid">
+        <div>
+          <h3>Open posities</h3>
+          <div id="journalPositions" class="journal-positions"></div>
+        </div>
+        <div>
+          <h3>Transactiegeschiedenis</h3>
+          <div id="journalHistory" class="journal-history"></div>
+        </div>
+      </div>
+      <p class="storage-note">Je dagboek blijft in localStorage van deze browser. Het wordt niet naar GitHub of een andere server gestuurd. Exporteer af en toe een CSV-back-up.</p>
+    </section>
+
     <section id="analyse" class="panel analysis-panel" aria-labelledby="analysisTitle">
       <div class="analysis-heading">
         <div>
-          <p class="eyebrow">Politicus eerst · aandeel daarna</p>
-          <h2 id="analysisTitle">Vijf politici, vijf controles, één helder signaal</h2>
-          <p class="analysis-intro">Kies een politicus. Capitol Pulse controleert diens recente aandelen vervolgens op groei, winstgevendheid, kasstroom, waardering en koersrisico.</p>
+          <p class="eyebrow">Verdieping per aandeel</p>
+          <h2 id="analysisTitle">Waarom komt het model tot dit oordeel?</h2>
+          <p class="analysis-intro">Bekijk per aandeel de gemeten waarden, vaste grenswaarden, afgewezen punten, risico's en de oorspronkelijke congresmelding.</p>
         </div>
         <div id="analysisFreshness" class="analysis-freshness">Analyse laden…</div>
       </div>

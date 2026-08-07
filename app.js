@@ -5,6 +5,7 @@ const ANALYSIS_URL = './public/data/analysis.json';
 const CACHE_KEY = 'capitol-pulse-data-cache-v1';
 const ANALYSIS_CACHE_KEY = 'capitol-pulse-analysis-cache-v1';
 const FAVORITES_KEY = 'capitol-pulse-favorites-v1';
+const JOURNAL_KEY = 'capitol-pulse-journal-v1';
 const PAGE_SIZE = 30;
 
 const $ = (id) => document.getElementById(id);
@@ -23,6 +24,23 @@ const elements = {
   statPurchases: $('statPurchases'),
   statSales: $('statSales'),
   statDelay: $('statDelay'),
+  decisionCounts: $('decisionCounts'),
+  decisionBoard: $('decisionBoard'),
+  notificationFrequency: $('notificationFrequency'),
+  notificationActiveDays: $('notificationActiveDays'),
+  journalForm: $('journalForm'),
+  journalSymbol: $('journalSymbol'),
+  journalSymbols: $('journalSymbols'),
+  journalType: $('journalType'),
+  journalDate: $('journalDate'),
+  journalQuantity: $('journalQuantity'),
+  journalPrice: $('journalPrice'),
+  journalFees: $('journalFees'),
+  journalFormStatus: $('journalFormStatus'),
+  journalStats: $('journalStats'),
+  journalPositions: $('journalPositions'),
+  journalHistory: $('journalHistory'),
+  journalExportButton: $('journalExportButton'),
   resultCount: $('resultCount'),
   tradesList: $('tradesList'),
   loadMoreButton: $('loadMoreButton'),
@@ -46,6 +64,7 @@ const state = {
   selectedPolitician: 'all',
   visible: PAGE_SIZE,
   favorites: readFavorites(),
+  journal: readJournal(),
   installPrompt: null,
 };
 
@@ -58,6 +77,18 @@ function readFavorites() {
     };
   } catch {
     return { politicians: [], tickers: [] };
+  }
+}
+
+function readJournal() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
+    return Array.isArray(parsed) ? parsed.filter((entry) => (
+      entry && entry.id && entry.symbol && ['BUY', 'SELL'].includes(entry.type)
+      && Number(entry.quantity) > 0 && Number(entry.price) > 0
+    )) : [];
+  } catch {
+    return [];
   }
 }
 
@@ -259,6 +290,253 @@ function renderPoliticianChoices() {
   });
 }
 
+const FACTOR_THRESHOLDS = {
+  growth: 'Omzetgroei ≥ 3% én nettowinstgroei ≥ 0% jaar-op-jaar',
+  profitability: 'Nettomarge over vier kwartalen ≥ 8%',
+  cashflow: 'Vrije-kasstroommarge positief en ≥ 5%',
+  valuation: 'K/W > 0 en ≤ 35 én schuld/eigen vermogen ≤ 3',
+  trend: 'Koers > SMA200, SMA50 > SMA200, RSI 40–72 en volatiliteit ≤ 55%',
+};
+
+function stockDecision(stock) {
+  const score = Number(stock.score) || 0;
+  const failed = (stock.factors || []).filter((factor) => factor.status !== 'good').map((factor) => factor.label);
+  const sold = stock.politicianSignal?.action === 'Sale';
+  if (stock.signal === 'BUY' && !sold && score === 5) {
+    return { key: 'buy', label: 'Koopkandidaat', reason: 'Recente openbare aankoop en alle vijf controles zijn groen.' };
+  }
+  if (sold) {
+    return { key: 'no', label: 'Niet kopen', reason: 'De nieuwste congresmelding voor dit aandeel is een verkoop.' };
+  }
+  if (stock.signal === 'WAIT' || score === 4) {
+    return { key: 'wait', label: 'Wachten', reason: failed.length ? `Nog niet groen: ${failed.join(', ')}.` : 'Wacht op een volledige 5/5-bevestiging.' };
+  }
+  return {
+    key: 'no',
+    label: 'Niet kopen',
+    reason: failed.length ? `Afgewezen op: ${failed.join(', ')}.` : 'Geen geldige recente aankoop met volledige 5/5-bevestiging.',
+  };
+}
+
+function renderDecisionBoard() {
+  if (!state.analysis) {
+    elements.decisionCounts.innerHTML = '';
+    elements.decisionBoard.innerHTML = '<div class="empty">De beslissamenvatting wordt geladen.</div>';
+    return;
+  }
+  const order = { buy: 0, wait: 1, no: 2 };
+  const stocks = [...state.analysis.stocks].sort((left, right) => {
+    const category = order[stockDecision(left).key] - order[stockDecision(right).key];
+    return category || (Number(right.score) || 0) - (Number(left.score) || 0) || left.symbol.localeCompare(right.symbol);
+  });
+  const counts = stocks.reduce((result, stock) => {
+    result[stockDecision(stock).key] += 1;
+    return result;
+  }, { buy: 0, wait: 0, no: 0 });
+  elements.decisionCounts.innerHTML = `
+    <div class="decision-count buy"><strong>${counts.buy}</strong><span>Koopkandidaat</span></div>
+    <div class="decision-count wait"><strong>${counts.wait}</strong><span>Wachten</span></div>
+    <div class="decision-count no"><strong>${counts.no}</strong><span>Niet kopen</span></div>`;
+
+  elements.decisionBoard.innerHTML = stocks.map((stock) => {
+    const decision = stockDecision(stock);
+    const strategy = stock.strategy || {};
+    const buyPlan = decision.key === 'buy' ? `
+      <div class="decision-plan">
+        <span>Instap tot <strong>${formatCurrency(strategy.entryHigh, stock.currency)}</strong></span>
+        <span>Stop <strong>${formatCurrency(strategy.stopLoss, stock.currency)}</strong></span>
+        <span>Doel <strong>${formatCurrency(strategy.takeProfit, stock.currency)}</strong></span>
+      </div>` : '';
+    return `<article class="decision-card ${decision.key}">
+      <div class="decision-card-head">
+        <div><strong>${escapeHtml(stock.symbol)}</strong><span>${escapeHtml(stock.company)}</span></div>
+        <span class="decision-label">${decision.label}</span>
+      </div>
+      <p>${escapeHtml(decision.reason)}</p>
+      <small>${escapeHtml(stock.politician)} · ${actionLabel(stock.politicianSignal?.action)} · score ${Number(stock.score) || 0}/5 · koers ${formatCurrency(stock.market?.price, stock.currency)}</small>
+      ${buyPlan}
+      <div class="decision-actions">
+        <button class="button button-secondary" type="button" data-focus-analysis="${escapeHtml(stock.id || `${stock.politician}:${stock.symbol}`)}">Bekijk onderbouwing</button>
+        ${decision.key === 'buy' ? `<button class="button" type="button" data-journal-buy="${escapeHtml(stock.symbol)}">Aankoop registreren</button>` : ''}
+      </div>
+    </article>`;
+  }).join('');
+
+  elements.decisionBoard.querySelectorAll('[data-focus-analysis]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const stock = state.analysis.stocks.find((item) => (item.id || `${item.politician}:${item.symbol}`) === button.dataset.focusAnalysis);
+      if (!stock) return;
+      state.selectedPolitician = stock.politician;
+      renderAnalysis();
+      document.querySelector(`[data-analysis-id="${CSS.escape(button.dataset.focusAnalysis)}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  elements.decisionBoard.querySelectorAll('[data-journal-buy]').forEach((button) => {
+    button.addEventListener('click', () => prepareJournalEntry(button.dataset.journalBuy, 'BUY'));
+  });
+}
+
+function renderNotificationInsights() {
+  if (!state.trades.length) return;
+  const people = new Set((state.analysis?.featuredPoliticians || []).map((person) => person.name));
+  const symbols = new Set((state.analysis?.stocks || []).map((stock) => stock.symbol));
+  const relevant = state.trades.filter((trade) => people.has(trade.politician) || symbols.has(trade.symbol));
+  const dates = relevant.map((trade) => trade.disclosureDate).filter((date) => parseDate(date)).sort();
+  if (!dates.length) {
+    elements.notificationFrequency.textContent = 'Niet genoeg gegevens om een ritme te berekenen.';
+    elements.notificationActiveDays.textContent = '0';
+    return;
+  }
+  const latest = parseDate(dates[dates.length - 1]);
+  const from = new Date(latest.getTime() - 27 * 86400000);
+  const activeDates = new Set(relevant.filter((trade) => {
+    const date = parseDate(trade.disclosureDate);
+    return date && date >= from && date <= latest;
+  }).map((trade) => trade.disclosureDate));
+  const perWeek = activeDates.size / 4;
+  const readable = perWeek < 0.75 ? 'minder dan één' : perWeek < 1.5 ? 'ongeveer één' : `ongeveer ${perWeek.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}`;
+  elements.notificationFrequency.textContent = `${readable} meldingsdagen per week, op basis van de laatste 28 dagen.`;
+  elements.notificationActiveDays.textContent = `${activeDates.size} in 28 dagen`;
+}
+
+function journalCalculations() {
+  const books = new Map();
+  const sorted = [...state.journal].sort((left, right) => (
+    String(left.date).localeCompare(String(right.date)) || Number(left.createdAt || 0) - Number(right.createdAt || 0)
+  ));
+  sorted.forEach((entry) => {
+    const symbol = String(entry.symbol).toUpperCase();
+    const book = books.get(symbol) || { symbol, lots: [], realized: 0, lastPrice: Number(entry.price) };
+    const quantity = Number(entry.quantity);
+    const price = Number(entry.price);
+    const fees = Math.max(0, Number(entry.fees) || 0);
+    book.lastPrice = price;
+    if (entry.type === 'BUY') {
+      book.lots.push({ quantity, unitCost: ((quantity * price) + fees) / quantity });
+    } else {
+      let remaining = quantity;
+      let cost = 0;
+      while (remaining > 0.0000001 && book.lots.length) {
+        const lot = book.lots[0];
+        const used = Math.min(remaining, lot.quantity);
+        cost += used * lot.unitCost;
+        lot.quantity -= used;
+        remaining -= used;
+        if (lot.quantity < 0.0000001) book.lots.shift();
+      }
+      book.realized += (quantity * price) - fees - cost;
+    }
+    books.set(symbol, book);
+  });
+
+  let realized = 0;
+  let openCost = 0;
+  let marketValue = 0;
+  const positions = [...books.values()].map((book) => {
+    realized += book.realized;
+    const quantity = book.lots.reduce((sum, lot) => sum + lot.quantity, 0);
+    const cost = book.lots.reduce((sum, lot) => sum + lot.quantity * lot.unitCost, 0);
+    const current = state.analysis?.stocks.find((stock) => stock.symbol === book.symbol)?.market?.price;
+    const marketPrice = Number(current) > 0 ? Number(current) : book.lastPrice;
+    const value = quantity * marketPrice;
+    openCost += cost;
+    marketValue += value;
+    return {
+      symbol: book.symbol,
+      quantity,
+      cost,
+      averageCost: quantity ? cost / quantity : 0,
+      marketPrice,
+      marketValue: value,
+      unrealized: value - cost,
+      realized: book.realized,
+    };
+  }).filter((position) => position.quantity > 0.0000001).sort((left, right) => right.marketValue - left.marketValue);
+  return { positions, realized, openCost, marketValue, unrealized: marketValue - openCost };
+}
+
+function resultClass(value) {
+  return Number(value) > 0.004 ? 'positive' : Number(value) < -0.004 ? 'negative' : 'neutral';
+}
+
+function saveJournal() {
+  localStorage.setItem(JOURNAL_KEY, JSON.stringify(state.journal));
+  renderJournal();
+}
+
+function renderJournal() {
+  const result = journalCalculations();
+  const total = result.realized + result.unrealized;
+  elements.journalStats.innerHTML = `
+    <article><span>In open posities</span><strong>${formatCurrency(result.openCost)}</strong><small>FIFO-aankoopwaarde incl. kosten</small></article>
+    <article><span>Huidige waarde</span><strong>${formatCurrency(result.marketValue)}</strong><small>laatste beschikbare analysekoers</small></article>
+    <article><span>Open resultaat</span><strong class="${resultClass(result.unrealized)}">${formatCurrency(result.unrealized)}</strong><small>nog niet gerealiseerd</small></article>
+    <article><span>Totaal resultaat</span><strong class="${resultClass(total)}">${formatCurrency(total)}</strong><small>${formatCurrency(result.realized)} gerealiseerd</small></article>`;
+
+  elements.journalPositions.innerHTML = result.positions.length ? result.positions.map((position) => `
+    <article class="position-row">
+      <div><strong>${escapeHtml(position.symbol)}</strong><span>${formatCompactNumber(position.quantity)} stuks · gemiddeld ${formatCurrency(position.averageCost)}</span></div>
+      <div><strong>${formatCurrency(position.marketValue)}</strong><span class="${resultClass(position.unrealized)}">${formatCurrency(position.unrealized)} open</span></div>
+      <button class="button button-secondary" type="button" data-journal-sell="${escapeHtml(position.symbol)}">Verkoop registreren</button>
+    </article>`).join('') : '<div class="empty compact-empty">Nog geen open posities. Registreer eerst een aankoop.</div>';
+
+  const history = [...state.journal].sort((left, right) => (
+    String(right.date).localeCompare(String(left.date)) || Number(right.createdAt || 0) - Number(left.createdAt || 0)
+  ));
+  elements.journalHistory.innerHTML = history.length ? history.map((entry) => {
+    const cash = Number(entry.quantity) * Number(entry.price) + (entry.type === 'BUY' ? Number(entry.fees || 0) : -Number(entry.fees || 0));
+    return `<article class="history-row">
+      <span class="history-type ${entry.type.toLowerCase()}">${entry.type === 'BUY' ? 'Koop' : 'Verkoop'}</span>
+      <div><strong>${escapeHtml(entry.symbol)} · ${formatCompactNumber(entry.quantity)} × ${formatCurrency(entry.price)}</strong><span>${escapeHtml(formatDate(entry.date))} · totaal ${formatCurrency(cash)} · kosten ${formatCurrency(entry.fees || 0)}</span></div>
+      <button class="icon-button delete-entry" type="button" data-journal-delete="${escapeHtml(entry.id)}" aria-label="Verwijder transactie">×</button>
+    </article>`;
+  }).join('') : '<div class="empty compact-empty">Nog geen transacties opgeslagen.</div>';
+
+  const symbols = [...new Set((state.analysis?.stocks || []).map((stock) => stock.symbol))].sort();
+  elements.journalSymbols.innerHTML = symbols.map((symbol) => `<option value="${escapeHtml(symbol)}"></option>`).join('');
+  elements.journalPositions.querySelectorAll('[data-journal-sell]').forEach((button) => {
+    button.addEventListener('click', () => prepareJournalEntry(button.dataset.journalSell, 'SELL'));
+  });
+  elements.journalHistory.querySelectorAll('[data-journal-delete]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.journal = state.journal.filter((entry) => entry.id !== button.dataset.journalDelete);
+      saveJournal();
+      elements.journalFormStatus.textContent = 'Transactie verwijderd en resultaten opnieuw berekend.';
+    });
+  });
+}
+
+function prepareJournalEntry(symbol, type) {
+  const normalized = String(symbol || '').trim().toUpperCase();
+  const stock = state.analysis?.stocks.find((item) => item.symbol === normalized);
+  const position = journalCalculations().positions.find((item) => item.symbol === normalized);
+  elements.journalSymbol.value = normalized;
+  elements.journalType.value = type;
+  elements.journalPrice.value = Number(type === 'BUY' ? stock?.strategy?.entryHigh || stock?.market?.price : stock?.market?.price || position?.marketPrice || 0).toFixed(2);
+  elements.journalQuantity.value = type === 'SELL' && position ? Number(position.quantity.toFixed(6)) : '';
+  elements.journalFormStatus.textContent = `${type === 'BUY' ? 'Aankoop' : 'Verkoop'} voor ${normalized} voorbereid. Vul het werkelijk uitgevoerde aantal en de echte prijs in.`;
+  document.getElementById('dagboek').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  elements.journalQuantity.focus({ preventScroll: true });
+}
+
+function exportJournal() {
+  if (!state.journal.length) {
+    elements.journalFormStatus.textContent = 'Er zijn nog geen transacties om te exporteren.';
+    return;
+  }
+  const rows = [['datum', 'ticker', 'soort', 'aantal', 'prijs_usd', 'kosten_usd'], ...state.journal.map((entry) => [
+    entry.date, entry.symbol, entry.type, entry.quantity, entry.price, entry.fees || 0,
+  ])];
+  const csv = rows.map((row) => row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(';')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `capitol-pulse-dagboek-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+  elements.journalFormStatus.textContent = 'CSV-back-up gedownload.';
+}
+
 function positionPlan(stock) {
   if (stock.strategy?.exitReason) {
     const reasonLabels = {
@@ -294,32 +572,65 @@ function positionPlan(stock) {
   </div>`;
 }
 
+function metric(label, value, suffix = '') {
+  const number = Number(value);
+  return `<div><span>${escapeHtml(label)}</span><strong>${Number.isFinite(number) ? `${formatCompactNumber(number)}${suffix}` : 'Niet beschikbaar'}</strong></div>`;
+}
+
 function analysisCard(stock) {
   const signalClass = String(stock.signal || '').toLowerCase();
   const filingUrl = safeUrl(stock.politicianSignal?.sourceUrl);
   const marketUrl = safeUrl(stock.marketSourceUrl);
+  const decision = stockDecision(stock);
   const factors = (stock.factors || []).map((item) => `<li class="factor ${escapeHtml(item.status)}">
     <span class="factor-mark" aria-hidden="true">${item.status === 'good' ? '✓' : item.status === 'bad' ? '×' : '?'}</span>
-    <div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail)}</small></div>
+    <div>
+      <strong>${escapeHtml(item.label)}</strong>
+      <small>${escapeHtml(item.detail)}</small>
+      <em>Grens: ${escapeHtml(FACTOR_THRESHOLDS[item.key] || 'Voldoende betrouwbare data en een positieve beoordeling')}</em>
+    </div>
   </li>`).join('');
-  return `<article class="analysis-card">
+  const market = stock.market || {};
+  const fundamentals = stock.fundamentals || {};
+  const analysisId = stock.id || `${stock.politician}:${stock.symbol}`;
+  return `<article class="analysis-card" data-analysis-id="${escapeHtml(analysisId)}">
     <div class="analysis-card-head">
       <div class="analysis-symbol"><span>${escapeHtml(stock.symbol)}</span><small>${escapeHtml(stock.company)}</small></div>
       <span class="signal ${signalClass}">${escapeHtml(stock.signalLabel)} · ${Number(stock.score) || 0}/5</span>
     </div>
+    <div class="analysis-verdict ${decision.key}"><strong>${decision.label}</strong><span>${escapeHtml(decision.reason)}</span></div>
     <div class="politician-signal ${stock.politicianSignal?.action === 'Purchase' ? 'purchase' : 'sale'}">
       <span>${escapeHtml(stock.politician)}</span>
       <strong>${escapeHtml(actionLabel(stock.politicianSignal?.action))} · ${escapeHtml(stock.politicianSignal?.amount || 'bedrag onbekend')}</strong>
       <small>Transactie ${escapeHtml(formatDate(stock.politicianSignal?.transactionDate))}; openbaar ${escapeHtml(formatDate(stock.politicianSignal?.disclosureDate))}.</small>
     </div>
     <div class="market-line">
-      <div><span>Laatste koers</span><strong>${formatCurrency(stock.market?.price, stock.currency)}</strong></div>
-      <div><span>Koersdatum</span><strong>${escapeHtml(formatDate(stock.market?.priceDate))}</strong></div>
-      <div><span>Volatiliteit</span><strong>${formatCompactNumber(stock.market?.annualizedVolatilityPct)}%</strong></div>
+      <div><span>Laatste koers</span><strong>${formatCurrency(market.price, stock.currency)}</strong></div>
+      <div><span>Koersdatum</span><strong>${escapeHtml(formatDate(market.priceDate))}</strong></div>
+      <div><span>52-weeks bereik</span><strong>${formatCurrency(market.fiftyTwoWeekLow, stock.currency)} – ${formatCurrency(market.fiftyTwoWeekHigh, stock.currency)}</strong></div>
     </div>
-    <ul class="factor-list">${factors}</ul>
+    <details class="analysis-depth" ${decision.key === 'buy' ? 'open' : ''}>
+      <summary>Bekijk alle waarden en grenswaarden</summary>
+      <div class="metric-section">
+        <h4>Koers, trend en risico</h4>
+        <div class="metric-grid">
+          ${metric('Koers', market.price)}${metric('50-daags gemiddelde', market.sma50)}${metric('200-daags gemiddelde', market.sma200)}
+          ${metric('RSI (14 dagen)', market.rsi14)}${metric('Volatiliteit op jaarbasis', market.annualizedVolatilityPct, '%')}${metric('ATR (14 dagen)', market.atr14)}
+        </div>
+      </div>
+      <div class="metric-section">
+        <h4>Bedrijfsfundamenten</h4>
+        <div class="metric-grid">
+          ${metric('Omzetgroei jaar-op-jaar', fundamentals.revenueGrowthYoYPct, '%')}${metric('Winstgroei jaar-op-jaar', fundamentals.netIncomeGrowthYoYPct, '%')}
+          ${metric('Nettomarge', fundamentals.netMarginPct, '%')}${metric('Vrije-kasstroommarge', fundamentals.freeCashFlowMarginPct, '%')}
+          ${metric('Koers/winst', fundamentals.peRatio)}${metric('Schuld/eigen vermogen', fundamentals.debtToEquity)}
+        </div>
+      </div>
+      <ul class="factor-list">${factors}</ul>
+    </details>
     ${positionPlan(stock)}
     <div class="analysis-links">
+      ${decision.key === 'buy' ? `<button class="button" type="button" data-journal-buy="${escapeHtml(stock.symbol)}">Werkelijke aankoop registreren</button>` : ''}
       ${filingUrl ? `<a href="${escapeHtml(filingUrl)}" target="_blank" rel="noopener noreferrer">Openbare filing ↗</a>` : ''}
       ${marketUrl ? `<a href="${escapeHtml(marketUrl)}" target="_blank" rel="noopener noreferrer">Marktbron ↗</a>` : ''}
     </div>
@@ -338,6 +649,12 @@ function renderAnalysis(cached = false) {
   elements.analysisCards.innerHTML = stocks.length
     ? stocks.map(analysisCard).join('')
     : '<div class="empty">Voor deze politicus zijn geen recente gewone aandelen met volledige marktdata gevonden.</div>';
+  elements.analysisCards.querySelectorAll('[data-journal-buy]').forEach((button) => {
+    button.addEventListener('click', () => prepareJournalEntry(button.dataset.journalBuy, 'BUY'));
+  });
+  renderDecisionBoard();
+  renderNotificationInsights();
+  renderJournal();
 }
 
 function filteredTrades() {
@@ -449,6 +766,8 @@ function renderAll() {
   renderStats();
   renderTrades();
   renderFavorites();
+  renderNotificationInsights();
+  renderJournal();
   elements.lastUpdated.textContent = formatDateTime(state.metadata.updatedAt);
 }
 
@@ -491,6 +810,50 @@ function resetAndRender() {
   renderTrades();
 }
 
+function localDateInputValue() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60000;
+  return new Date(now.getTime() - offset).toISOString().slice(0, 10);
+}
+
+function submitJournalEntry(event) {
+  event.preventDefault();
+  const symbol = elements.journalSymbol.value.trim().toUpperCase();
+  const type = elements.journalType.value;
+  const date = elements.journalDate.value;
+  const quantity = Number(elements.journalQuantity.value);
+  const price = Number(elements.journalPrice.value);
+  const fees = Number(elements.journalFees.value || 0);
+  if (!/^[A-Z0-9.-]{1,10}$/.test(symbol) || !['BUY', 'SELL'].includes(type) || !parseDate(date)
+      || !Number.isFinite(quantity) || quantity <= 0 || !Number.isFinite(price) || price <= 0
+      || !Number.isFinite(fees) || fees < 0) {
+    elements.journalFormStatus.textContent = 'Controleer ticker, datum, aantal, prijs en kosten.';
+    return;
+  }
+  if (type === 'SELL') {
+    const available = journalCalculations().positions.find((position) => position.symbol === symbol)?.quantity || 0;
+    if (quantity > available + 0.0000001) {
+      elements.journalFormStatus.textContent = `Je kunt maximaal ${formatCompactNumber(available)} ${symbol} verkopen volgens dit dagboek.`;
+      return;
+    }
+  }
+  state.journal.push({
+    id: globalThis.crypto?.randomUUID?.() || `entry-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    createdAt: Date.now(),
+    date,
+    symbol,
+    type,
+    quantity,
+    price,
+    fees,
+  });
+  saveJournal();
+  elements.journalForm.reset();
+  elements.journalDate.value = localDateInputValue();
+  elements.journalFees.value = '0';
+  elements.journalFormStatus.textContent = `${type === 'BUY' ? 'Aankoop' : 'Verkoop'} van ${formatCompactNumber(quantity)} ${symbol} opgeslagen. Resultaten zijn opnieuw berekend.`;
+}
+
 elements.searchInput.addEventListener('input', resetAndRender);
 [elements.chamberFilter, elements.typeFilter, elements.favoriteFilter, elements.sortFilter]
   .forEach((element) => element.addEventListener('change', resetAndRender));
@@ -501,6 +864,8 @@ elements.refreshButton.addEventListener('click', () => Promise.all([
 ]));
 elements.analysisBudget.addEventListener('input', () => renderAnalysis());
 elements.analysisRisk.addEventListener('change', () => renderAnalysis());
+elements.journalForm.addEventListener('submit', submitJournalEntry);
+elements.journalExportButton.addEventListener('click', exportJournal);
 elements.closeDialogButton.addEventListener('click', () => elements.detailDialog.close());
 elements.detailDialog.addEventListener('click', (event) => {
   if (event.target === elements.detailDialog) elements.detailDialog.close();
@@ -526,4 +891,6 @@ if ('serviceWorker' in navigator) {
   }));
 }
 
+elements.journalDate.value = localDateInputValue();
+renderJournal();
 Promise.all([loadData(), loadAnalysis()]);

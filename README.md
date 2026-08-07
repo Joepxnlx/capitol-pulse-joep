@@ -74,6 +74,8 @@ De eerste succesvolle live-update is altijd een baseline en verstuurt geen oude 
 
 De aandelenanalyse gebruikt dezelfde secret en filters. Een melding wordt automatisch verstuurd wanneer een aandeel voor het eerst of opnieuw een actieve 5/5-koopkandidaat wordt. De melding bevat politicus, ticker, instapzone, stop-loss en het 2R-verkoopdoel. De oorspronkelijke prijsniveaus blijven daarna vaststaan. Bij het raken van het verkoopdoel, de stop-loss of het vervallen van de 5/5-bevestiging volgt een afsluitende waarschuwing. Er worden nooit automatisch orders geplaatst.
 
+De workflow kijkt ieder halfuur, maar dat betekent niet 48 meldingen per dag. Nieuwe congresmeldingen komen onregelmatig en vaak in groepen binnen. De app berekent daarom zelf het recente ritme als het aantal dagen met relevante openbaarmakingen in de laatste 28 dagen. Een 5/5-koopmelding is nog zeldzamer en wordt alleen bij een nieuw of opnieuw actief signaal verstuurd, niet bij iedere controle.
+
 Voor een eenmalige controle kies je bij **Actions → Update congressional trades → Run workflow** de optie **Stuur de huidige 5/5-koopkandidaat als ntfy-testmelding**. Deze test faalt begrijpelijk wanneer `NTFY_TOPIC` ontbreekt of ongeldig is. Normale geplande runs blijven ook zonder ntfy-secret gewoon data bijwerken.
 
 Optionele repository variables:
@@ -95,6 +97,14 @@ De analyse begint altijd met de laatst openbaar gemaakte transactie van de gekoz
 
 Alleen 5/5 plus een recente aankoop geeft het label **Koopkandidaat**. De getoonde instapzone gebruikt de laatst beschikbare koers. De stop ligt minimaal 8% of twee ATR onder de instap; het rekenkundige verkoopdoel ligt op twee keer dat risico. Zodra een kandidaat ontstaat, worden deze drie niveaus vastgezet totdat het doel, de stop of een model-exit wordt bereikt. De analyse ververst bij nieuwe filingdata of uiterlijk na vier uur. Het budgetveld berekent uitsluitend een voorbeeldpositie op basis van het gekozen maximale risico. Het is geen persoonlijk advies, houdt geen rekening met inkomen, vermogen, belastingen, valutarisico, transactiekosten of fractionele aandelen en voert nooit transacties uit.
 
+De startweergave groepeert de uitkomst in **Koopkandidaat**, **Wachten** en **Niet kopen**. De verdiepingskaarten tonen daarnaast alle gemeten waarden en de vaste grenswaarde van iedere controle, zodat zichtbaar is waarom een punt slaagt of wordt afgewezen.
+
+## Persoonlijk transactiedagboek
+
+In de app kun je werkelijke aankopen en verkopen registreren met datum, aantal, uitvoeringsprijs en kosten. Open posities gebruiken FIFO-kostprijs. De app toont aankoopwaarde, laatste beschikbare marktwaarde, ongerealiseerd resultaat en gerealiseerd resultaat. Een verkoop die groter is dan de volgens het dagboek open positie wordt geweigerd.
+
+Het dagboek staat uitsluitend in `localStorage` van de gebruikte browser en wordt niet gesynchroniseerd. Verwijderen van browsergegevens of de app kan het dagboek wissen. Gebruik daarom **Exporteer CSV** voor een eigen back-up. De portefeuilleberekening is administratiehulp, geen brokeradministratie of belastingberekening.
+
 De openbare Wolf of Washington-pagina noemt geen verifieerbare officiële top vijf en zegt alle Congresleden te volgen. Capitol Pulse gebruikt daarom een eigen, expliciete selectie van vijf actieve en herkenbare politici uit de recente dataset en toont maximaal drie recente gewone aandelen per persoon.
 
 ## GitHub Pages
@@ -105,7 +115,7 @@ De openbare Wolf of Washington-pagina noemt geen verifieerbare officiële top vi
 
 ## PWA en offlinegedrag
 
-De manifest- en service-workerpaden zijn geschikt voor de Pages-subdirectory. De app kan op ondersteunde Android-browsers worden geïnstalleerd. De app-shell en beide datasets gebruiken network-first met een offline cache. De Pages-build publiceert tevens een tijdelijk compatibiliteitspad `sw.js`, zodat apparaten met de oude service worker vanzelf naar cacheversie 2 migreren. De browser bewaart daarnaast de laatste geldige payloads en favorieten in `localStorage`.
+De manifest- en service-workerpaden zijn geschikt voor de Pages-subdirectory. De app kan op ondersteunde Android-browsers worden geïnstalleerd. De app-shell en beide datasets gebruiken network-first met een offline cache. De Pages-build publiceert tevens een tijdelijk compatibiliteitspad `sw.js`, zodat apparaten met de oude service worker vanzelf naar cacheversie 2 migreren. De browser bewaart daarnaast de laatste geldige payloads, favorieten en het persoonlijke transactiedagboek in `localStorage`.
 
 ## Gegevensmodel
 
