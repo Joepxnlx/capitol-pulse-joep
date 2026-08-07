@@ -1,0 +1,33 @@
+{
+  "mode": "sp500-technical-scan",
+  "metadata": {
+    "updatedAt": null,
+    "scanDate": null,
+    "modelVersion": "sp500-six-signals-v1",
+    "universeSource": "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv",
+    "marketSource": "Yahoo Finance chart endpoint",
+    "benchmark": "SPY",
+    "benchmarkOneYearReturnPct": null,
+    "universeCount": 0,
+    "stockCount": 0,
+    "candidateCount": 0,
+    "watchCount": 0,
+    "errorCount": 0,
+    "notice": "De eerste volledige S&P 500-scan wordt automatisch opgebouwd."
+  },
+  "methodology": {
+    "candidateRule": "Alle zes technische controles moeten slagen.",
+    "watchRule": "Vijf van de zes controles slagen.",
+    "signals": [
+      "Lange trend",
+      "Middellange trend",
+      "RSI",
+      "Relatieve sterkte",
+      "Risico",
+      "Liquiditeit"
+    ],
+    "riskRule": "Voorbeeldstop op minimaal 8% of twee ATR; voorbeeldkoersdoel op twee keer het risico."
+  },
+  "stocks": [],
+  "errors": []
+}

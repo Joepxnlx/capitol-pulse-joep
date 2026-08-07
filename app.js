@@ -2,11 +2,14 @@
 
 const DATA_URL = './public/data/live.json';
 const ANALYSIS_URL = './public/data/analysis.json';
+const MARKET_URL = './public/data/sp500.json';
 const CACHE_KEY = 'capitol-pulse-data-cache-v1';
 const ANALYSIS_CACHE_KEY = 'capitol-pulse-analysis-cache-v1';
+const MARKET_CACHE_KEY = 'capitol-pulse-market-cache-v1';
 const FAVORITES_KEY = 'capitol-pulse-favorites-v1';
 const JOURNAL_KEY = 'capitol-pulse-journal-v1';
 const PAGE_SIZE = 30;
+const MARKET_PAGE_SIZE = 24;
 
 const $ = (id) => document.getElementById(id);
 const elements = {
@@ -28,6 +31,17 @@ const elements = {
   decisionBoard: $('decisionBoard'),
   notificationFrequency: $('notificationFrequency'),
   notificationActiveDays: $('notificationActiveDays'),
+  marketFreshness: $('marketFreshness'),
+  marketStats: $('marketStats'),
+  marketSearch: $('marketSearch'),
+  marketSector: $('marketSector'),
+  marketSignal: $('marketSignal'),
+  marketRisk: $('marketRisk'),
+  marketSort: $('marketSort'),
+  marketStatus: $('marketStatus'),
+  marketCompare: $('marketCompare'),
+  marketList: $('marketList'),
+  marketLoadMore: $('marketLoadMore'),
   journalForm: $('journalForm'),
   journalSymbol: $('journalSymbol'),
   journalSymbols: $('journalSymbols'),
@@ -41,6 +55,7 @@ const elements = {
   journalPositions: $('journalPositions'),
   journalHistory: $('journalHistory'),
   journalExportButton: $('journalExportButton'),
+  portfolioInsights: $('portfolioInsights'),
   resultCount: $('resultCount'),
   tradesList: $('tradesList'),
   loadMoreButton: $('loadMoreButton'),
@@ -61,8 +76,11 @@ const state = {
   trades: [],
   metadata: {},
   analysis: null,
+  marketScan: null,
   selectedPolitician: 'all',
   visible: PAGE_SIZE,
+  marketVisible: MARKET_PAGE_SIZE,
+  marketCompare: [],
   favorites: readFavorites(),
   journal: readJournal(),
   installPrompt: null,
@@ -191,6 +209,16 @@ async function fetchAnalysisPayload() {
   return payload;
 }
 
+async function fetchMarketPayload() {
+  const response = await fetch(`${MARKET_URL}?v=${Date.now()}`, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const payload = await response.json();
+  if (!payload || !Array.isArray(payload.stocks) || payload.stocks.length === 0) {
+    throw new Error('De eerste volledige S&P 500-scan wordt nog opgebouwd.');
+  }
+  return payload;
+}
+
 function readCachedPayload() {
   try {
     const payload = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
@@ -203,6 +231,15 @@ function readCachedPayload() {
 function readCachedAnalysis() {
   try {
     const payload = JSON.parse(localStorage.getItem(ANALYSIS_CACHE_KEY) || 'null');
+    return payload && Array.isArray(payload.stocks) && payload.stocks.length ? payload : null;
+  } catch {
+    return null;
+  }
+}
+
+function readCachedMarket() {
+  try {
+    const payload = JSON.parse(localStorage.getItem(MARKET_CACHE_KEY) || 'null');
     return payload && Array.isArray(payload.stocks) && payload.stocks.length ? payload : null;
   } catch {
     return null;
@@ -264,6 +301,29 @@ async function loadAnalysis({ manual = false } = {}) {
       elements.analysisCards.innerHTML = '';
     }
     console.error('Capitol Pulse kon de aandelenanalyse niet laden:', error);
+  }
+}
+
+async function loadMarketScan({ manual = false } = {}) {
+  if (manual) elements.marketStatus.textContent = 'Volledige marktscan vernieuwen…';
+  try {
+    const payload = await fetchMarketPayload();
+    state.marketScan = payload;
+    state.marketVisible = MARKET_PAGE_SIZE;
+    try { localStorage.setItem(MARKET_CACHE_KEY, JSON.stringify(payload)); } catch { /* Niet essentieel. */ }
+    renderMarketScan();
+  } catch (error) {
+    const cached = readCachedMarket();
+    if (cached) {
+      state.marketScan = cached;
+      renderMarketScan(true);
+    } else {
+      elements.marketFreshness.textContent = 'Eerste scan in voorbereiding';
+      elements.marketStatus.textContent = 'De automatische GitHub-workflow bouwt de eerste volledige S&P 500-scan. Probeer het over enkele minuten opnieuw.';
+      elements.marketStats.innerHTML = '';
+      elements.marketList.innerHTML = '<div class="empty">Nog geen marktscan beschikbaar. De congresanalyse en transacties blijven gewoon werken.</div>';
+    }
+    console.error('Capitol Pulse kon de S&P 500-scan niet laden:', error);
   }
 }
 
@@ -399,6 +459,158 @@ function renderNotificationInsights() {
   elements.notificationActiveDays.textContent = `${activeDates.size} in 28 dagen`;
 }
 
+function formatSignedPercent(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return 'Niet beschikbaar';
+  return `${number > 0 ? '+' : ''}${number.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}%`;
+}
+
+function currentMarketStock(symbol) {
+  const normalized = String(symbol || '').toUpperCase();
+  return state.marketScan?.stocks.find((stock) => stock.symbol === normalized)
+    || state.analysis?.stocks.find((stock) => stock.symbol === normalized)
+    || null;
+}
+
+function filteredMarketStocks() {
+  if (!state.marketScan) return [];
+  const query = elements.marketSearch.value.trim().toLocaleLowerCase('nl-NL');
+  const sector = elements.marketSector.value;
+  const signal = elements.marketSignal.value;
+  const maximumRisk = elements.marketRisk.value === 'all' ? null : Number(elements.marketRisk.value);
+  const rows = state.marketScan.stocks.filter((stock) => {
+    if (query && !`${stock.symbol} ${stock.company}`.toLocaleLowerCase('nl-NL').includes(query)) return false;
+    if (sector !== 'all' && stock.sector !== sector) return false;
+    if (signal === 'favorites' && !state.favorites.tickers.includes(stock.symbol)) return false;
+    if (!['all', 'favorites'].includes(signal) && stock.status !== signal) return false;
+    if (maximumRisk !== null && Number(stock.annualizedVolatilityPct) > maximumRisk) return false;
+    return true;
+  });
+  const sort = elements.marketSort.value;
+  rows.sort((left, right) => {
+    if (sort === 'relative') return (Number(right.relativeStrengthPctPoints) || -999) - (Number(left.relativeStrengthPctPoints) || -999);
+    if (sort === 'return') return (Number(right.oneYearReturnPct) || -999) - (Number(left.oneYearReturnPct) || -999);
+    if (sort === 'risk') return (Number(left.annualizedVolatilityPct) || 999) - (Number(right.annualizedVolatilityPct) || 999);
+    if (sort === 'symbol') return left.symbol.localeCompare(right.symbol);
+    return (Number(right.score) || 0) - (Number(left.score) || 0)
+      || (Number(right.relativeStrengthPctPoints) || -999) - (Number(left.relativeStrengthPctPoints) || -999)
+      || left.symbol.localeCompare(right.symbol);
+  });
+  return rows;
+}
+
+function marketCard(stock) {
+  const favorite = state.favorites.tickers.includes(stock.symbol);
+  const compared = state.marketCompare.includes(stock.symbol);
+  const statusClass = String(stock.status || '').toLowerCase();
+  const sourceUrl = safeUrl(stock.marketSourceUrl);
+  const checks = (stock.checks || []).map((item) => `
+    <li class="scan-check ${item.passed ? 'good' : 'bad'}" title="${escapeHtml(item.threshold)}">
+      <span>${item.passed ? '✓' : '×'}</span><div><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.detail)}</small></div>
+    </li>`).join('');
+  const plan = stock.strategy?.active ? `<div class="scan-plan">
+    <div><span>Instapvoorbeeld</span><strong>${formatCurrency(stock.strategy.entry, stock.currency)}</strong></div>
+    <div><span>Stop-loss</span><strong>${formatCurrency(stock.strategy.stopLoss, stock.currency)}</strong></div>
+    <div><span>2R-doel</span><strong>${formatCurrency(stock.strategy.takeProfit, stock.currency)}</strong></div>
+  </div>` : '';
+  return `<article class="market-card ${statusClass}">
+    <div class="market-card-head">
+      <div class="market-symbol"><strong>${escapeHtml(stock.symbol)}</strong><span>${escapeHtml(stock.company)}</span><small>${escapeHtml(stock.sector)}</small></div>
+      <div class="market-score"><strong>${Number(stock.score) || 0}/6</strong><span>${escapeHtml(stock.signalLabel)}</span></div>
+    </div>
+    <div class="market-metrics">
+      <div><span>Koers</span><strong>${formatCurrency(stock.price, stock.currency)}</strong></div>
+      <div><span>1 jaar</span><strong class="${resultClass(stock.oneYearReturnPct)}">${formatSignedPercent(stock.oneYearReturnPct)}</strong></div>
+      <div><span>vs. S&P</span><strong class="${resultClass(stock.relativeStrengthPctPoints)}">${formatSignedPercent(stock.relativeStrengthPctPoints)}</strong></div>
+      <div><span>Volatiliteit</span><strong>${formatCompactNumber(stock.annualizedVolatilityPct)}%</strong></div>
+    </div>
+    <details class="scan-details" ${stock.status === 'CANDIDATE' ? 'open' : ''}>
+      <summary>Bekijk de zes controles</summary>
+      <ul>${checks}</ul>
+    </details>
+    ${plan}
+    <div class="market-actions">
+      <button class="icon-button market-star ${favorite ? 'active' : ''}" type="button" data-market-favorite="${escapeHtml(stock.symbol)}" aria-label="${favorite ? 'Stop met ticker volgen' : 'Volg ticker'}">★</button>
+      <button class="button button-secondary compare-button ${compared ? 'active' : ''}" type="button" data-market-compare="${escapeHtml(stock.symbol)}">${compared ? 'In vergelijking' : 'Vergelijk'}</button>
+      ${stock.status === 'CANDIDATE' ? `<button class="button" type="button" data-market-journal="${escapeHtml(stock.symbol)}">Registreer koop</button>` : ''}
+      ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Marktbron ↗</a>` : ''}
+    </div>
+  </article>`;
+}
+
+function renderMarketComparison() {
+  const selected = state.marketCompare.map((symbol) => currentMarketStock(symbol)).filter(Boolean);
+  elements.marketCompare.classList.toggle('hidden', !selected.length);
+  if (!selected.length) {
+    elements.marketCompare.innerHTML = '';
+    return;
+  }
+  const rows = [
+    ['Score', (stock) => `${stock.score}/6`],
+    ['Koers', (stock) => formatCurrency(stock.price, stock.currency)],
+    ['1-jaarsrendement', (stock) => formatSignedPercent(stock.oneYearReturnPct)],
+    ['Sterkte versus S&P', (stock) => formatSignedPercent(stock.relativeStrengthPctPoints)],
+    ['RSI', (stock) => formatCompactNumber(stock.rsi14)],
+    ['Volatiliteit', (stock) => `${formatCompactNumber(stock.annualizedVolatilityPct)}%`],
+    ['Sector', (stock) => stock.sector],
+  ];
+  elements.marketCompare.innerHTML = `
+    <div class="compare-heading"><div><p class="eyebrow">Naast elkaar</p><h3>Vergelijk maximaal drie aandelen</h3></div><button class="button button-secondary" id="clearMarketCompare" type="button">Wis vergelijking</button></div>
+    <div class="compare-table" style="--compare-count:${selected.length}">
+      <div class="compare-label"></div>${selected.map((stock) => `<strong>${escapeHtml(stock.symbol)}</strong>`).join('')}
+      ${rows.map(([label, formatter]) => `<span class="compare-label">${label}</span>${selected.map((stock) => `<span>${escapeHtml(formatter(stock))}</span>`).join('')}`).join('')}
+    </div>`;
+  document.getElementById('clearMarketCompare').addEventListener('click', () => {
+    state.marketCompare = [];
+    renderMarketScan();
+  });
+}
+
+function toggleMarketCompare(symbol) {
+  const index = state.marketCompare.indexOf(symbol);
+  if (index >= 0) state.marketCompare.splice(index, 1);
+  else if (state.marketCompare.length < 3) state.marketCompare.push(symbol);
+  else {
+    elements.marketStatus.textContent = 'Je kunt maximaal drie aandelen tegelijk vergelijken. Verwijder er eerst één.';
+    return;
+  }
+  renderMarketScan();
+}
+
+function renderMarketScan(cached = false) {
+  if (!state.marketScan) return;
+  const metadata = state.marketScan.metadata || {};
+  const sectors = [...new Set(state.marketScan.stocks.map((stock) => stock.sector).filter(Boolean))].sort();
+  const selectedSector = elements.marketSector.value;
+  elements.marketSector.innerHTML = '<option value="all">Alle sectoren</option>'
+    + sectors.map((sector) => `<option value="${escapeHtml(sector)}">${escapeHtml(sector)}</option>`).join('');
+  elements.marketSector.value = sectors.includes(selectedSector) ? selectedSector : 'all';
+  const candidates = state.marketScan.stocks.filter((stock) => stock.status === 'CANDIDATE').length;
+  const watches = state.marketScan.stocks.filter((stock) => stock.status === 'WATCH').length;
+  elements.marketFreshness.textContent = `${cached ? 'Lokale kopie · ' : ''}${metadata.scanDate ? `Koersen ${formatDate(metadata.scanDate)}` : formatDateTime(metadata.updatedAt)}`;
+  elements.marketStats.innerHTML = `
+    <article><span>Geanalyseerd</span><strong>${state.marketScan.stocks.length.toLocaleString('nl-NL')}</strong><small>S&P 500-noteringen</small></article>
+    <article class="candidate"><span>Technische kandidaten</span><strong>${candidates}</strong><small>alle zes controles groen</small></article>
+    <article class="watch"><span>Bijna bevestigd</span><strong>${watches}</strong><small>vijf van zes groen</small></article>
+    <article><span>SPY in één jaar</span><strong class="${resultClass(metadata.benchmarkOneYearReturnPct)}">${formatSignedPercent(metadata.benchmarkOneYearReturnPct)}</strong><small>benchmark voor relatieve sterkte</small></article>`;
+  const rows = filteredMarketStocks();
+  const visible = rows.slice(0, state.marketVisible);
+  elements.marketStatus.textContent = `${rows.length.toLocaleString('nl-NL')} resultaten · ${candidates} volledige 6/6-kandidaten in de hele scan`;
+  elements.marketList.innerHTML = visible.length ? visible.map(marketCard).join('') : '<div class="empty">Geen aandelen gevonden voor deze filters.</div>';
+  elements.marketLoadMore.classList.toggle('hidden', state.marketVisible >= rows.length);
+  renderMarketComparison();
+  elements.marketList.querySelectorAll('[data-market-favorite]').forEach((button) => {
+    button.addEventListener('click', () => toggleFavorite('tickers', button.dataset.marketFavorite));
+  });
+  elements.marketList.querySelectorAll('[data-market-compare]').forEach((button) => {
+    button.addEventListener('click', () => toggleMarketCompare(button.dataset.marketCompare));
+  });
+  elements.marketList.querySelectorAll('[data-market-journal]').forEach((button) => {
+    button.addEventListener('click', () => prepareJournalEntry(button.dataset.marketJournal, 'BUY'));
+  });
+  renderJournal();
+}
+
 function journalCalculations() {
   const books = new Map();
   const sorted = [...state.journal].sort((left, right) => (
@@ -436,7 +648,8 @@ function journalCalculations() {
     realized += book.realized;
     const quantity = book.lots.reduce((sum, lot) => sum + lot.quantity, 0);
     const cost = book.lots.reduce((sum, lot) => sum + lot.quantity * lot.unitCost, 0);
-    const current = state.analysis?.stocks.find((stock) => stock.symbol === book.symbol)?.market?.price;
+    const currentStock = currentMarketStock(book.symbol);
+    const current = currentStock?.price ?? currentStock?.market?.price;
     const marketPrice = Number(current) > 0 ? Number(current) : book.lastPrice;
     const value = quantity * marketPrice;
     openCost += cost;
@@ -450,6 +663,7 @@ function journalCalculations() {
       marketValue: value,
       unrealized: value - cost,
       realized: book.realized,
+      sector: currentStock?.sector || 'Niet in S&P 500-scan',
     };
   }).filter((position) => position.quantity > 0.0000001).sort((left, right) => right.marketValue - left.marketValue);
   return { positions, realized, openCost, marketValue, unrealized: marketValue - openCost };
@@ -457,6 +671,39 @@ function journalCalculations() {
 
 function resultClass(value) {
   return Number(value) > 0.004 ? 'positive' : Number(value) < -0.004 ? 'negative' : 'neutral';
+}
+
+function renderPortfolioInsights(result) {
+  if (!result.positions.length || result.marketValue <= 0) {
+    elements.portfolioInsights.innerHTML = `<div class="portfolio-empty">
+      <strong>Spreidingsmeter</strong><span>Na je eerste aankoop zie je hier sectorverdeling en concentratierisico.</span>
+    </div>`;
+    return;
+  }
+  const sectors = new Map();
+  result.positions.forEach((position) => {
+    sectors.set(position.sector, (sectors.get(position.sector) || 0) + position.marketValue);
+  });
+  const sectorRows = [...sectors.entries()].map(([sector, value]) => ({
+    sector,
+    value,
+    percent: value / result.marketValue * 100,
+  })).sort((left, right) => right.value - left.value);
+  const largest = [...result.positions].sort((left, right) => right.marketValue - left.marketValue)[0];
+  const largestPercent = largest.marketValue / result.marketValue * 100;
+  const largestSector = sectorRows[0];
+  const warnings = [];
+  if (largestPercent > 35) warnings.push(`${largest.symbol} vormt ${largestPercent.toFixed(0)}% van je open portefeuille.`);
+  if (largestSector.percent > 45) warnings.push(`${largestSector.sector} vormt ${largestSector.percent.toFixed(0)}% van je open portefeuille.`);
+  if (result.positions.length < 3) warnings.push('Minder dan drie open aandelen geeft beperkte spreiding.');
+  elements.portfolioInsights.innerHTML = `
+    <div class="portfolio-insight-head">
+      <div><p class="eyebrow">Risico-overzicht</p><h3>Sectorverdeling en concentratie</h3></div>
+      <span class="diversification-score ${warnings.length ? 'attention' : 'good'}">${warnings.length ? `${warnings.length} aandachtspunt${warnings.length === 1 ? '' : 'en'}` : 'Redelijk gespreid'}</span>
+    </div>
+    <div class="sector-bars">${sectorRows.map((row) => `
+      <div class="sector-bar"><div><span>${escapeHtml(row.sector)}</span><strong>${row.percent.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}%</strong></div><i><b style="width:${Math.min(100, row.percent)}%"></b></i></div>`).join('')}</div>
+    <div class="portfolio-warnings">${warnings.length ? warnings.map((warning) => `<p>⚠ ${escapeHtml(warning)}</p>`).join('') : '<p>Geen grote concentratie volgens de eenvoudige 35%/45%-waarschuwingsgrenzen.</p>'}</div>`;
 }
 
 function saveJournal() {
@@ -471,7 +718,9 @@ function renderJournal() {
     <article><span>In open posities</span><strong>${formatCurrency(result.openCost)}</strong><small>FIFO-aankoopwaarde incl. kosten</small></article>
     <article><span>Huidige waarde</span><strong>${formatCurrency(result.marketValue)}</strong><small>laatste beschikbare analysekoers</small></article>
     <article><span>Open resultaat</span><strong class="${resultClass(result.unrealized)}">${formatCurrency(result.unrealized)}</strong><small>nog niet gerealiseerd</small></article>
-    <article><span>Totaal resultaat</span><strong class="${resultClass(total)}">${formatCurrency(total)}</strong><small>${formatCurrency(result.realized)} gerealiseerd</small></article>`;
+    <article><span>Totaal resultaat</span><strong class="${resultClass(total)}">${formatCurrency(total)}</strong><small>${result.openCost ? formatSignedPercent(total / result.openCost * 100) : '0%'} · ${formatCurrency(result.realized)} gerealiseerd</small></article>`;
+
+  renderPortfolioInsights(result);
 
   elements.journalPositions.innerHTML = result.positions.length ? result.positions.map((position) => `
     <article class="position-row">
@@ -492,7 +741,10 @@ function renderJournal() {
     </article>`;
   }).join('') : '<div class="empty compact-empty">Nog geen transacties opgeslagen.</div>';
 
-  const symbols = [...new Set((state.analysis?.stocks || []).map((stock) => stock.symbol))].sort();
+  const symbols = [...new Set([
+    ...(state.analysis?.stocks || []).map((stock) => stock.symbol),
+    ...(state.marketScan?.stocks || []).map((stock) => stock.symbol),
+  ])].sort();
   elements.journalSymbols.innerHTML = symbols.map((symbol) => `<option value="${escapeHtml(symbol)}"></option>`).join('');
   elements.journalPositions.querySelectorAll('[data-journal-sell]').forEach((button) => {
     button.addEventListener('click', () => prepareJournalEntry(button.dataset.journalSell, 'SELL'));
@@ -508,11 +760,12 @@ function renderJournal() {
 
 function prepareJournalEntry(symbol, type) {
   const normalized = String(symbol || '').trim().toUpperCase();
-  const stock = state.analysis?.stocks.find((item) => item.symbol === normalized);
+  const stock = currentMarketStock(normalized);
   const position = journalCalculations().positions.find((item) => item.symbol === normalized);
   elements.journalSymbol.value = normalized;
   elements.journalType.value = type;
-  elements.journalPrice.value = Number(type === 'BUY' ? stock?.strategy?.entryHigh || stock?.market?.price : stock?.market?.price || position?.marketPrice || 0).toFixed(2);
+  const stockPrice = stock?.strategy?.entryHigh ?? stock?.strategy?.entry ?? stock?.market?.price ?? stock?.price;
+  elements.journalPrice.value = Number(type === 'BUY' ? stockPrice || 0 : stockPrice || position?.marketPrice || 0).toFixed(2);
   elements.journalQuantity.value = type === 'SELL' && position ? Number(position.quantity.toFixed(6)) : '';
   elements.journalFormStatus.textContent = `${type === 'BUY' ? 'Aankoop' : 'Verkoop'} voor ${normalized} voorbereid. Vul het werkelijk uitgevoerde aantal en de echte prijs in.`;
   document.getElementById('dagboek').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -781,6 +1034,7 @@ function toggleFavorite(kind, value) {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(state.favorites));
   renderTrades();
   renderFavorites();
+  if (state.marketScan) renderMarketScan();
 }
 
 function openDetail(id) {
@@ -861,11 +1115,17 @@ elements.loadMoreButton.addEventListener('click', () => { state.visible += PAGE_
 elements.refreshButton.addEventListener('click', () => Promise.all([
   loadData({ manual: true }),
   loadAnalysis({ manual: true }),
+  loadMarketScan({ manual: true }),
 ]));
 elements.analysisBudget.addEventListener('input', () => renderAnalysis());
 elements.analysisRisk.addEventListener('change', () => renderAnalysis());
 elements.journalForm.addEventListener('submit', submitJournalEntry);
 elements.journalExportButton.addEventListener('click', exportJournal);
+elements.marketSearch.addEventListener('input', () => { state.marketVisible = MARKET_PAGE_SIZE; renderMarketScan(); });
+[elements.marketSector, elements.marketSignal, elements.marketRisk, elements.marketSort].forEach((element) => {
+  element.addEventListener('change', () => { state.marketVisible = MARKET_PAGE_SIZE; renderMarketScan(); });
+});
+elements.marketLoadMore.addEventListener('click', () => { state.marketVisible += MARKET_PAGE_SIZE; renderMarketScan(); });
 elements.closeDialogButton.addEventListener('click', () => elements.detailDialog.close());
 elements.detailDialog.addEventListener('click', (event) => {
   if (event.target === elements.detailDialog) elements.detailDialog.close();
@@ -893,4 +1153,4 @@ if ('serviceWorker' in navigator) {
 
 elements.journalDate.value = localDateInputValue();
 renderJournal();
-Promise.all([loadData(), loadAnalysis()]);
+Promise.all([loadData(), loadAnalysis(), loadMarketScan()]);

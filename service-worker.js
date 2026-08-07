@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'capitol-pulse-v3';
+const CACHE_NAME = 'capitol-pulse-v4';
 const scopeUrl = self.registration.scope;
 const assetUrl = (path) => new URL(path, scopeUrl).toString();
 const APP_SHELL = [
@@ -13,6 +13,7 @@ const APP_SHELL = [
   './public/icons/icon-512.png',
   './public/data/live.json',
   './public/data/analysis.json',
+  './public/data/sp500.json',
 ].map(assetUrl);
 
 self.addEventListener('install', (event) => {
@@ -44,7 +45,7 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (!url.href.startsWith(scopeUrl)) return;
-  if (url.pathname.endsWith('/public/data/live.json') || url.pathname.endsWith('/public/data/analysis.json')) {
+  if (url.pathname.endsWith('/public/data/live.json') || url.pathname.endsWith('/public/data/analysis.json') || url.pathname.endsWith('/public/data/sp500.json')) {
     event.respondWith(networkFirst(event.request));
     return;
   }
