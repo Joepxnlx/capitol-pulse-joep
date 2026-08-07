@@ -1,0 +1,91 @@
+name: Update S&P 500 market scan
+
+on:
+  schedule:
+    - cron: "17 5 * * 1-5"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/update_sp500.py
+      - .github/workflows/update-market.yml
+      - requirements.txt
+  pull_request:
+    paths:
+      - scripts/update_sp500.py
+      - public/data/sp500.json
+      - .github/workflows/update-market.yml
+      - requirements.txt
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: capitol-pulse-market-scan-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Repository ophalen
+        uses: actions/checkout@v4
+
+      - name: Python installeren
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependencies installeren
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Volledige S&P 500-scan uitvoeren
+        env:
+          NTFY_TOPIC: ${{ github.event_name != 'pull_request' && secrets.NTFY_TOPIC || '' }}
+          FORCE_SCAN: ${{ github.event_name == 'pull_request' && '1' || '0' }}
+          SP500_WORKERS: "8"
+          PYTHONUNBUFFERED: "1"
+        run: python scripts/update_sp500.py
+
+      - name: JSON-resultaat valideren
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path("public/data/sp500.json").read_text(encoding="utf-8"))
+          stocks = payload.get("stocks") or []
+          if len(stocks) < 425:
+              raise SystemExit(f"Te weinig geldige S&P 500-resultaten: {len(stocks)}")
+          symbols = [stock.get("symbol") for stock in stocks]
+          if len(symbols) != len(set(symbols)):
+              raise SystemExit("Dubbele tickers in de S&P 500-scan")
+          print(f"Geldig: {len(stocks)} unieke aandelen")
+          PY
+
+      - name: Gewijzigde scan committen
+        id: commit_scan
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          if git diff --quiet -- public/data/sp500.json; then
+            echo "S&P 500-scan is ongewijzigd."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "capitol-pulse-bot"
+          git config user.email "capitol-pulse-bot@users.noreply.github.com"
+          git add public/data/sp500.json
+          git commit -m "Update S&P 500 market scan"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Nieuwe scan op GitHub Pages publiceren
+        if: steps.commit_scan.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
