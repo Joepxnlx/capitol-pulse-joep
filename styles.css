@@ -335,6 +335,46 @@ h2 { margin: 0; font-size: 1.28rem; letter-spacing: -.025em; }
 .methodology ol { padding-left: 20px; }
 .methodology li, .methodology p { margin: 7px 0; font-size: .78rem; }
 
+.daily-top-panel { position: relative; overflow: hidden; margin-bottom: 22px; border-color: rgb(85 221 168 / 25%); background: linear-gradient(145deg, rgb(16 39 51 / 98%), rgb(10 25 42 / 98%)); }
+.daily-top-panel::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--green), var(--blue), var(--amber)); }
+.daily-top-heading { display: flex; justify-content: space-between; gap: 22px; align-items: end; margin-bottom: 15px; }
+.daily-top-heading h2 { margin: 4px 0 6px; }
+.daily-top-heading > div > p:last-child, .daily-top-freshness { margin: 0; color: var(--muted); }
+.daily-top-freshness { max-width: 340px; text-align: right; font-size: .74rem; line-height: 1.5; }
+.daily-top-warning { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; margin-bottom: 15px; padding: 11px 13px; border: 1px solid rgb(255 199 102 / 30%); border-radius: 13px; color: var(--muted); background: rgb(255 199 102 / 7%); font-size: .75rem; line-height: 1.55; }
+.daily-top-warning strong { color: var(--amber); }
+.daily-top-status { margin: 0 0 14px; color: var(--blue); font-size: .78rem; font-weight: 750; }
+.daily-top-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.daily-top-card { position: relative; display: grid; align-content: start; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 17px; background: rgb(13 29 48 / 90%); box-shadow: 0 16px 34px rgb(1 8 16 / 22%); }
+.daily-top-card.rank-1 { border-color: rgb(255 199 102 / 43%); }
+.daily-rank { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 31px; height: 31px; border: 1px solid rgb(85 221 168 / 34%); border-radius: 50%; color: var(--green); background: rgb(85 221 168 / 9%); font-weight: 950; }
+.rank-1 .daily-rank { color: var(--amber); border-color: rgb(255 199 102 / 45%); background: rgb(255 199 102 / 9%); }
+.daily-top-card-head { display: grid; gap: 10px; padding-right: 38px; }
+.daily-top-card-head > div { display: grid; gap: 2px; }
+.daily-top-card-head strong { font-size: 1.35rem; }
+.daily-top-card-head span, .daily-top-card-head small { overflow-wrap: anywhere; }
+.daily-top-card-head span { font-size: .8rem; font-weight: 750; }
+.daily-top-card-head small { color: var(--muted); font-size: .68rem; }
+.daily-confirmation { justify-self: start; padding: 5px 8px; border: 1px solid rgb(85 221 168 / 34%); border-radius: 999px; color: var(--green); background: rgb(85 221 168 / 8%); font-size: .64rem !important; font-weight: 900 !important; }
+.daily-politician { display: grid; gap: 3px; margin: 13px 0; padding: 11px; border-left: 3px solid var(--green); border-radius: 10px; background: var(--surface-soft); }
+.daily-politician span, .daily-politician small { color: var(--muted); font-size: .68rem; line-height: 1.4; }
+.daily-politician strong { font-size: .78rem; }
+.daily-prices { display: grid; gap: 7px; }
+.daily-prices > div { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-raised); }
+.daily-prices span, .daily-prices small { display: block; color: var(--muted); font-size: .63rem; line-height: 1.35; }
+.daily-prices strong { display: block; margin: 3px 0; font-size: 1rem; }
+.daily-prices > div:first-child strong { color: var(--blue); }
+.daily-prices > div:nth-child(2) strong { color: var(--red); }
+.daily-prices > div:nth-child(3) strong { color: var(--green); }
+.daily-analysis { margin-top: 13px; }
+.daily-analysis h3 { margin: 0 0 7px; font-size: .8rem; }
+.daily-analysis ul { display: grid; gap: 5px; margin: 0; padding-left: 18px; color: var(--muted); }
+.daily-analysis li { font-size: .68rem; line-height: 1.42; }
+.daily-top-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; align-items: center; margin-top: 14px; }
+.daily-top-actions .button { min-width: 0; padding-inline: 7px; font-size: .68rem; }
+.daily-top-actions a { font-size: .68rem; font-weight: 800; }
+.daily-top-methodology { margin-bottom: 0; }
+
 .controls { display: grid; grid-template-columns: 1.65fr repeat(4, 1fr); gap: 12px; margin-bottom: 18px; padding: 18px; }
 .controls label { display: grid; gap: 7px; color: var(--muted); font-size: .76rem; font-weight: 700; }
 input, select { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; outline: none; color: var(--text); background: var(--surface-raised); }
@@ -389,6 +429,8 @@ footer p { max-width: 520px; margin: 0; }
 
 @media (max-width: 1020px) {
   .hero { grid-template-columns: 1fr; }
+  .daily-top-list { grid-template-columns: 1fr; }
+  .daily-prices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .market-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .market-controls { grid-template-columns: repeat(3, 1fr); }
   .market-search { grid-column: 1 / -1; }
@@ -420,6 +462,10 @@ footer p { max-width: 520px; margin: 0; }
   .stats article { padding: 15px; }
   .quick-nav { display: flex; overflow-x: auto; padding-bottom: 3px; }
   .quick-nav a { flex: 0 0 auto; }
+  .daily-top-heading { display: grid; }
+  .daily-top-freshness { text-align: left; }
+  .daily-top-warning { grid-template-columns: 1fr; }
+  .daily-prices { grid-template-columns: 1fr; }
   .market-hero, .market-controls, .market-list { grid-template-columns: 1fr; }
   .market-caution { display: grid; }
   .market-stats, .congress-stats { grid-template-columns: repeat(2, 1fr); }
