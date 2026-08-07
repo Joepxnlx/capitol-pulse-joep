@@ -51,7 +51,7 @@
 
     <nav class="quick-nav" aria-label="Belangrijkste onderdelen">
       <a href="#beslissing"><span>01</span>Congresbeslissingen</a>
-      <a href="#markt"><span>02</span>S&P 500-kansenradar</a>
+      <a href="#markt"><span>02</span>S&P 500 + Congresradar</a>
       <a href="#dagboek"><span>03</span>Mijn resultaat</a>
       <a href="#transacties"><span>04</span>Openbare transacties</a>
     </nav>
@@ -81,8 +81,8 @@
       <div class="market-hero">
         <div>
           <p class="eyebrow">De hele markt in beeld</p>
-          <h2 id="marketTitle">S&P 500-kansenradar</h2>
-          <p>Scan alle circa 503 beursnoteringen op trend, momentum, RSI, relatieve sterkte, risico en liquiditeit. De grondige congresanalyse hierboven blijft een aparte, strengere controle.</p>
+          <h2 id="marketTitle">S&P 500 + Congresradar</h2>
+          <p>Bekijk voor alle circa 503 beursnoteringen zowel de technische analyse als de aankopen en verkopen uit de huidige openbare Congresfeed. Een politieke transactie en een technisch signaal blijven bewust twee afzonderlijke feiten.</p>
         </div>
         <div id="marketFreshness" class="scan-badge">Eerste scan laden…</div>
       </div>
@@ -93,13 +93,15 @@
       </div>
 
       <div id="marketStats" class="market-stats" aria-label="S&P 500-samenvatting"></div>
+      <div id="marketCongressStats" class="congress-stats" aria-label="Congresactiviteit binnen de S&P 500"></div>
 
       <div class="market-controls" aria-label="S&P 500-filtering">
-        <label class="market-search"><span>Zoek aandeel</span><input id="marketSearch" type="search" placeholder="Ticker of bedrijfsnaam" autocomplete="off"></label>
+        <label class="market-search"><span>Zoek aandeel of politicus</span><input id="marketSearch" type="search" placeholder="Ticker, bedrijf of Congreslid" autocomplete="off"></label>
         <label><span>Sector</span><select id="marketSector"><option value="all">Alle sectoren</option></select></label>
         <label><span>Oordeel</span><select id="marketSignal"><option value="all">Alles</option><option value="CANDIDATE">6/6 kandidaten</option><option value="WATCH">5/6 volgen</option><option value="favorites">Mijn favorieten</option></select></label>
+        <label><span>Congres</span><select id="marketCongress"><option value="all">Alle activiteit</option><option value="activity">Met meldingen</option><option value="purchases">Met aankopen</option><option value="sales">Met verkopen</option><option value="latest-buy">Laatste melding is koop</option><option value="net-buy">Meer koop- dan verkoopmeldingen</option><option value="combined">Congreskoop + 6/6</option><option value="none">Zonder melding in huidige feed</option></select></label>
         <label><span>Risico</span><select id="marketRisk"><option value="all">Alle volatiliteit</option><option value="30">Maximaal 30%</option><option value="40">Maximaal 40%</option><option value="50">Maximaal 50%</option></select></label>
-        <label><span>Sorteren</span><select id="marketSort"><option value="score">Beste score</option><option value="relative">Sterkste versus S&P</option><option value="return">Hoogste 1-jaarsrendement</option><option value="risk">Laagste volatiliteit</option><option value="symbol">Ticker A–Z</option></select></label>
+        <label><span>Sorteren</span><select id="marketSort"><option value="score">Beste score</option><option value="congress-latest">Nieuwste congresmelding</option><option value="congress-volume">Meeste congresmeldingen</option><option value="congress-net">Sterkste koopsaldo</option><option value="relative">Sterkste versus S&P</option><option value="return">Hoogste 1-jaarsrendement</option><option value="risk">Laagste volatiliteit</option><option value="symbol">Ticker A–Z</option></select></label>
       </div>
 
       <div id="marketStatus" class="analysis-status" role="status" aria-live="polite">De volledige marktscan wordt geladen.</div>
@@ -117,7 +119,7 @@
           <li><strong>Risico:</strong> volatiliteit maximaal 50% en niet meer dan 20% onder de 52-weeks top.</li>
           <li><strong>Liquiditeit:</strong> gemiddelde dagelijkse dollaromzet van minimaal $10 miljoen.</li>
         </ol>
-        <p>De scan wordt op beursdagen dagelijks vernieuwd. Alleen 6/6 heet een technische kandidaat; 5/6 is een aandeel om te volgen. Dit is bewust geen vervanging voor fundamenteel onderzoek.</p>
+        <p>De scan wordt op beursdagen dagelijks vernieuwd. Alleen 6/6 heet een technische kandidaat; 5/6 is een aandeel om te volgen. De Congreslaag gebruikt de huidige openbare feed van maximaal 1.500 recente meldingen, toont per aandeel maximaal vijf recente regels en linkt iedere regel naar de filingbron. “Geen melding” betekent daarom geen melding binnen deze huidige feed, niet dat er historisch nooit is gehandeld.</p>
       </details>
     </section>
 
