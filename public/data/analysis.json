@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-08T00:02:42Z",
+    "updatedAt": "2026-08-08T04:34:52Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-08-07T01:44:51Z",
     "refreshIntervalHours": 4,
@@ -279,7 +279,7 @@
         "sma50": 412.64,
         "sma200": 433.73,
         "rsi14": 28.7,
-        "atr14": 12.66,
+        "atr14": 12.68,
         "annualizedVolatilityPct": 35.0,
         "fiftyTwoWeekHigh": 547.82,
         "fiftyTwoWeekLow": 361.03
@@ -819,7 +819,7 @@
         "atr14": 11.74,
         "annualizedVolatilityPct": 25.7,
         "fiftyTwoWeekHigh": 461.62,
-        "fiftyTwoWeekLow": 244.37
+        "fiftyTwoWeekLow": 252.14
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 2.0,
@@ -999,7 +999,7 @@
         "atr14": 9.35,
         "annualizedVolatilityPct": 32.2,
         "fiftyTwoWeekHigh": 344.57,
-        "fiftyTwoWeekLow": 219.25
+        "fiftyTwoWeekLow": 223.78
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 16.4,
