@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-09T04:49:43Z",
+    "updatedAt": "2026-08-09T10:05:08Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-08-08T09:59:41Z",
     "refreshIntervalHours": 4,
@@ -195,34 +195,34 @@
         "fiftyTwoWeekLow": 146.49
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 3.2,
-        "netIncomeGrowthYoYPct": -36.9,
-        "netMarginPct": 5.9,
-        "freeCashFlowMarginPct": 7.4,
+        "revenueGrowthYoYPct": 51.4,
+        "netIncomeGrowthYoYPct": 384.8,
+        "netMarginPct": 9.9,
+        "freeCashFlowMarginPct": 12.9,
         "peRatio": 17.9,
-        "debtToEquity": 0.25
+        "debtToEquity": 0.2
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "bad",
-          "passed": false,
-          "detail": "Omzet j-o-j +3.2%; nettowinst j-o-j -36.9%."
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +51.4%; nettowinst j-o-j +384.8%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
-          "status": "bad",
-          "passed": false,
-          "detail": "Nettomarge over de laatste vier kwartalen: 5.9%."
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 9.9%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 7.4%."
+          "detail": "Vrije-kasstroommarge: 12.9%."
         },
         {
           "key": "valuation",
@@ -239,7 +239,7 @@
           "detail": "Koers t.o.v. 200-daags +5.8%; RSI 45.8; volatiliteit 26.2%."
         }
       ],
-      "score": 3,
+      "score": 5,
       "complete": true,
       "signal": "AVOID",
       "signalLabel": "Vermijden",
@@ -642,41 +642,41 @@
         "fiftyTwoWeekLow": 160.1
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 0.6,
-        "netIncomeGrowthYoYPct": 19.8,
-        "netMarginPct": 27.6,
-        "freeCashFlowMarginPct": -40.8,
-        "peRatio": 16.9,
-        "debtToEquity": 0.65
+        "revenueGrowthYoYPct": 4.8,
+        "netIncomeGrowthYoYPct": 30.2,
+        "netMarginPct": 28.5,
+        "freeCashFlowMarginPct": -41.1,
+        "peRatio": 20.0,
+        "debtToEquity": 0.68
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "bad",
-          "passed": false,
-          "detail": "Omzet j-o-j +0.6%; nettowinst j-o-j +19.8%."
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +4.8%; nettowinst j-o-j +30.2%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 27.6%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 28.5%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "bad",
           "passed": false,
-          "detail": "Vrije-kasstroommarge: -40.8%."
+          "detail": "Vrije-kasstroommarge: -41.1%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 16.9; schuld/eigen vermogen 0.6."
+          "detail": "K/W 20.0; schuld/eigen vermogen 0.7."
         },
         {
           "key": "trend",
@@ -686,10 +686,10 @@
           "detail": "Koers t.o.v. 200-daags -3.4%; RSI 31.1; volatiliteit 17.5%."
         }
       ],
-      "score": 2,
+      "score": 3,
       "complete": true,
-      "signal": "REDUCE",
-      "signalLabel": "Risicosignaal",
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
       "strategy": {
         "active": false,
         "entryLow": null,
@@ -732,12 +732,12 @@
         "fiftyTwoWeekLow": 42.2
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 7.5,
-        "netIncomeGrowthYoYPct": 13.8,
-        "netMarginPct": 17.5,
-        "freeCashFlowMarginPct": 8.3,
+        "revenueGrowthYoYPct": 11.6,
+        "netIncomeGrowthYoYPct": 99.0,
+        "netMarginPct": 17.3,
+        "freeCashFlowMarginPct": 16.0,
         "peRatio": 20.0,
-        "debtToEquity": 0.51
+        "debtToEquity": 0.43
       },
       "factors": [
         {
@@ -745,28 +745,28 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +7.5%; nettowinst j-o-j +13.8%."
+          "detail": "Omzet j-o-j +11.6%; nettowinst j-o-j +99.0%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 17.5%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 17.3%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 8.3%."
+          "detail": "Vrije-kasstroommarge: 16.0%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 20.0; schuld/eigen vermogen 0.5."
+          "detail": "K/W 20.0; schuld/eigen vermogen 0.4."
         },
         {
           "key": "trend",
