@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-10T20:10:48Z",
+    "updatedAt": "2026-08-11T04:53:01Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-08-10T20:10:48Z",
     "refreshIntervalHours": 4,
@@ -94,7 +94,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 563.15,
+        "price": 563.17,
         "priceDate": "2026-08-10",
         "sma50": 522.86,
         "sma200": 528.12,
@@ -184,7 +184,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 194.92,
+        "price": 194.91,
         "priceDate": "2026-08-10",
         "sma50": 183.09,
         "sma200": 176.49,
@@ -274,7 +274,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116211.pdf"
       },
       "market": {
-        "price": 411.0,
+        "price": 410.94,
         "priceDate": "2026-08-10",
         "sma50": 412.96,
         "sma200": 433.5,
@@ -631,12 +631,12 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
       },
       "market": {
-        "price": 167.89,
+        "price": 167.92,
         "priceDate": "2026-08-10",
         "sma50": 173.18,
         "sma200": 176.2,
         "rsi14": 31.1,
-        "atr14": 3.15,
+        "atr14": 3.25,
         "annualizedVolatilityPct": 17.6,
         "fiftyTwoWeekHigh": 192.51,
         "fiftyTwoWeekLow": 160.1
@@ -721,7 +721,7 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/c52854ed-a778-483a-883c-0ba2bba17877/"
       },
       "market": {
-        "price": 50.45,
+        "price": 50.46,
         "priceDate": "2026-08-10",
         "sma50": 45.92,
         "sma200": 71.69,
@@ -732,12 +732,12 @@
         "fiftyTwoWeekLow": 42.2
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 7.5,
-        "netIncomeGrowthYoYPct": 13.8,
-        "netMarginPct": 17.5,
-        "freeCashFlowMarginPct": 8.6,
+        "revenueGrowthYoYPct": 11.6,
+        "netIncomeGrowthYoYPct": 99.0,
+        "netMarginPct": 17.3,
+        "freeCashFlowMarginPct": 16.0,
         "peRatio": 20.4,
-        "debtToEquity": 0.51
+        "debtToEquity": 0.43
       },
       "factors": [
         {
@@ -745,28 +745,28 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +7.5%; nettowinst j-o-j +13.8%."
+          "detail": "Omzet j-o-j +11.6%; nettowinst j-o-j +99.0%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 17.5%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 17.3%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 8.6%."
+          "detail": "Vrije-kasstroommarge: 16.0%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 20.4; schuld/eigen vermogen 0.5."
+          "detail": "K/W 20.4; schuld/eigen vermogen 0.4."
         },
         {
           "key": "trend",
@@ -811,7 +811,7 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/9c0b720d-7e27-4b02-8cf5-a85ba88c9543/"
       },
       "market": {
-        "price": 408.69,
+        "price": 408.74,
         "priceDate": "2026-08-10",
         "sma50": 413.32,
         "sma200": 346.15,
@@ -819,7 +819,7 @@
         "atr14": 10.99,
         "annualizedVolatilityPct": 25.6,
         "fiftyTwoWeekHigh": 461.62,
-        "fiftyTwoWeekLow": 252.14
+        "fiftyTwoWeekLow": 253.67
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 2.0,
@@ -1081,9 +1081,9 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/1a5e6752-653a-4b11-82b6-efd51d466bb6/"
       },
       "market": {
-        "price": 151.04,
+        "price": 151.05,
         "priceDate": "2026-08-10",
-        "sma50": 159.23,
+        "sma50": 159.24,
         "sma200": 178.69,
         "rsi14": 71.0,
         "atr14": 7.11,
