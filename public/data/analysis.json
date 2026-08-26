@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-08-25T21:00:15Z",
+    "updatedAt": "2026-08-26T03:34:59Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-08-25T21:00:15Z",
     "refreshIntervalHours": 4,
@@ -460,7 +460,7 @@
         "rsi14": 56.4,
         "atr14": 2.59,
         "annualizedVolatilityPct": 32.0,
-        "fiftyTwoWeekHigh": 108.29,
+        "fiftyTwoWeekHigh": 107.85,
         "fiftyTwoWeekLow": 79.12
       },
       "fundamentals": {
