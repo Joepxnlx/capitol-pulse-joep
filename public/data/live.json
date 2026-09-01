@@ -1,11 +1,11 @@
 {
   "mode": "live",
   "metadata": {
-    "updatedAt": "2026-08-31T19:05:31Z",
+    "updatedAt": "2026-09-01T18:40:59Z",
     "sourceId": "kadoa-congress-trading-monitor",
     "source": "Kadoa Congress Trading Monitor, uit officiële House Clerk- en Senate eFD-filings",
     "sourceUrl": "https://github.com/kadoa-org/congress-trading-monitor",
-    "sourceEtag": "W/\"d4e05dab10ca88dd5c8695fc76d2a05bed1e7c14d16fdcbf333252bf7bfea340\"",
+    "sourceEtag": "W/\"8a5ffd1fcf117d0683db0078292ffb31fb5c7b2d2961bf0edba72ea93c3582f5\"",
     "recordCount": 1500,
     "rejectedRecords": 0,
     "notice": "Transacties verschijnen pas nadat ze openbaar zijn gemaakt."
