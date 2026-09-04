@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-03T22:37:04Z",
+    "updatedAt": "2026-09-04T02:39:17Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-09-02T14:41:12Z",
     "refreshIntervalHours": 4,
@@ -288,7 +288,7 @@
         "netIncomeGrowthYoYPct": 64.9,
         "netMarginPct": 14.5,
         "freeCashFlowMarginPct": 12.0,
-        "peRatio": 39.8,
+        "peRatio": 34.4,
         "debtToEquity": 2.33
       },
       "factors": [
@@ -316,9 +316,9 @@
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "bad",
-          "passed": false,
-          "detail": "K/W 39.8; schuld/eigen vermogen 2.3."
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 34.4; schuld/eigen vermogen 2.3."
         },
         {
           "key": "trend",
@@ -328,7 +328,7 @@
           "detail": "Koers t.o.v. 200-daags +3.7%; RSI 35.6; volatiliteit 46.0%."
         }
       ],
-      "score": 3,
+      "score": 4,
       "complete": true,
       "signal": "AVOID",
       "signalLabel": "Vermijden",
@@ -821,7 +821,7 @@
         "atr14": 6.52,
         "annualizedVolatilityPct": 36.7,
         "fiftyTwoWeekHigh": 408.61,
-        "fiftyTwoWeekLow": 226.11
+        "fiftyTwoWeekLow": 231.9
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 24.2,
