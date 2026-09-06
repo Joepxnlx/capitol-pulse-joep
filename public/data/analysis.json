@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-05T20:56:40Z",
+    "updatedAt": "2026-09-06T05:31:30Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-09-05T10:49:36Z",
     "refreshIntervalHours": 4,
@@ -288,7 +288,7 @@
         "netIncomeGrowthYoYPct": 64.9,
         "netMarginPct": 14.5,
         "freeCashFlowMarginPct": 12.0,
-        "peRatio": 35.0,
+        "peRatio": 40.5,
         "debtToEquity": 2.33
       },
       "factors": [
@@ -318,7 +318,7 @@
           "label": "Waardering & balans",
           "status": "bad",
           "passed": false,
-          "detail": "K/W 35.0; schuld/eigen vermogen 2.3."
+          "detail": "K/W 40.5; schuld/eigen vermogen 2.3."
         },
         {
           "key": "trend",
