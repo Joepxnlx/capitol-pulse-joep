@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-07T23:17:13Z",
+    "updatedAt": "2026-09-08T06:16:28Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-09-06T18:51:33Z",
+    "liveUpdatedAt": "2026-09-08T06:16:28Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -44,13 +44,13 @@
     },
     {
       "name": "Rohit Khanna",
-      "tradeCount": 274,
-      "stockTradeCount": 42,
-      "latestDisclosureDate": "2026-08-07",
+      "tradeCount": 518,
+      "stockTradeCount": 83,
+      "latestDisclosureDate": "2026-09-04",
       "tickers": [
-        "CAT",
-        "AMD",
-        "ZBH"
+        "WMT",
+        "ORCL",
+        "COST"
       ]
     },
     {
@@ -258,80 +258,80 @@
       "marketSourceUrl": "https://finance.yahoo.com/quote/INTC"
     },
     {
-      "id": "Rohit Khanna:CAT",
+      "id": "Rohit Khanna:WMT",
       "politician": "Rohit Khanna",
-      "symbol": "CAT",
-      "company": "Caterpillar Inc.",
+      "symbol": "WMT",
+      "company": "Walmart Inc.",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116267_g271",
-        "action": "Sale",
+        "tradeId": "house_9116328_g84",
+        "action": "Purchase",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-07-27",
-        "disclosureDate": "2026-08-07",
+        "transactionDate": "2026-08-24",
+        "disclosureDate": "2026-09-04",
         "reportingDelayDays": 11,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116267.pdf"
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116328.pdf"
       },
       "market": {
-        "price": 813.94,
+        "price": 107.14,
         "priceDate": "2026-09-04",
-        "sma50": 872.69,
-        "sma200": 773.22,
-        "rsi14": 31.6,
-        "atr14": 24.61,
-        "annualizedVolatilityPct": 44.3,
-        "fiftyTwoWeekHigh": 1073.46,
-        "fiftyTwoWeekLow": 416.44
+        "sma50": 110.88,
+        "sma200": 118.67,
+        "rsi14": 36.2,
+        "atr14": 2.82,
+        "annualizedVolatilityPct": 28.8,
+        "fiftyTwoWeekHigh": 135.16,
+        "fiftyTwoWeekLow": 98.88
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 24.0,
-        "netIncomeGrowthYoYPct": 64.9,
-        "netMarginPct": 14.5,
-        "freeCashFlowMarginPct": 12.0,
-        "peRatio": 35.0,
-        "debtToEquity": 2.33
+        "revenueGrowthYoYPct": 5.9,
+        "netIncomeGrowthYoYPct": -9.4,
+        "netMarginPct": 3.0,
+        "freeCashFlowMarginPct": 1.8,
+        "peRatio": 38.7,
+        "debtToEquity": 0.75
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "good",
-          "passed": true,
-          "detail": "Omzet j-o-j +24.0%; nettowinst j-o-j +64.9%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +5.9%; nettowinst j-o-j -9.4%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
-          "status": "good",
-          "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 14.5%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Nettomarge over de laatste vier kwartalen: 3.0%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
-          "status": "good",
-          "passed": true,
-          "detail": "Vrije-kasstroommarge: 12.0%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: 1.8%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "bad",
           "passed": false,
-          "detail": "K/W 35.0; schuld/eigen vermogen 2.3."
+          "detail": "K/W 38.7; schuld/eigen vermogen 0.8."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +5.3%; RSI 31.6; volatiliteit 44.3%."
+          "detail": "Koers t.o.v. 200-daags -9.7%; RSI 36.2; volatiliteit 28.8%."
         }
       ],
-      "score": 3,
+      "score": 0,
       "complete": true,
       "signal": "AVOID",
-      "signalLabel": "Vermijden",
+      "signalLabel": "Geen koop",
       "strategy": {
         "active": false,
         "entryLow": null,
@@ -345,41 +345,41 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/CAT"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/WMT"
     },
     {
-      "id": "Rohit Khanna:AMD",
+      "id": "Rohit Khanna:ORCL",
       "politician": "Rohit Khanna",
-      "symbol": "AMD",
-      "company": "Advanced Micro Devices, Inc.",
+      "symbol": "ORCL",
+      "company": "Oracle Corporation",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116267_g270",
-        "action": "Sale",
+        "tradeId": "house_9116328_g81",
+        "action": "Purchase",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-07-24",
-        "disclosureDate": "2026-08-07",
-        "reportingDelayDays": 14,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116267.pdf"
+        "transactionDate": "2026-08-24",
+        "disclosureDate": "2026-09-04",
+        "reportingDelayDays": 11,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116328.pdf"
       },
       "market": {
-        "price": 477.57,
+        "price": 158.78,
         "priceDate": "2026-09-04",
-        "sma50": 499.27,
-        "sma200": 341.0,
-        "rsi14": 40.1,
-        "atr14": 18.48,
-        "annualizedVolatilityPct": 72.7,
-        "fiftyTwoWeekHigh": 584.73,
-        "fiftyTwoWeekLow": 149.22
+        "sma50": 139.84,
+        "sma200": 168.78,
+        "rsi14": 61.5,
+        "atr14": 6.22,
+        "annualizedVolatilityPct": 58.4,
+        "fiftyTwoWeekHigh": 345.72,
+        "fiftyTwoWeekLow": 114.5
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 50.1,
-        "netIncomeGrowthYoYPct": 163.4,
-        "netMarginPct": 15.6,
-        "freeCashFlowMarginPct": 20.3,
-        "peRatio": 122.8,
-        "debtToEquity": 0.06
+        "revenueGrowthYoYPct": 20.6,
+        "netIncomeGrowthYoYPct": 25.6,
+        "netMarginPct": 25.4,
+        "freeCashFlowMarginPct": -35.2,
+        "peRatio": 27.2,
+        "debtToEquity": 3.67
       },
       "factors": [
         {
@@ -387,41 +387,41 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +50.1%; nettowinst j-o-j +163.4%."
+          "detail": "Omzet j-o-j +20.6%; nettowinst j-o-j +25.6%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 15.6%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 25.4%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
-          "status": "good",
-          "passed": true,
-          "detail": "Vrije-kasstroommarge: 20.3%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: -35.2%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "bad",
           "passed": false,
-          "detail": "K/W 122.8; schuld/eigen vermogen 0.1."
+          "detail": "K/W 27.2; schuld/eigen vermogen 3.7."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +40.1%; RSI 40.1; volatiliteit 72.7%."
+          "detail": "Koers t.o.v. 200-daags -5.9%; RSI 61.5; volatiliteit 58.4%."
         }
       ],
-      "score": 3,
+      "score": 2,
       "complete": true,
       "signal": "AVOID",
-      "signalLabel": "Vermijden",
+      "signalLabel": "Geen koop",
       "strategy": {
         "active": false,
         "entryLow": null,
@@ -435,41 +435,41 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/AMD"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/ORCL"
     },
     {
-      "id": "Rohit Khanna:ZBH",
+      "id": "Rohit Khanna:COST",
       "politician": "Rohit Khanna",
-      "symbol": "ZBH",
-      "company": "Zimmer Biomet Holdings, Inc.",
+      "symbol": "COST",
+      "company": "Costco Wholesale Corporation",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116267_g191",
-        "action": "Sale",
+        "tradeId": "house_9116328_g79",
+        "action": "Purchase",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-07-23",
-        "disclosureDate": "2026-08-07",
-        "reportingDelayDays": 15,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116267.pdf"
+        "transactionDate": "2026-08-24",
+        "disclosureDate": "2026-09-04",
+        "reportingDelayDays": 11,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116328.pdf"
       },
       "market": {
-        "price": 98.07,
+        "price": 915.74,
         "priceDate": "2026-09-04",
-        "sma50": 94.93,
-        "sma200": 91.36,
-        "rsi14": 49.6,
-        "atr14": 2.5,
-        "annualizedVolatilityPct": 31.7,
-        "fiftyTwoWeekHigh": 106.88,
-        "fiftyTwoWeekLow": 79.12
+        "sma50": 943.57,
+        "sma200": 960.26,
+        "rsi14": 37.5,
+        "atr14": 18.02,
+        "annualizedVolatilityPct": 20.6,
+        "fiftyTwoWeekHigh": 1096.5,
+        "fiftyTwoWeekLow": 844.06
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 4.8,
-        "netIncomeGrowthYoYPct": 29.8,
-        "netMarginPct": 9.5,
-        "freeCashFlowMarginPct": 16.5,
-        "peRatio": 23.5,
-        "debtToEquity": 0.59
+        "revenueGrowthYoYPct": 11.6,
+        "netIncomeGrowthYoYPct": 15.2,
+        "netMarginPct": 3.0,
+        "freeCashFlowMarginPct": 3.0,
+        "peRatio": 46.1,
+        "debtToEquity": 0.24
       },
       "factors": [
         {
@@ -477,41 +477,41 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +4.8%; nettowinst j-o-j +29.8%."
+          "detail": "Omzet j-o-j +11.6%; nettowinst j-o-j +15.2%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
-          "status": "good",
-          "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 9.5%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Nettomarge over de laatste vier kwartalen: 3.0%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
-          "status": "good",
-          "passed": true,
-          "detail": "Vrije-kasstroommarge: 16.5%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: 3.0%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "good",
-          "passed": true,
-          "detail": "K/W 23.5; schuld/eigen vermogen 0.6."
+          "status": "bad",
+          "passed": false,
+          "detail": "K/W 46.1; schuld/eigen vermogen 0.2."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
-          "status": "good",
-          "passed": true,
-          "detail": "Koers t.o.v. 200-daags +7.3%; RSI 49.6; volatiliteit 31.7%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -4.6%; RSI 37.5; volatiliteit 20.6%."
         }
       ],
-      "score": 5,
+      "score": 1,
       "complete": true,
       "signal": "AVOID",
-      "signalLabel": "Vermijden",
+      "signalLabel": "Geen koop",
       "strategy": {
         "active": false,
         "entryLow": null,
@@ -525,7 +525,7 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/ZBH"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/COST"
     },
     {
       "id": "John Boozman:LLY",
