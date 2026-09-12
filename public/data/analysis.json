@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-12T12:17:08Z",
+    "updatedAt": "2026-09-12T15:43:22Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-09-11T19:00:42Z",
+    "liveUpdatedAt": "2026-09-12T15:43:22Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -55,13 +55,13 @@
     },
     {
       "name": "John Boozman",
-      "tradeCount": 39,
-      "stockTradeCount": 25,
-      "latestDisclosureDate": "2026-08-24",
+      "tradeCount": 48,
+      "stockTradeCount": 29,
+      "latestDisclosureDate": "2026-09-11",
       "tickers": [
-        "LLY",
-        "FTGC",
-        "FISV"
+        "OTIS",
+        "JNJ",
+        "CEG"
       ]
     },
     {
@@ -528,38 +528,38 @@
       "marketSourceUrl": "https://finance.yahoo.com/quote/COST"
     },
     {
-      "id": "John Boozman:LLY",
+      "id": "John Boozman:OTIS",
       "politician": "John Boozman",
-      "symbol": "LLY",
-      "company": "Eli Lilly and Company",
+      "symbol": "OTIS",
+      "company": "Otis Worldwide Corporation",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "senate_51455bcd-4966-4e77-b481-09897ada81ae_t5",
-        "action": "Sale",
+        "tradeId": "senate_0632f542-7ac2-46e4-bd9c-603e3673f0cd_t0",
+        "action": "Purchase",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2025-11-21",
-        "disclosureDate": "2026-08-24",
-        "reportingDelayDays": 276,
-        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/51455bcd-4966-4e77-b481-09897ada81ae/"
+        "transactionDate": "2026-08-27",
+        "disclosureDate": "2026-09-11",
+        "reportingDelayDays": 15,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/0632f542-7ac2-46e4-bd9c-603e3673f0cd/"
       },
       "market": {
-        "price": 1115.7,
+        "price": 69.1,
         "priceDate": "2026-09-11",
-        "sma50": 1184.65,
-        "sma200": 1064.85,
-        "rsi14": 2.5,
-        "atr14": 27.78,
-        "annualizedVolatilityPct": 33.5,
-        "fiftyTwoWeekHigh": 1292.65,
-        "fiftyTwoWeekLow": 712.05
+        "sma50": 72.11,
+        "sma200": 79.62,
+        "rsi14": 38.4,
+        "atr14": 1.2,
+        "annualizedVolatilityPct": 22.3,
+        "fiftyTwoWeekHigh": 94.56,
+        "fiftyTwoWeekLow": 67.64
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 47.7,
-        "netIncomeGrowthYoYPct": 25.3,
-        "netMarginPct": 33.5,
-        "freeCashFlowMarginPct": 17.0,
-        "peRatio": 37.4,
-        "debtToEquity": 1.62
+        "revenueGrowthYoYPct": 7.3,
+        "netIncomeGrowthYoYPct": 8.9,
+        "netMarginPct": 10.2,
+        "freeCashFlowMarginPct": 11.5,
+        "peRatio": 17.8,
+        "debtToEquity": null
       },
       "factors": [
         {
@@ -567,38 +567,128 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +47.7%; nettowinst j-o-j +25.3%."
+          "detail": "Omzet j-o-j +7.3%; nettowinst j-o-j +8.9%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 33.5%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 10.2%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 17.0%."
+          "detail": "Vrije-kasstroommarge: 11.5%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "bad",
+          "status": "unavailable",
           "passed": false,
-          "detail": "K/W 37.4; schuld/eigen vermogen 1.6."
+          "detail": "K/W 17.8; schuld/eigen vermogen niet beschikbaar."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +4.8%; RSI 2.5; volatiliteit 33.5%."
+          "detail": "Koers t.o.v. 200-daags -13.2%; RSI 38.4; volatiliteit 22.3%."
         }
       ],
       "score": 3,
+      "complete": false,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/OTIS"
+    },
+    {
+      "id": "John Boozman:JNJ",
+      "politician": "John Boozman",
+      "symbol": "JNJ",
+      "company": "Johnson & Johnson",
+      "currency": "USD",
+      "politicianSignal": {
+        "tradeId": "senate_6298991b-e48f-4b11-9bbb-dfc94a7e1b32_t1",
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-08-20",
+        "disclosureDate": "2026-09-11",
+        "reportingDelayDays": 22,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/6298991b-e48f-4b11-9bbb-dfc94a7e1b32/"
+      },
+      "market": {
+        "price": 265.58,
+        "priceDate": "2026-09-11",
+        "sma50": 262.71,
+        "sma200": 237.12,
+        "rsi14": 44.2,
+        "atr14": 5.25,
+        "annualizedVolatilityPct": 25.6,
+        "fiftyTwoWeekHigh": 281.07,
+        "fiftyTwoWeekLow": 173.33
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 6.6,
+        "netIncomeGrowthYoYPct": -0.1,
+        "netMarginPct": 21.5,
+        "freeCashFlowMarginPct": 22.7,
+        "peRatio": 30.8,
+        "debtToEquity": 0.58
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +6.6%; nettowinst j-o-j -0.1%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 21.5%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 22.7%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 30.8; schuld/eigen vermogen 0.6."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +12.0%; RSI 44.2; volatiliteit 25.6%."
+        }
+      ],
+      "score": 4,
       "complete": true,
       "signal": "AVOID",
       "signalLabel": "Vermijden",
@@ -615,81 +705,81 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/LLY"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/JNJ"
     },
     {
-      "id": "John Boozman:FTGC",
+      "id": "John Boozman:CEG",
       "politician": "John Boozman",
-      "symbol": "FTGC",
-      "company": "First Trust Global Tactical Commodity Strategy Fund",
+      "symbol": "CEG",
+      "company": "Constellation Energy Corporation",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "senate_51455bcd-4966-4e77-b481-09897ada81ae_t12",
+        "tradeId": "senate_6298991b-e48f-4b11-9bbb-dfc94a7e1b32_t3",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2025-11-21",
-        "disclosureDate": "2026-08-24",
-        "reportingDelayDays": 276,
-        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/51455bcd-4966-4e77-b481-09897ada81ae/"
+        "transactionDate": "2026-08-13",
+        "disclosureDate": "2026-09-11",
+        "reportingDelayDays": 29,
+        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/6298991b-e48f-4b11-9bbb-dfc94a7e1b32/"
       },
       "market": {
-        "price": 31.3,
+        "price": 284.75,
         "priceDate": "2026-09-11",
-        "sma50": 29.53,
-        "sma200": 27.62,
-        "rsi14": 65.1,
-        "atr14": 0.33,
-        "annualizedVolatilityPct": 13.7,
-        "fiftyTwoWeekHigh": 31.71,
-        "fiftyTwoWeekLow": 22.7
+        "sma50": 269.53,
+        "sma200": 295.28,
+        "rsi14": 59.0,
+        "atr14": 9.27,
+        "annualizedVolatilityPct": 35.2,
+        "fiftyTwoWeekHigh": 412.7,
+        "fiftyTwoWeekLow": 228.63
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": null,
-        "netIncomeGrowthYoYPct": null,
-        "netMarginPct": null,
-        "freeCashFlowMarginPct": null,
-        "peRatio": null,
-        "debtToEquity": null
+        "revenueGrowthYoYPct": 23.0,
+        "netIncomeGrowthYoYPct": -38.9,
+        "netMarginPct": 11.1,
+        "freeCashFlowMarginPct": 1.0,
+        "peRatio": 27.8,
+        "debtToEquity": 0.77
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "unavailable",
+          "status": "bad",
           "passed": false,
-          "detail": "Omzet j-o-j niet beschikbaar; nettowinst j-o-j niet beschikbaar."
+          "detail": "Omzet j-o-j +23.0%; nettowinst j-o-j -38.9%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
-          "status": "unavailable",
-          "passed": false,
-          "detail": "Nettomarge over de laatste vier kwartalen: niet beschikbaar."
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 11.1%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
-          "status": "unavailable",
+          "status": "bad",
           "passed": false,
-          "detail": "Vrije-kasstroommarge: niet beschikbaar."
+          "detail": "Vrije-kasstroommarge: 1.0%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "unavailable",
-          "passed": false,
-          "detail": "K/W niet beschikbaar; schuld/eigen vermogen niet beschikbaar."
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 27.8; schuld/eigen vermogen 0.8."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
-          "status": "good",
-          "passed": true,
-          "detail": "Koers t.o.v. 200-daags +13.4%; RSI 65.1; volatiliteit 13.7%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -3.6%; RSI 59.0; volatiliteit 35.2%."
         }
       ],
-      "score": 1,
-      "complete": false,
+      "score": 2,
+      "complete": true,
       "signal": "REDUCE",
       "signalLabel": "Risicosignaal",
       "strategy": {
@@ -705,97 +795,7 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/FTGC"
-    },
-    {
-      "id": "John Boozman:FISV",
-      "politician": "John Boozman",
-      "symbol": "FISV",
-      "company": "Fiserv, Inc.",
-      "currency": "USD",
-      "politicianSignal": {
-        "tradeId": "senate_51455bcd-4966-4e77-b481-09897ada81ae_t11",
-        "action": "Sale",
-        "amount": "$1,001 - $15,000",
-        "transactionDate": "2025-11-21",
-        "disclosureDate": "2026-08-24",
-        "reportingDelayDays": 276,
-        "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/51455bcd-4966-4e77-b481-09897ada81ae/"
-      },
-      "market": {
-        "price": 51.58,
-        "priceDate": "2026-09-11",
-        "sma50": 52.2,
-        "sma200": 58.1,
-        "rsi14": 45.8,
-        "atr14": 1.69,
-        "annualizedVolatilityPct": 39.2,
-        "fiftyTwoWeekHigh": 135.88,
-        "fiftyTwoWeekLow": 47.04
-      },
-      "fundamentals": {
-        "revenueGrowthYoYPct": -4.1,
-        "netIncomeGrowthYoYPct": -38.9,
-        "netMarginPct": 13.4,
-        "freeCashFlowMarginPct": 18.8,
-        "peRatio": 9.9,
-        "debtToEquity": 1.04
-      },
-      "factors": [
-        {
-          "key": "growth",
-          "label": "Groei",
-          "status": "bad",
-          "passed": false,
-          "detail": "Omzet j-o-j -4.1%; nettowinst j-o-j -38.9%."
-        },
-        {
-          "key": "profitability",
-          "label": "Winstgevendheid",
-          "status": "good",
-          "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 13.4%."
-        },
-        {
-          "key": "cashflow",
-          "label": "Kasstroom",
-          "status": "good",
-          "passed": true,
-          "detail": "Vrije-kasstroommarge: 18.8%."
-        },
-        {
-          "key": "valuation",
-          "label": "Waardering & balans",
-          "status": "good",
-          "passed": true,
-          "detail": "K/W 9.9; schuld/eigen vermogen 1.0."
-        },
-        {
-          "key": "trend",
-          "label": "Trend & risico",
-          "status": "bad",
-          "passed": false,
-          "detail": "Koers t.o.v. 200-daags -11.2%; RSI 45.8; volatiliteit 39.2%."
-        }
-      ],
-      "score": 3,
-      "complete": true,
-      "signal": "AVOID",
-      "signalLabel": "Vermijden",
-      "strategy": {
-        "active": false,
-        "entryLow": null,
-        "entryHigh": null,
-        "stopLoss": null,
-        "takeProfit": null,
-        "rewardRiskRatio": null,
-        "startedAt": null,
-        "exitReason": null,
-        "exitAt": null,
-        "exitPrice": null,
-        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
-      },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/FISV"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/CEG"
     },
     {
       "id": "Thomas H Tuberville:GOOGL",
