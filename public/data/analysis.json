@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-17T20:30:41Z",
+    "updatedAt": "2026-09-18T01:23:16Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-09-17T20:30:41Z",
     "refreshIntervalHours": 4,
@@ -94,12 +94,12 @@
       },
       "market": {
         "price": 280.76,
-        "priceDate": "2026-09-17",
-        "sma50": 225.26,
-        "sma200": 198.01,
-        "rsi14": 69.6,
-        "atr14": 17.41,
-        "annualizedVolatilityPct": 117.6,
+        "priceDate": "2026-09-16",
+        "sma50": 224.73,
+        "sma200": 197.15,
+        "rsi14": 67.2,
+        "atr14": 17.08,
+        "annualizedVolatilityPct": 118.2,
         "fiftyTwoWeekHigh": 351.28,
         "fiftyTwoWeekLow": 61.37
       },
@@ -145,7 +145,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +41.8%; RSI 69.6; volatiliteit 117.6%."
+          "detail": "Koers t.o.v. 200-daags +42.4%; RSI 67.2; volatiliteit 118.2%."
         }
       ],
       "score": 2,
@@ -184,12 +184,12 @@
       },
       "market": {
         "price": 108.8,
-        "priceDate": "2026-09-17",
-        "sma50": 97.17,
-        "sma200": 76.81,
-        "rsi14": 68.0,
-        "atr14": 5.64,
-        "annualizedVolatilityPct": 73.1,
+        "priceDate": "2026-09-16",
+        "sma50": 97.2,
+        "sma200": 76.47,
+        "rsi14": 65.0,
+        "atr14": 5.24,
+        "annualizedVolatilityPct": 72.2,
         "fiftyTwoWeekHigh": 142.35,
         "fiftyTwoWeekLow": 28.73
       },
@@ -235,7 +235,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +41.6%; RSI 68.0; volatiliteit 73.1%."
+          "detail": "Koers t.o.v. 200-daags +42.3%; RSI 65.0; volatiliteit 72.2%."
         }
       ],
       "score": 0,
@@ -274,12 +274,12 @@
       },
       "market": {
         "price": 106.79,
-        "priceDate": "2026-09-17",
-        "sma50": 110.02,
-        "sma200": 118.72,
-        "rsi14": 64.7,
-        "atr14": 1.74,
-        "annualizedVolatilityPct": 28.6,
+        "priceDate": "2026-09-16",
+        "sma50": 110.14,
+        "sma200": 118.74,
+        "rsi14": 60.4,
+        "atr14": 1.77,
+        "annualizedVolatilityPct": 28.9,
         "fiftyTwoWeekHigh": 135.16,
         "fiftyTwoWeekLow": 98.88
       },
@@ -325,7 +325,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -10.1%; RSI 64.7; volatiliteit 28.6%."
+          "detail": "Koers t.o.v. 200-daags -10.1%; RSI 60.4; volatiliteit 28.9%."
         }
       ],
       "score": 0,
@@ -364,11 +364,11 @@
       },
       "market": {
         "price": 150.59,
-        "priceDate": "2026-09-17",
-        "sma50": 140.93,
-        "sma200": 166.52,
-        "rsi14": 48.9,
-        "atr14": 8.08,
+        "priceDate": "2026-09-16",
+        "sma50": 140.73,
+        "sma200": 166.77,
+        "rsi14": 45.2,
+        "atr14": 7.9,
         "annualizedVolatilityPct": 56.0,
         "fiftyTwoWeekHigh": 329.5,
         "fiftyTwoWeekLow": 114.5
@@ -415,7 +415,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -9.6%; RSI 48.9; volatiliteit 56.0%."
+          "detail": "Koers t.o.v. 200-daags -9.7%; RSI 45.2; volatiliteit 56.0%."
         }
       ],
       "score": 3,
@@ -454,11 +454,11 @@
       },
       "market": {
         "price": 893.93,
-        "priceDate": "2026-09-17",
-        "sma50": 936.89,
-        "sma200": 960.5,
-        "rsi14": 28.7,
-        "atr14": 13.33,
+        "priceDate": "2026-09-16",
+        "sma50": 938.08,
+        "sma200": 960.6,
+        "rsi14": 23.4,
+        "atr14": 14.4,
         "annualizedVolatilityPct": 20.5,
         "fiftyTwoWeekHigh": 1096.5,
         "fiftyTwoWeekLow": 844.06
@@ -505,7 +505,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -6.9%; RSI 28.7; volatiliteit 20.5%."
+          "detail": "Koers t.o.v. 200-daags -6.9%; RSI 23.4; volatiliteit 20.5%."
         }
       ],
       "score": 1,
@@ -544,11 +544,11 @@
       },
       "market": {
         "price": 68.7,
-        "priceDate": "2026-09-17",
-        "sma50": 71.8,
-        "sma200": 79.24,
-        "rsi14": 37.5,
-        "atr14": 1.4,
+        "priceDate": "2026-09-16",
+        "sma50": 71.87,
+        "sma200": 79.34,
+        "rsi14": 36.4,
+        "atr14": 1.34,
         "annualizedVolatilityPct": 22.9,
         "fiftyTwoWeekHigh": 94.56,
         "fiftyTwoWeekLow": 67.64
@@ -595,7 +595,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -13.3%; RSI 37.5; volatiliteit 22.9%."
+          "detail": "Koers t.o.v. 200-daags -13.4%; RSI 36.4; volatiliteit 22.9%."
         }
       ],
       "score": 3,
@@ -634,12 +634,12 @@
       },
       "market": {
         "price": 270.22,
-        "priceDate": "2026-09-17",
-        "sma50": 263.07,
-        "sma200": 238.34,
-        "rsi14": 56.4,
-        "atr14": 5.23,
-        "annualizedVolatilityPct": 24.1,
+        "priceDate": "2026-09-16",
+        "sma50": 262.93,
+        "sma200": 238.02,
+        "rsi14": 46.2,
+        "atr14": 5.41,
+        "annualizedVolatilityPct": 24.9,
         "fiftyTwoWeekHigh": 281.07,
         "fiftyTwoWeekLow": 173.33
       },
@@ -685,7 +685,7 @@
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +13.4%; RSI 56.4; volatiliteit 24.1%."
+          "detail": "Koers t.o.v. 200-daags +13.5%; RSI 46.2; volatiliteit 24.9%."
         }
       ],
       "score": 4,
@@ -724,12 +724,12 @@
       },
       "market": {
         "price": 262.8,
-        "priceDate": "2026-09-17",
-        "sma50": 271.08,
-        "sma200": 293.36,
-        "rsi14": 38.4,
-        "atr14": 10.78,
-        "annualizedVolatilityPct": 37.9,
+        "priceDate": "2026-09-16",
+        "sma50": 270.71,
+        "sma200": 293.87,
+        "rsi14": 38.1,
+        "atr14": 10.39,
+        "annualizedVolatilityPct": 38.0,
         "fiftyTwoWeekHigh": 412.7,
         "fiftyTwoWeekLow": 228.63
       },
@@ -775,7 +775,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -10.4%; RSI 38.4; volatiliteit 37.9%."
+          "detail": "Koers t.o.v. 200-daags -10.6%; RSI 38.1; volatiliteit 38.0%."
         }
       ],
       "score": 2,
@@ -814,11 +814,11 @@
       },
       "market": {
         "price": 347.33,
-        "priceDate": "2026-09-17",
-        "sma50": 345.76,
-        "sma200": 337.32,
-        "rsi14": 55.0,
-        "atr14": 7.93,
+        "priceDate": "2026-09-16",
+        "sma50": 346.06,
+        "sma200": 337.19,
+        "rsi14": 50.7,
+        "atr14": 7.71,
         "annualizedVolatilityPct": 35.3,
         "fiftyTwoWeekHigh": 408.61,
         "fiftyTwoWeekLow": 235.84
@@ -865,7 +865,7 @@
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +3.0%; RSI 55.0; volatiliteit 35.3%."
+          "detail": "Koers t.o.v. 200-daags +3.0%; RSI 50.7; volatiliteit 35.3%."
         }
       ],
       "score": 5,
@@ -904,11 +904,11 @@
       },
       "market": {
         "price": 337.0,
-        "priceDate": "2026-09-17",
-        "sma50": 319.74,
-        "sma200": 286.08,
-        "rsi14": 69.4,
-        "atr14": 7.83,
+        "priceDate": "2026-09-16",
+        "sma50": 319.27,
+        "sma200": 285.79,
+        "rsi14": 67.5,
+        "atr14": 7.68,
         "annualizedVolatilityPct": 32.2,
         "fiftyTwoWeekHigh": 344.57,
         "fiftyTwoWeekLow": 236.65
@@ -955,7 +955,7 @@
           "label": "Trend & risico",
           "status": "good",
           "passed": true,
-          "detail": "Koers t.o.v. 200-daags +17.8%; RSI 69.4; volatiliteit 32.2%."
+          "detail": "Koers t.o.v. 200-daags +17.9%; RSI 67.5; volatiliteit 32.2%."
         }
       ],
       "score": 4,
@@ -994,11 +994,11 @@
       },
       "market": {
         "price": 150.59,
-        "priceDate": "2026-09-17",
-        "sma50": 140.93,
-        "sma200": 166.52,
-        "rsi14": 48.9,
-        "atr14": 8.08,
+        "priceDate": "2026-09-16",
+        "sma50": 140.73,
+        "sma200": 166.77,
+        "rsi14": 45.2,
+        "atr14": 7.9,
         "annualizedVolatilityPct": 56.0,
         "fiftyTwoWeekHigh": 329.5,
         "fiftyTwoWeekLow": 114.5
@@ -1045,7 +1045,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -9.6%; RSI 48.9; volatiliteit 56.0%."
+          "detail": "Koers t.o.v. 200-daags -9.7%; RSI 45.2; volatiliteit 56.0%."
         }
       ],
       "score": 3,
