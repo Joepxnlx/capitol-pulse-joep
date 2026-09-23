@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-23T07:23:12Z",
+    "updatedAt": "2026-09-23T12:54:33Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-09-22T17:08:47Z",
     "refreshIntervalHours": 4,
@@ -191,7 +191,7 @@
         "atr14": 6.54,
         "annualizedVolatilityPct": 77.4,
         "fiftyTwoWeekHigh": 142.35,
-        "fiftyTwoWeekLow": 28.82
+        "fiftyTwoWeekLow": 29.23
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 25.4,
