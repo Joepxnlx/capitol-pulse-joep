@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-23T23:51:49Z",
+    "updatedAt": "2026-09-24T08:39:49Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-09-22T17:08:47Z",
     "refreshIntervalHours": 4,
@@ -638,7 +638,7 @@
         "sma50": 263.76,
         "sma200": 239.3,
         "rsi14": 46.1,
-        "atr14": 5.43,
+        "atr14": 5.44,
         "annualizedVolatilityPct": 22.5,
         "fiftyTwoWeekHigh": 281.07,
         "fiftyTwoWeekLow": 175.74
