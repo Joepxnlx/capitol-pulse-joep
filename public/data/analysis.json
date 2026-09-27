@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-09-27T06:16:25Z",
+    "updatedAt": "2026-09-27T12:18:13Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-09-26T06:25:49Z",
+    "liveUpdatedAt": "2026-09-27T12:18:13Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
