@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-10-19T14:51:59Z",
+    "updatedAt": "2026-10-19T20:22:42Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-10-18T16:21:37Z",
+    "liveUpdatedAt": "2026-10-19T20:22:42Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -35,7 +35,7 @@
     {
       "name": "Michael T. McCaul",
       "tradeCount": 91,
-      "stockTradeCount": 61,
+      "stockTradeCount": 62,
       "latestDisclosureDate": "2026-10-14",
       "tickers": [
         "SAP",
@@ -46,12 +46,12 @@
     {
       "name": "Rohit Khanna",
       "tradeCount": 699,
-      "stockTradeCount": 116,
+      "stockTradeCount": 378,
       "latestDisclosureDate": "2026-10-07",
       "tickers": [
         "ORCL",
-        "PYPL",
-        "AVGO"
+        "SBAC",
+        "CCL"
       ]
     },
     {
@@ -90,12 +90,12 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 224.06,
+        "price": 226.03,
         "priceDate": "2026-10-19",
-        "sma50": 213.25,
-        "sma200": 191.96,
-        "rsi14": 74.8,
-        "atr14": 5.01,
+        "sma50": 213.29,
+        "sma200": 191.97,
+        "rsi14": 77.0,
+        "atr14": 5.11,
         "annualizedVolatilityPct": 32.8,
         "fiftyTwoWeekHigh": 281.37,
         "fiftyTwoWeekLow": 144.97
@@ -105,7 +105,7 @@
         "netIncomeGrowthYoYPct": 28.5,
         "netMarginPct": 20.4,
         "freeCashFlowMarginPct": 22.9,
-        "peRatio": 32.9,
+        "peRatio": 33.2,
         "debtToEquity": 0.23
       },
       "factors": [
@@ -135,14 +135,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 32.9; schuld/eigen vermogen 0.2."
+          "detail": "K/W 33.2; schuld/eigen vermogen 0.2."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +16.7%; RSI 74.8; volatiliteit 32.8%."
+          "detail": "Koers t.o.v. 200-daags +17.7%; RSI 77.0; volatiliteit 32.8%."
         }
       ],
       "score": 4,
@@ -180,13 +180,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 320.0,
+        "price": 325.62,
         "priceDate": "2026-10-19",
-        "sma50": 320.9,
-        "sma200": 373.69,
-        "rsi14": 79.8,
-        "atr14": 11.46,
-        "annualizedVolatilityPct": 45.3,
+        "sma50": 321.02,
+        "sma200": 373.71,
+        "rsi14": 85.0,
+        "atr14": 11.6,
+        "annualizedVolatilityPct": 45.1,
         "fiftyTwoWeekHigh": 689.17,
         "fiftyTwoWeekLow": 252.84
       },
@@ -195,7 +195,7 @@
         "netIncomeGrowthYoYPct": -4.7,
         "netMarginPct": 21.3,
         "freeCashFlowMarginPct": 40.2,
-        "peRatio": 19.4,
+        "peRatio": 19.7,
         "debtToEquity": 0.44
       },
       "factors": [
@@ -225,14 +225,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 19.4; schuld/eigen vermogen 0.4."
+          "detail": "K/W 19.7; schuld/eigen vermogen 0.4."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -14.4%; RSI 79.8; volatiliteit 45.3%."
+          "detail": "Koers t.o.v. 200-daags -12.9%; RSI 85.0; volatiliteit 45.1%."
         }
       ],
       "score": 3,
@@ -270,13 +270,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 231.08,
+        "price": 236.93,
         "priceDate": "2026-10-19",
-        "sma50": 190.29,
-        "sma200": 192.67,
-        "rsi14": 78.6,
-        "atr14": 10.47,
-        "annualizedVolatilityPct": 55.1,
+        "sma50": 190.4,
+        "sma200": 192.7,
+        "rsi14": 79.8,
+        "atr14": 10.86,
+        "annualizedVolatilityPct": 55.4,
         "fiftyTwoWeekHigh": 291.09,
         "fiftyTwoWeekLow": 118.15
       },
@@ -285,7 +285,7 @@
         "netIncomeGrowthYoYPct": 6.4,
         "netMarginPct": 10.7,
         "freeCashFlowMarginPct": 17.2,
-        "peRatio": 18.5,
+        "peRatio": 18.9,
         "debtToEquity": 0.26
       },
       "factors": [
@@ -315,14 +315,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 18.5; schuld/eigen vermogen 0.3."
+          "detail": "K/W 18.9; schuld/eigen vermogen 0.3."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +19.9%; RSI 78.6; volatiliteit 55.1%."
+          "detail": "Koers t.o.v. 200-daags +23.0%; RSI 79.8; volatiliteit 55.4%."
         }
       ],
       "score": 4,
@@ -360,12 +360,12 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 130.27,
+        "price": 129.59,
         "priceDate": "2026-10-19",
-        "sma50": 144.78,
+        "sma50": 144.77,
         "sma200": 159.87,
-        "rsi14": 43.5,
-        "atr14": 6.33,
+        "rsi14": 42.8,
+        "atr14": 6.37,
         "annualizedVolatilityPct": 55.8,
         "fiftyTwoWeekHigh": 289.24,
         "fiftyTwoWeekLow": 114.5
@@ -375,7 +375,7 @@
         "netIncomeGrowthYoYPct": 62.6,
         "netMarginPct": 26.4,
         "freeCashFlowMarginPct": -40.0,
-        "peRatio": 20.4,
+        "peRatio": 20.3,
         "debtToEquity": 2.34
       },
       "factors": [
@@ -405,14 +405,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 20.4; schuld/eigen vermogen 2.3."
+          "detail": "K/W 20.3; schuld/eigen vermogen 2.3."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -18.5%; RSI 43.5; volatiliteit 55.8%."
+          "detail": "Koers t.o.v. 200-daags -18.9%; RSI 42.8; volatiliteit 55.8%."
         }
       ],
       "score": 3,
@@ -435,13 +435,13 @@
       "marketSourceUrl": "https://finance.yahoo.com/quote/ORCL"
     },
     {
-      "id": "Rohit Khanna:PYPL",
+      "id": "Rohit Khanna:SBAC",
       "politician": "Rohit Khanna",
-      "symbol": "PYPL",
-      "company": "PayPal Holdings, Inc.",
+      "symbol": "SBAC",
+      "company": "SBA Communications Corporation",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116376_g248",
+        "tradeId": "house_9116376_g265",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-09-25",
@@ -450,23 +450,23 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 56.44,
+        "price": 183.09,
         "priceDate": "2026-10-19",
-        "sma50": 56.03,
-        "sma200": 50.04,
-        "rsi14": 67.3,
-        "atr14": 1.19,
-        "annualizedVolatilityPct": 38.0,
-        "fiftyTwoWeekHigh": 79.22,
-        "fiftyTwoWeekLow": 38.46
+        "sma50": 179.4,
+        "sma200": 190.48,
+        "rsi14": 72.2,
+        "atr14": 6.1,
+        "annualizedVolatilityPct": 34.4,
+        "fiftyTwoWeekHigh": 224.46,
+        "fiftyTwoWeekLow": 156.6
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 4.8,
-        "netIncomeGrowthYoYPct": -12.5,
-        "netMarginPct": 14.4,
-        "freeCashFlowMarginPct": 19.3,
-        "peRatio": 10.7,
-        "debtToEquity": 0.68
+        "revenueGrowthYoYPct": 2.3,
+        "netIncomeGrowthYoYPct": -12.0,
+        "netMarginPct": 34.5,
+        "freeCashFlowMarginPct": 36.6,
+        "peRatio": 19.7,
+        "debtToEquity": null
       },
       "factors": [
         {
@@ -474,41 +474,41 @@
           "label": "Groei",
           "status": "bad",
           "passed": false,
-          "detail": "Omzet j-o-j +4.8%; nettowinst j-o-j -12.5%."
+          "detail": "Omzet j-o-j +2.3%; nettowinst j-o-j -12.0%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 14.4%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 34.5%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 19.3%."
+          "detail": "Vrije-kasstroommarge: 36.6%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "good",
-          "passed": true,
-          "detail": "K/W 10.7; schuld/eigen vermogen 0.7."
+          "status": "unavailable",
+          "passed": false,
+          "detail": "K/W 19.7; schuld/eigen vermogen niet beschikbaar."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
-          "status": "good",
-          "passed": true,
-          "detail": "Koers t.o.v. 200-daags +12.8%; RSI 67.3; volatiliteit 38.0%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -3.9%; RSI 72.2; volatiliteit 34.4%."
         }
       ],
-      "score": 4,
-      "complete": true,
-      "signal": "AVOID",
-      "signalLabel": "Vermijden",
+      "score": 2,
+      "complete": false,
+      "signal": "REDUCE",
+      "signalLabel": "Risicosignaal",
       "strategy": {
         "active": false,
         "entryLow": null,
@@ -522,16 +522,16 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/PYPL"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/SBAC"
     },
     {
-      "id": "Rohit Khanna:AVGO",
+      "id": "Rohit Khanna:CCL",
       "politician": "Rohit Khanna",
-      "symbol": "AVGO",
-      "company": "Broadcom Inc.",
+      "symbol": "CCL",
+      "company": "Carnival Corporation Ltd.",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116376_g244",
+        "tradeId": "house_9116376_g264",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
         "transactionDate": "2026-09-25",
@@ -540,59 +540,59 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 337.1,
+        "price": 26.45,
         "priceDate": "2026-10-19",
-        "sma50": 363.91,
-        "sma200": 368.14,
-        "rsi14": 41.7,
-        "atr14": 11.64,
-        "annualizedVolatilityPct": 38.4,
-        "fiftyTwoWeekHigh": 495.0,
-        "fiftyTwoWeekLow": 289.96
+        "sma50": 24.83,
+        "sma200": 27.26,
+        "rsi14": 60.4,
+        "atr14": 0.79,
+        "annualizedVolatilityPct": 42.9,
+        "fiftyTwoWeekHigh": 34.03,
+        "fiftyTwoWeekLow": 21.45
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 85.5,
-        "netIncomeGrowthYoYPct": 216.1,
-        "netMarginPct": 42.9,
-        "freeCashFlowMarginPct": 44.2,
-        "peRatio": 43.1,
-        "debtToEquity": 0.6
+        "revenueGrowthYoYPct": 5.3,
+        "netIncomeGrowthYoYPct": -5.0,
+        "netMarginPct": 11.2,
+        "freeCashFlowMarginPct": 11.7,
+        "peRatio": 11.9,
+        "debtToEquity": 2.02
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "good",
-          "passed": true,
-          "detail": "Omzet j-o-j +85.5%; nettowinst j-o-j +216.1%."
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +5.3%; nettowinst j-o-j -5.0%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 42.9%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 11.2%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 44.2%."
+          "detail": "Vrije-kasstroommarge: 11.7%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "bad",
-          "passed": false,
-          "detail": "K/W 43.1; schuld/eigen vermogen 0.6."
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 11.9; schuld/eigen vermogen 2.0."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -8.4%; RSI 41.7; volatiliteit 38.4%."
+          "detail": "Koers t.o.v. 200-daags -3.0%; RSI 60.4; volatiliteit 42.9%."
         }
       ],
       "score": 3,
@@ -612,7 +612,7 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/AVGO"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/CCL"
     },
     {
       "id": "John Boozman:OTIS",
@@ -630,12 +630,12 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/0632f542-7ac2-46e4-bd9c-603e3673f0cd/"
       },
       "market": {
-        "price": 71.15,
+        "price": 71.04,
         "priceDate": "2026-10-19",
         "sma50": 69.29,
         "sma200": 76.98,
-        "rsi14": 74.9,
-        "atr14": 1.36,
+        "rsi14": 74.1,
+        "atr14": 1.38,
         "annualizedVolatilityPct": 21.8,
         "fiftyTwoWeekHigh": 94.56,
         "fiftyTwoWeekLow": 63.58
@@ -682,7 +682,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -7.6%; RSI 74.9; volatiliteit 21.8%."
+          "detail": "Koers t.o.v. 200-daags -7.7%; RSI 74.1; volatiliteit 21.8%."
         }
       ],
       "score": 3,
@@ -720,13 +720,13 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/6298991b-e48f-4b11-9bbb-dfc94a7e1b32/"
       },
       "market": {
-        "price": 251.77,
+        "price": 253.79,
         "priceDate": "2026-10-19",
-        "sma50": 265.08,
-        "sma200": 244.34,
-        "rsi14": 36.0,
+        "sma50": 265.12,
+        "sma200": 244.35,
+        "rsi14": 37.4,
         "atr14": 6.28,
-        "annualizedVolatilityPct": 22.7,
+        "annualizedVolatilityPct": 22.5,
         "fiftyTwoWeekHigh": 281.07,
         "fiftyTwoWeekLow": 184.66
       },
@@ -735,7 +735,7 @@
         "netIncomeGrowthYoYPct": -0.1,
         "netMarginPct": 21.5,
         "freeCashFlowMarginPct": 22.7,
-        "peRatio": 29.2,
+        "peRatio": 29.4,
         "debtToEquity": 0.58
       },
       "factors": [
@@ -765,14 +765,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 29.2; schuld/eigen vermogen 0.6."
+          "detail": "K/W 29.4; schuld/eigen vermogen 0.6."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +3.0%; RSI 36.0; volatiliteit 22.7%."
+          "detail": "Koers t.o.v. 200-daags +3.9%; RSI 37.4; volatiliteit 22.5%."
         }
       ],
       "score": 3,
@@ -810,12 +810,12 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/6298991b-e48f-4b11-9bbb-dfc94a7e1b32/"
       },
       "market": {
-        "price": 263.29,
+        "price": 263.19,
         "priceDate": "2026-10-19",
         "sma50": 275.56,
         "sma200": 283.76,
         "rsi14": 49.5,
-        "atr14": 17.03,
+        "atr14": 17.1,
         "annualizedVolatilityPct": 46.8,
         "fiftyTwoWeekHigh": 406.04,
         "fiftyTwoWeekLow": 228.63
