@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-10-24T01:22:38Z",
+    "updatedAt": "2026-10-24T06:14:06Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-10-23T19:47:45Z",
     "refreshIntervalHours": 4,
@@ -551,41 +551,41 @@
         "fiftyTwoWeekLow": 21.45
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 5.3,
-        "netIncomeGrowthYoYPct": -5.0,
-        "netMarginPct": 11.2,
-        "freeCashFlowMarginPct": 11.7,
-        "peRatio": 11.8,
-        "debtToEquity": 2.02
+        "revenueGrowthYoYPct": 3.5,
+        "netIncomeGrowthYoYPct": 3.7,
+        "netMarginPct": 11.4,
+        "freeCashFlowMarginPct": 11.5,
+        "peRatio": 11.4,
+        "debtToEquity": 1.77
       },
       "factors": [
         {
           "key": "growth",
           "label": "Groei",
-          "status": "bad",
-          "passed": false,
-          "detail": "Omzet j-o-j +5.3%; nettowinst j-o-j -5.0%."
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +3.5%; nettowinst j-o-j +3.7%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 11.2%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 11.4%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 11.7%."
+          "detail": "Vrije-kasstroommarge: 11.5%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 11.8; schuld/eigen vermogen 2.0."
+          "detail": "K/W 11.4; schuld/eigen vermogen 1.8."
         },
         {
           "key": "trend",
@@ -595,7 +595,7 @@
           "detail": "Koers t.o.v. 200-daags -3.9%; RSI 54.3; volatiliteit 42.4%."
         }
       ],
-      "score": 3,
+      "score": 4,
       "complete": true,
       "signal": "AVOID",
       "signalLabel": "Vermijden",
