@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-10-24T11:25:02Z",
+    "updatedAt": "2026-10-24T17:51:21Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-10-23T19:47:45Z",
     "refreshIntervalHours": 4,
@@ -97,7 +97,7 @@
         "rsi14": 90.7,
         "atr14": 5.47,
         "annualizedVolatilityPct": 28.1,
-        "fiftyTwoWeekHigh": 276.54,
+        "fiftyTwoWeekHigh": 274.15,
         "fiftyTwoWeekLow": 144.97
       },
       "fundamentals": {
@@ -285,7 +285,7 @@
         "netIncomeGrowthYoYPct": 6.4,
         "netMarginPct": 10.7,
         "freeCashFlowMarginPct": 17.2,
-        "peRatio": 19.9,
+        "peRatio": 18.4,
         "debtToEquity": 0.26
       },
       "factors": [
@@ -315,7 +315,7 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 19.9; schuld/eigen vermogen 0.3."
+          "detail": "K/W 18.4; schuld/eigen vermogen 0.3."
         },
         {
           "key": "trend",
@@ -367,7 +367,7 @@
         "rsi14": 36.1,
         "atr14": 6.6,
         "annualizedVolatilityPct": 52.8,
-        "fiftyTwoWeekHigh": 287.19,
+        "fiftyTwoWeekHigh": 287.0,
         "fiftyTwoWeekLow": 114.5
       },
       "fundamentals": {
@@ -818,7 +818,7 @@
         "atr14": 3.17,
         "annualizedVolatilityPct": 33.9,
         "fiftyTwoWeekHigh": 130.37,
-        "fiftyTwoWeekLow": 70.06
+        "fiftyTwoWeekLow": 70.43
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 17.6,
