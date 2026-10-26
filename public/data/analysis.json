@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-10-25T21:04:50Z",
+    "updatedAt": "2026-10-26T01:31:32Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-10-25T10:48:33Z",
     "refreshIntervalHours": 4,
@@ -101,11 +101,11 @@
         "fiftyTwoWeekLow": 144.97
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 9.4,
-        "netIncomeGrowthYoYPct": 28.5,
+        "revenueGrowthYoYPct": 13.2,
+        "netIncomeGrowthYoYPct": 12.2,
         "netMarginPct": 20.4,
-        "freeCashFlowMarginPct": 22.9,
-        "peRatio": 35.0,
+        "freeCashFlowMarginPct": 23.3,
+        "peRatio": 33.8,
         "debtToEquity": 0.23
       },
       "factors": [
@@ -114,7 +114,7 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +9.4%; nettowinst j-o-j +28.5%."
+          "detail": "Omzet j-o-j +13.2%; nettowinst j-o-j +12.2%."
         },
         {
           "key": "profitability",
@@ -128,14 +128,14 @@
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 22.9%."
+          "detail": "Vrije-kasstroommarge: 23.3%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 35.0; schuld/eigen vermogen 0.2."
+          "detail": "K/W 33.8; schuld/eigen vermogen 0.2."
         },
         {
           "key": "trend",
