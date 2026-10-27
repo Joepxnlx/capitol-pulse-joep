@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-10-26T20:05:42Z",
+    "updatedAt": "2026-10-27T04:48:40Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-10-26T20:05:42Z",
     "refreshIntervalHours": 4,
@@ -90,9 +90,9 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 238.44,
+        "price": 238.55,
         "priceDate": "2026-10-26",
-        "sma50": 216.07,
+        "sma50": 216.08,
         "sma200": 191.87,
         "rsi14": 90.0,
         "atr14": 5.39,
@@ -270,7 +270,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 247.29,
+        "price": 247.23,
         "priceDate": "2026-10-26",
         "sma50": 197.23,
         "sma200": 192.1,
@@ -544,7 +544,7 @@
         "priceDate": "2026-10-26",
         "sma50": 24.72,
         "sma200": 27.13,
-        "rsi14": 52.2,
+        "rsi14": 52.3,
         "atr14": 0.9,
         "annualizedVolatilityPct": 42.9,
         "fiftyTwoWeekHigh": 34.03,
@@ -592,7 +592,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -1.0%; RSI 52.2; volatiliteit 42.9%."
+          "detail": "Koers t.o.v. 200-daags -1.0%; RSI 52.3; volatiliteit 42.9%."
         }
       ],
       "score": 4,
@@ -630,7 +630,7 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/7dfdae57-9401-4bf1-9059-85d1e5ee4a84/"
       },
       "market": {
-        "price": 43.62,
+        "price": 43.61,
         "priceDate": "2026-10-26",
         "sma50": 45.0,
         "sma200": 60.56,
@@ -720,7 +720,7 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/94c5f7b9-cdbc-40b4-aeba-de920da58588/"
       },
       "market": {
-        "price": 57.15,
+        "price": 57.16,
         "priceDate": "2026-10-26",
         "sma50": 57.97,
         "sma200": 61.68,
