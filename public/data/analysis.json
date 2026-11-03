@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-03T03:36:14Z",
+    "updatedAt": "2026-11-03T11:38:34Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-11-01T08:45:14Z",
+    "liveUpdatedAt": "2026-11-03T11:38:34Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -45,8 +45,8 @@
     },
     {
       "name": "Rohit Khanna",
-      "tradeCount": 699,
-      "stockTradeCount": 378,
+      "tradeCount": 685,
+      "stockTradeCount": 371,
       "latestDisclosureDate": "2026-10-07",
       "tickers": [
         "ORCL",
