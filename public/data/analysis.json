@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-06T03:12:17Z",
+    "updatedAt": "2026-11-06T11:19:58Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-11-05T17:18:04Z",
     "refreshIntervalHours": 4,
@@ -642,10 +642,10 @@
       },
       "fundamentals": {
         "revenueGrowthYoYPct": 2.3,
-        "netIncomeGrowthYoYPct": -36.9,
-        "netMarginPct": 1.2,
-        "freeCashFlowMarginPct": 3.7,
-        "peRatio": 38.5,
+        "netIncomeGrowthYoYPct": 154.6,
+        "netMarginPct": 4.6,
+        "freeCashFlowMarginPct": 3.1,
+        "peRatio": 11.3,
         "debtToEquity": 0.65
       },
       "factors": [
@@ -654,28 +654,28 @@
           "label": "Groei",
           "status": "bad",
           "passed": false,
-          "detail": "Omzet j-o-j +2.3%; nettowinst j-o-j -36.9%."
+          "detail": "Omzet j-o-j +2.3%; nettowinst j-o-j +154.6%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "bad",
           "passed": false,
-          "detail": "Nettomarge over de laatste vier kwartalen: 1.2%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 4.6%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "bad",
           "passed": false,
-          "detail": "Vrije-kasstroommarge: 3.7%."
+          "detail": "Vrije-kasstroommarge: 3.1%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
-          "status": "bad",
-          "passed": false,
-          "detail": "K/W 38.5; schuld/eigen vermogen 0.6."
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 11.3; schuld/eigen vermogen 0.6."
         },
         {
           "key": "trend",
@@ -685,7 +685,7 @@
           "detail": "Koers t.o.v. 200-daags -30.7%; RSI 34.7; volatiliteit 35.1%."
         }
       ],
-      "score": 0,
+      "score": 1,
       "complete": true,
       "signal": "REDUCE",
       "signalLabel": "Risicosignaal",
