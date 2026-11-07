@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-06T23:23:48Z",
+    "updatedAt": "2026-11-07T10:33:58Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-11-05T17:18:04Z",
+    "liveUpdatedAt": "2026-11-07T10:33:58Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -45,8 +45,8 @@
     },
     {
       "name": "Rohit Khanna",
-      "tradeCount": 683,
-      "stockTradeCount": 369,
+      "tradeCount": 668,
+      "stockTradeCount": 364,
       "latestDisclosureDate": "2026-10-07",
       "tickers": [
         "ORCL",
@@ -275,7 +275,7 @@
         "sma50": 210.32,
         "sma200": 190.85,
         "rsi14": 62.7,
-        "atr14": 11.72,
+        "atr14": 11.74,
         "annualizedVolatilityPct": 56.2,
         "fiftyTwoWeekHigh": 291.09,
         "fiftyTwoWeekLow": 118.15
@@ -365,7 +365,7 @@
         "sma50": 139.12,
         "sma200": 155.4,
         "rsi14": 40.4,
-        "atr14": 8.88,
+        "atr14": 8.9,
         "annualizedVolatilityPct": 59.5,
         "fiftyTwoWeekHigh": 250.25,
         "fiftyTwoWeekLow": 109.21
