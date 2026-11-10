@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-09T20:56:38Z",
+    "updatedAt": "2026-11-10T03:17:29Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-11-07T10:33:58Z",
     "refreshIntervalHours": 4,
@@ -90,7 +90,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 237.43,
+        "price": 237.42,
         "priceDate": "2026-11-09",
         "sma50": 220.09,
         "sma200": 191.87,
@@ -180,11 +180,11 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 338.43,
+        "price": 338.23,
         "priceDate": "2026-11-09",
-        "sma50": 318.22,
-        "sma200": 354.68,
-        "rsi14": 51.5,
+        "sma50": 318.21,
+        "sma200": 354.67,
+        "rsi14": 51.4,
         "atr14": 14.56,
         "annualizedVolatilityPct": 42.9,
         "fiftyTwoWeekHigh": 682.27,
@@ -232,7 +232,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -4.6%; RSI 51.5; volatiliteit 42.9%."
+          "detail": "Koers t.o.v. 200-daags -4.6%; RSI 51.4; volatiliteit 42.9%."
         }
       ],
       "score": 3,
@@ -270,13 +270,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116378.pdf"
       },
       "market": {
-        "price": 255.42,
+        "price": 254.37,
         "priceDate": "2026-11-09",
-        "sma50": 211.63,
-        "sma200": 190.72,
-        "rsi14": 58.5,
+        "sma50": 211.61,
+        "sma200": 190.71,
+        "rsi14": 57.9,
         "atr14": 11.84,
-        "annualizedVolatilityPct": 56.3,
+        "annualizedVolatilityPct": 56.4,
         "fiftyTwoWeekHigh": 291.09,
         "fiftyTwoWeekLow": 118.15
       },
@@ -322,7 +322,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +33.9%; RSI 58.5; volatiliteit 56.3%."
+          "detail": "Koers t.o.v. 200-daags +33.4%; RSI 57.9; volatiliteit 56.4%."
         }
       ],
       "score": 4,
@@ -360,11 +360,11 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 120.01,
+        "price": 119.79,
         "priceDate": "2026-11-09",
         "sma50": 138.5,
         "sma200": 155.12,
-        "rsi14": 42.4,
+        "rsi14": 42.2,
         "atr14": 8.78,
         "annualizedVolatilityPct": 59.6,
         "fiftyTwoWeekHigh": 250.25,
@@ -412,7 +412,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -22.6%; RSI 42.4; volatiliteit 59.6%."
+          "detail": "Koers t.o.v. 200-daags -22.8%; RSI 42.2; volatiliteit 59.6%."
         }
       ],
       "score": 3,
@@ -450,7 +450,7 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 190.32,
+        "price": 190.35,
         "priceDate": "2026-11-09",
         "sma50": 179.79,
         "sma200": 190.34,
@@ -502,7 +502,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -0.0%; RSI 60.4; volatiliteit 32.8%."
+          "detail": "Koers t.o.v. 200-daags +0.0%; RSI 60.4; volatiliteit 32.8%."
         }
       ],
       "score": 2,
@@ -540,13 +540,13 @@
         "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
       },
       "market": {
-        "price": 30.86,
+        "price": 30.81,
         "priceDate": "2026-11-09",
-        "sma50": 25.41,
+        "sma50": 25.4,
         "sma200": 27.12,
-        "rsi14": 66.7,
+        "rsi14": 66.5,
         "atr14": 1.25,
-        "annualizedVolatilityPct": 47.1,
+        "annualizedVolatilityPct": 47.0,
         "fiftyTwoWeekHigh": 34.03,
         "fiftyTwoWeekLow": 21.45
       },
@@ -592,7 +592,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags +13.8%; RSI 66.7; volatiliteit 47.1%."
+          "detail": "Koers t.o.v. 200-daags +13.6%; RSI 66.5; volatiliteit 47.0%."
         }
       ],
       "score": 4,
@@ -630,11 +630,11 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/7dfdae57-9401-4bf1-9059-85d1e5ee4a84/"
       },
       "market": {
-        "price": 40.02,
+        "price": 39.91,
         "priceDate": "2026-11-09",
         "sma50": 44.01,
         "sma200": 58.59,
-        "rsi14": 32.2,
+        "rsi14": 31.6,
         "atr14": 1.76,
         "annualizedVolatilityPct": 35.6,
         "fiftyTwoWeekHigh": 88.93,
@@ -682,7 +682,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -31.7%; RSI 32.2; volatiliteit 35.6%."
+          "detail": "Koers t.o.v. 200-daags -31.9%; RSI 31.6; volatiliteit 35.6%."
         }
       ],
       "score": 1,
@@ -720,11 +720,11 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/94c5f7b9-cdbc-40b4-aeba-de920da58588/"
       },
       "market": {
-        "price": 59.52,
+        "price": 59.5,
         "priceDate": "2026-11-09",
         "sma50": 57.05,
         "sma200": 61.56,
-        "rsi14": 67.7,
+        "rsi14": 67.6,
         "atr14": 1.06,
         "annualizedVolatilityPct": 17.3,
         "fiftyTwoWeekHigh": 67.94,
@@ -772,7 +772,7 @@
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -3.3%; RSI 67.7; volatiliteit 17.3%."
+          "detail": "Koers t.o.v. 200-daags -3.3%; RSI 67.6; volatiliteit 17.3%."
         }
       ],
       "score": 2,
@@ -810,13 +810,13 @@
         "sourceUrl": "https://efdsearch.senate.gov/search/view/ptr/94c5f7b9-cdbc-40b4-aeba-de920da58588/"
       },
       "market": {
-        "price": 98.83,
+        "price": 98.65,
         "priceDate": "2026-11-09",
         "sma50": 108.59,
         "sma200": 101.93,
-        "rsi14": 39.0,
+        "rsi14": 38.7,
         "atr14": 3.81,
-        "annualizedVolatilityPct": 34.7,
+        "annualizedVolatilityPct": 34.6,
         "fiftyTwoWeekHigh": 130.37,
         "fiftyTwoWeekLow": 71.1
       },
@@ -825,7 +825,7 @@
         "netIncomeGrowthYoYPct": 51.3,
         "netMarginPct": 21.0,
         "freeCashFlowMarginPct": 20.2,
-        "peRatio": 29.6,
+        "peRatio": 29.5,
         "debtToEquity": 0.59
       },
       "factors": [
@@ -855,14 +855,14 @@
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 29.6; schuld/eigen vermogen 0.6."
+          "detail": "K/W 29.5; schuld/eigen vermogen 0.6."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
           "status": "bad",
           "passed": false,
-          "detail": "Koers t.o.v. 200-daags -3.0%; RSI 39.0; volatiliteit 34.7%."
+          "detail": "Koers t.o.v. 200-daags -3.2%; RSI 38.7; volatiliteit 34.6%."
         }
       ],
       "score": 4,
