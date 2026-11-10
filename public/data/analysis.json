@@ -1,15 +1,15 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-10T03:17:29Z",
+    "updatedAt": "2026-11-10T11:31:20Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-11-07T10:33:58Z",
+    "liveUpdatedAt": "2026-11-10T11:31:19Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
     "politicianSource": "Kadoa Congress Trading Monitor, uit officiële House Clerk- en Senate eFD-filings",
     "stockCount": 9,
-    "errorCount": 0,
+    "errorCount": 1,
     "notice": "Regelgestuurde educatieve analyse; geen persoonlijk beleggingsadvies of winstgarantie."
   },
   "methodology": {
@@ -27,10 +27,12 @@
   "featuredPoliticians": [
     {
       "name": "Nancy Pelosi",
-      "tradeCount": 1,
-      "stockTradeCount": 0,
-      "latestDisclosureDate": "2026-10-02",
-      "tickers": []
+      "tradeCount": 2,
+      "stockTradeCount": 1,
+      "latestDisclosureDate": "2026-11-06",
+      "tickers": [
+        "WBD"
+      ]
     },
     {
       "name": "Michael T. McCaul",
@@ -45,13 +47,13 @@
     },
     {
       "name": "Rohit Khanna",
-      "tradeCount": 668,
-      "stockTradeCount": 364,
-      "latestDisclosureDate": "2026-10-07",
+      "tradeCount": 743,
+      "stockTradeCount": 293,
+      "latestDisclosureDate": "2026-11-05",
       "tickers": [
-        "ORCL",
-        "SBAC",
-        "CCL"
+        "ZBH",
+        "MSFT",
+        "GOOGL"
       ]
     },
     {
@@ -345,128 +347,38 @@
       "marketSourceUrl": "https://finance.yahoo.com/quote/ACN"
     },
     {
-      "id": "Rohit Khanna:ORCL",
+      "id": "Rohit Khanna:ZBH",
       "politician": "Rohit Khanna",
-      "symbol": "ORCL",
-      "company": "Oracle Corporation",
+      "symbol": "ZBH",
+      "company": "Zimmer Biomet Holdings, Inc.",
       "currency": "USD",
       "politicianSignal": {
-        "tradeId": "house_9116376_g439",
+        "tradeId": "house_9116399_g22",
         "action": "Sale",
         "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-09-30",
-        "disclosureDate": "2026-10-07",
-        "reportingDelayDays": 7,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
+        "transactionDate": "2026-10-30",
+        "disclosureDate": "2026-11-05",
+        "reportingDelayDays": 6,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116399.pdf"
       },
       "market": {
-        "price": 119.79,
+        "price": 108.33,
         "priceDate": "2026-11-09",
-        "sma50": 138.5,
-        "sma200": 155.12,
-        "rsi14": 42.2,
-        "atr14": 8.78,
-        "annualizedVolatilityPct": 59.6,
-        "fiftyTwoWeekHigh": 250.25,
-        "fiftyTwoWeekLow": 109.21
+        "sma50": 95.27,
+        "sma200": 92.14,
+        "rsi14": 67.3,
+        "atr14": 3.82,
+        "annualizedVolatilityPct": 40.3,
+        "fiftyTwoWeekHigh": 112.55,
+        "fiftyTwoWeekLow": 79.12
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 29.6,
-        "netIncomeGrowthYoYPct": 62.6,
-        "netMarginPct": 26.4,
-        "freeCashFlowMarginPct": -40.0,
-        "peRatio": 18.8,
-        "debtToEquity": 2.34
-      },
-      "factors": [
-        {
-          "key": "growth",
-          "label": "Groei",
-          "status": "good",
-          "passed": true,
-          "detail": "Omzet j-o-j +29.6%; nettowinst j-o-j +62.6%."
-        },
-        {
-          "key": "profitability",
-          "label": "Winstgevendheid",
-          "status": "good",
-          "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 26.4%."
-        },
-        {
-          "key": "cashflow",
-          "label": "Kasstroom",
-          "status": "bad",
-          "passed": false,
-          "detail": "Vrije-kasstroommarge: -40.0%."
-        },
-        {
-          "key": "valuation",
-          "label": "Waardering & balans",
-          "status": "good",
-          "passed": true,
-          "detail": "K/W 18.8; schuld/eigen vermogen 2.3."
-        },
-        {
-          "key": "trend",
-          "label": "Trend & risico",
-          "status": "bad",
-          "passed": false,
-          "detail": "Koers t.o.v. 200-daags -22.8%; RSI 42.2; volatiliteit 59.6%."
-        }
-      ],
-      "score": 3,
-      "complete": true,
-      "signal": "AVOID",
-      "signalLabel": "Vermijden",
-      "strategy": {
-        "active": false,
-        "entryLow": null,
-        "entryHigh": null,
-        "stopLoss": null,
-        "takeProfit": null,
-        "rewardRiskRatio": null,
-        "startedAt": null,
-        "exitReason": null,
-        "exitAt": null,
-        "exitPrice": null,
-        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
-      },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/ORCL"
-    },
-    {
-      "id": "Rohit Khanna:SBAC",
-      "politician": "Rohit Khanna",
-      "symbol": "SBAC",
-      "company": "SBA Communications Corporation",
-      "currency": "USD",
-      "politicianSignal": {
-        "tradeId": "house_9116376_g265",
-        "action": "Sale",
-        "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-09-25",
-        "disclosureDate": "2026-10-07",
-        "reportingDelayDays": 12,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
-      },
-      "market": {
-        "price": 190.35,
-        "priceDate": "2026-11-09",
-        "sma50": 179.79,
-        "sma200": 190.34,
-        "rsi14": 60.4,
-        "atr14": 7.49,
-        "annualizedVolatilityPct": 32.8,
-        "fiftyTwoWeekHigh": 224.46,
-        "fiftyTwoWeekLow": 156.6
-      },
-      "fundamentals": {
-        "revenueGrowthYoYPct": -2.5,
-        "netIncomeGrowthYoYPct": -2.3,
-        "netMarginPct": 34.5,
-        "freeCashFlowMarginPct": 36.9,
-        "peRatio": 20.5,
-        "debtToEquity": null
+        "revenueGrowthYoYPct": 3.1,
+        "netIncomeGrowthYoYPct": -17.0,
+        "netMarginPct": 9.0,
+        "freeCashFlowMarginPct": 17.6,
+        "peRatio": 24.6,
+        "debtToEquity": 0.59
       },
       "factors": [
         {
@@ -474,125 +386,35 @@
           "label": "Groei",
           "status": "bad",
           "passed": false,
-          "detail": "Omzet j-o-j -2.5%; nettowinst j-o-j -2.3%."
+          "detail": "Omzet j-o-j +3.1%; nettowinst j-o-j -17.0%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 34.5%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 9.0%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 36.9%."
-        },
-        {
-          "key": "valuation",
-          "label": "Waardering & balans",
-          "status": "unavailable",
-          "passed": false,
-          "detail": "K/W 20.5; schuld/eigen vermogen niet beschikbaar."
-        },
-        {
-          "key": "trend",
-          "label": "Trend & risico",
-          "status": "bad",
-          "passed": false,
-          "detail": "Koers t.o.v. 200-daags +0.0%; RSI 60.4; volatiliteit 32.8%."
-        }
-      ],
-      "score": 2,
-      "complete": false,
-      "signal": "REDUCE",
-      "signalLabel": "Risicosignaal",
-      "strategy": {
-        "active": false,
-        "entryLow": null,
-        "entryHigh": null,
-        "stopLoss": null,
-        "takeProfit": null,
-        "rewardRiskRatio": null,
-        "startedAt": null,
-        "exitReason": null,
-        "exitAt": null,
-        "exitPrice": null,
-        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
-      },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/SBAC"
-    },
-    {
-      "id": "Rohit Khanna:CCL",
-      "politician": "Rohit Khanna",
-      "symbol": "CCL",
-      "company": "Carnival Corporation Ltd.",
-      "currency": "USD",
-      "politicianSignal": {
-        "tradeId": "house_9116376_g264",
-        "action": "Sale",
-        "amount": "$1,001 - $15,000",
-        "transactionDate": "2026-09-25",
-        "disclosureDate": "2026-10-07",
-        "reportingDelayDays": 12,
-        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116376.pdf"
-      },
-      "market": {
-        "price": 30.81,
-        "priceDate": "2026-11-09",
-        "sma50": 25.4,
-        "sma200": 27.12,
-        "rsi14": 66.5,
-        "atr14": 1.25,
-        "annualizedVolatilityPct": 47.0,
-        "fiftyTwoWeekHigh": 34.03,
-        "fiftyTwoWeekLow": 21.45
-      },
-      "fundamentals": {
-        "revenueGrowthYoYPct": 3.5,
-        "netIncomeGrowthYoYPct": 3.7,
-        "netMarginPct": 11.4,
-        "freeCashFlowMarginPct": 11.5,
-        "peRatio": 13.5,
-        "debtToEquity": 1.77
-      },
-      "factors": [
-        {
-          "key": "growth",
-          "label": "Groei",
-          "status": "good",
-          "passed": true,
-          "detail": "Omzet j-o-j +3.5%; nettowinst j-o-j +3.7%."
-        },
-        {
-          "key": "profitability",
-          "label": "Winstgevendheid",
-          "status": "good",
-          "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 11.4%."
-        },
-        {
-          "key": "cashflow",
-          "label": "Kasstroom",
-          "status": "good",
-          "passed": true,
-          "detail": "Vrije-kasstroommarge: 11.5%."
+          "detail": "Vrije-kasstroommarge: 17.6%."
         },
         {
           "key": "valuation",
           "label": "Waardering & balans",
           "status": "good",
           "passed": true,
-          "detail": "K/W 13.5; schuld/eigen vermogen 1.8."
+          "detail": "K/W 24.6; schuld/eigen vermogen 0.6."
         },
         {
           "key": "trend",
           "label": "Trend & risico",
-          "status": "bad",
-          "passed": false,
-          "detail": "Koers t.o.v. 200-daags +13.6%; RSI 66.5; volatiliteit 47.0%."
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +17.6%; RSI 67.3; volatiliteit 40.3%."
         }
       ],
       "score": 4,
@@ -612,7 +434,187 @@
         "exitPrice": null,
         "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
       },
-      "marketSourceUrl": "https://finance.yahoo.com/quote/CCL"
+      "marketSourceUrl": "https://finance.yahoo.com/quote/ZBH"
+    },
+    {
+      "id": "Rohit Khanna:MSFT",
+      "politician": "Rohit Khanna",
+      "symbol": "MSFT",
+      "company": "Microsoft Corporation",
+      "currency": "USD",
+      "politicianSignal": {
+        "tradeId": "house_9116399_g274",
+        "action": "Sale",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-10-28",
+        "disclosureDate": "2026-11-05",
+        "reportingDelayDays": 8,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116399.pdf"
+      },
+      "market": {
+        "price": 545.18,
+        "priceDate": "2026-11-09",
+        "sma50": 517.28,
+        "sma200": 440.24,
+        "rsi14": 54.8,
+        "atr14": 16.54,
+        "annualizedVolatilityPct": 27.6,
+        "fiftyTwoWeekHigh": 559.15,
+        "fiftyTwoWeekLow": 349.2
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 18.8,
+        "netIncomeGrowthYoYPct": 32.0,
+        "netMarginPct": 41.2,
+        "freeCashFlowMarginPct": 17.3,
+        "peRatio": 28.5,
+        "debtToEquity": 0.12
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "good",
+          "passed": true,
+          "detail": "Omzet j-o-j +18.8%; nettowinst j-o-j +32.0%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 41.2%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "good",
+          "passed": true,
+          "detail": "Vrije-kasstroommarge: 17.3%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 28.5; schuld/eigen vermogen 0.1."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "good",
+          "passed": true,
+          "detail": "Koers t.o.v. 200-daags +23.8%; RSI 54.8; volatiliteit 27.6%."
+        }
+      ],
+      "score": 5,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Vermijden",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/MSFT"
+    },
+    {
+      "id": "Rohit Khanna:GOOGL",
+      "politician": "Rohit Khanna",
+      "symbol": "GOOGL",
+      "company": "Alphabet Inc.",
+      "currency": "USD",
+      "politicianSignal": {
+        "tradeId": "house_9116399_g267",
+        "action": "Purchase",
+        "amount": "$1,001 - $15,000",
+        "transactionDate": "2026-10-28",
+        "disclosureDate": "2026-11-05",
+        "reportingDelayDays": 8,
+        "sourceUrl": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116399.pdf"
+      },
+      "market": {
+        "price": 288.15,
+        "priceDate": "2026-11-09",
+        "sma50": 331.76,
+        "sma200": 339.31,
+        "rsi14": 23.8,
+        "atr14": 11.66,
+        "annualizedVolatilityPct": 34.4,
+        "fiftyTwoWeekHigh": 408.61,
+        "fiftyTwoWeekLow": 270.7
+      },
+      "fundamentals": {
+        "revenueGrowthYoYPct": 24.7,
+        "netIncomeGrowthYoYPct": -24.3,
+        "netMarginPct": 50.0,
+        "freeCashFlowMarginPct": 4.2,
+        "peRatio": 15.0,
+        "debtToEquity": 0.21
+      },
+      "factors": [
+        {
+          "key": "growth",
+          "label": "Groei",
+          "status": "bad",
+          "passed": false,
+          "detail": "Omzet j-o-j +24.7%; nettowinst j-o-j -24.3%."
+        },
+        {
+          "key": "profitability",
+          "label": "Winstgevendheid",
+          "status": "good",
+          "passed": true,
+          "detail": "Nettomarge over de laatste vier kwartalen: 50.0%."
+        },
+        {
+          "key": "cashflow",
+          "label": "Kasstroom",
+          "status": "bad",
+          "passed": false,
+          "detail": "Vrije-kasstroommarge: 4.2%."
+        },
+        {
+          "key": "valuation",
+          "label": "Waardering & balans",
+          "status": "good",
+          "passed": true,
+          "detail": "K/W 15.0; schuld/eigen vermogen 0.2."
+        },
+        {
+          "key": "trend",
+          "label": "Trend & risico",
+          "status": "bad",
+          "passed": false,
+          "detail": "Koers t.o.v. 200-daags -15.1%; RSI 23.8; volatiliteit 34.4%."
+        }
+      ],
+      "score": 2,
+      "complete": true,
+      "signal": "AVOID",
+      "signalLabel": "Geen koop",
+      "strategy": {
+        "active": false,
+        "entryLow": null,
+        "entryHigh": null,
+        "stopLoss": null,
+        "takeProfit": null,
+        "rewardRiskRatio": null,
+        "startedAt": null,
+        "exitReason": null,
+        "exitAt": null,
+        "exitPrice": null,
+        "rule": "Alleen actief bij recente aankoop en 5/5 geslaagde pijlers."
+      },
+      "marketSourceUrl": "https://finance.yahoo.com/quote/GOOGL"
     },
     {
       "id": "John Boozman:APTV",
@@ -885,5 +887,7 @@
       "marketSourceUrl": "https://finance.yahoo.com/quote/CSCO"
     }
   ],
-  "errors": []
+  "errors": [
+    "WBD: onvoldoende koersdagen voor WBD"
+  ]
 }
