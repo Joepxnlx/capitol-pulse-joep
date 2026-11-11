@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-11T00:10:32Z",
+    "updatedAt": "2026-11-11T06:55:39Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-11-10T11:31:19Z",
+    "liveUpdatedAt": "2026-11-11T06:55:39Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -97,7 +97,7 @@
         "sma50": 220.34,
         "sma200": 191.84,
         "rsi14": 50.9,
-        "atr14": 6.35,
+        "atr14": 6.36,
         "annualizedVolatilityPct": 28.7,
         "fiftyTwoWeekHigh": 255.9,
         "fiftyTwoWeekLow": 144.97
