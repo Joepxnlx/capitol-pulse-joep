@@ -1,9 +1,9 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-14T20:26:21Z",
+    "updatedAt": "2026-11-15T06:57:15Z",
     "modelVersion": "five-pillars-v2-notifications",
-    "liveUpdatedAt": "2026-11-12T18:41:47Z",
+    "liveUpdatedAt": "2026-11-15T06:57:15Z",
     "refreshIntervalHours": 4,
     "priceSource": "Yahoo Finance chart endpoint",
     "fundamentalsSource": "Yahoo Finance fundamentals time-series",
@@ -58,8 +58,8 @@
     },
     {
       "name": "John Boozman",
-      "tradeCount": 26,
-      "stockTradeCount": 9,
+      "tradeCount": 23,
+      "stockTradeCount": 7,
       "latestDisclosureDate": "2026-10-21",
       "tickers": [
         "APTV",
