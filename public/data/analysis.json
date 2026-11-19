@@ -1,7 +1,7 @@
 {
   "mode": "educational-analysis",
   "metadata": {
-    "updatedAt": "2026-11-18T23:54:53Z",
+    "updatedAt": "2026-11-19T06:03:25Z",
     "modelVersion": "five-pillars-v2-notifications",
     "liveUpdatedAt": "2026-11-18T23:54:52Z",
     "refreshIntervalHours": 4,
@@ -187,7 +187,7 @@
         "sma50": 317.96,
         "sma200": 348.55,
         "rsi14": 41.3,
-        "atr14": 13.63,
+        "atr14": 13.64,
         "annualizedVolatilityPct": 43.1,
         "fiftyTwoWeekHigh": 682.27,
         "fiftyTwoWeekLow": 252.84
@@ -367,7 +367,7 @@
         "sma50": 96.17,
         "sma200": 92.76,
         "rsi14": 58.2,
-        "atr14": 4.1,
+        "atr14": 4.11,
         "annualizedVolatilityPct": 40.2,
         "fiftyTwoWeekHigh": 112.55,
         "fiftyTwoWeekLow": 79.12
@@ -823,12 +823,12 @@
         "fiftyTwoWeekLow": 72.8
       },
       "fundamentals": {
-        "revenueGrowthYoYPct": 17.6,
-        "netIncomeGrowthYoYPct": 51.3,
-        "netMarginPct": 21.0,
-        "freeCashFlowMarginPct": 20.2,
+        "revenueGrowthYoYPct": 24.4,
+        "netIncomeGrowthYoYPct": 59.2,
+        "netMarginPct": 22.3,
+        "freeCashFlowMarginPct": 20.5,
         "peRatio": 25.8,
-        "debtToEquity": 0.59
+        "debtToEquity": 0.58
       },
       "factors": [
         {
@@ -836,21 +836,21 @@
           "label": "Groei",
           "status": "good",
           "passed": true,
-          "detail": "Omzet j-o-j +17.6%; nettowinst j-o-j +51.3%."
+          "detail": "Omzet j-o-j +24.4%; nettowinst j-o-j +59.2%."
         },
         {
           "key": "profitability",
           "label": "Winstgevendheid",
           "status": "good",
           "passed": true,
-          "detail": "Nettomarge over de laatste vier kwartalen: 21.0%."
+          "detail": "Nettomarge over de laatste vier kwartalen: 22.3%."
         },
         {
           "key": "cashflow",
           "label": "Kasstroom",
           "status": "good",
           "passed": true,
-          "detail": "Vrije-kasstroommarge: 20.2%."
+          "detail": "Vrije-kasstroommarge: 20.5%."
         },
         {
           "key": "valuation",
